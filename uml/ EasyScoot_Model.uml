@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_DuAlUDi2EfG1TOJnUFtSFQ" name=" EasyScoot_Model">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_D2UMwDi2EfG1TOJnUFtSFQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Activity" xmi:id="_Rrpk4Di2EfG1TOJnUFtSFQ" name="EasyScoot" useCase="_m6KKADi2EfG1TOJnUFtSFQ _wi3wsDi2EfG1TOJnUFtSFQ _0ptqQDi2EfG1TOJnUFtSFQ _2Hgd8Di2EfG1TOJnUFtSFQ _45OXoDi2EfG1TOJnUFtSFQ">
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_m6KKADi2EfG1TOJnUFtSFQ" name="Konto erstellen" subject="_Rrpk4Di2EfG1TOJnUFtSFQ"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_wi3wsDi2EfG1TOJnUFtSFQ" name="E-Scooter buchen und Freischalten" subject="_Rrpk4Di2EfG1TOJnUFtSFQ"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_0ptqQDi2EfG1TOJnUFtSFQ" name="Benutzung beenden" subject="_Rrpk4Di2EfG1TOJnUFtSFQ"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_2Hgd8Di2EfG1TOJnUFtSFQ" name="Liste aller E-Scooter einsehen" subject="_Rrpk4Di2EfG1TOJnUFtSFQ"/>
+    <ownedUseCase xmi:type="uml:UseCase" xmi:id="_45OXoDi2EfG1TOJnUFtSFQ" name="E-Scooter in Wartungsmodus schalten" subject="_Rrpk4Di2EfG1TOJnUFtSFQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_ci3mEDi2EfG1TOJnUFtSFQ" name="Kunde"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_gkhdoDi2EfG1TOJnUFtSFQ" name="Flottenmanager"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_jiGpEDi2EfG1TOJnUFtSFQ" name="Service-Mitarbeiter"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_CwuoQDi3EfG1TOJnUFtSFQ" memberEnd="_CxRa0Di3EfG1TOJnUFtSFQ _CxVFMDi3EfG1TOJnUFtSFQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_CxNwcDi3EfG1TOJnUFtSFQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_CxO-kDi3EfG1TOJnUFtSFQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_CxRa0Di3EfG1TOJnUFtSFQ" name="kontoerstellen" type="_m6KKADi2EfG1TOJnUFtSFQ" association="_CwuoQDi3EfG1TOJnUFtSFQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_CxVFMDi3EfG1TOJnUFtSFQ" name="kunde" type="_ci3mEDi2EfG1TOJnUFtSFQ" association="_CwuoQDi3EfG1TOJnUFtSFQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_G-4qwDi3EfG1TOJnUFtSFQ" memberEnd="_G-6f8Ti3EfG1TOJnUFtSFQ _G-7HADi3EfG1TOJnUFtSFQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_G-544Di3EfG1TOJnUFtSFQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_G-6f8Di3EfG1TOJnUFtSFQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_G-6f8Ti3EfG1TOJnUFtSFQ" name="e-scooter buchen und freischalten" type="_wi3wsDi2EfG1TOJnUFtSFQ" association="_G-4qwDi3EfG1TOJnUFtSFQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_G-7HADi3EfG1TOJnUFtSFQ" type="_ci3mEDi2EfG1TOJnUFtSFQ" association="_G-4qwDi3EfG1TOJnUFtSFQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_INgaADi3EfG1TOJnUFtSFQ" memberEnd="_INhoITi3EfG1TOJnUFtSFQ _INhoIji3EfG1TOJnUFtSFQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_INhBEDi3EfG1TOJnUFtSFQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_INhoIDi3EfG1TOJnUFtSFQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_INhoITi3EfG1TOJnUFtSFQ" name="benutzung beenden" type="_0ptqQDi2EfG1TOJnUFtSFQ" association="_INgaADi3EfG1TOJnUFtSFQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_INhoIji3EfG1TOJnUFtSFQ" type="_ci3mEDi2EfG1TOJnUFtSFQ" association="_INgaADi3EfG1TOJnUFtSFQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_LBztoDi3EfG1TOJnUFtSFQ" memberEnd="_LB1i0Ti3EfG1TOJnUFtSFQ _LB2J4Di3EfG1TOJnUFtSFQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LB07wDi3EfG1TOJnUFtSFQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_LB1i0Di3EfG1TOJnUFtSFQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_LB1i0Ti3EfG1TOJnUFtSFQ" name="liste aller e-scooter einsehen" type="_2Hgd8Di2EfG1TOJnUFtSFQ" association="_LBztoDi3EfG1TOJnUFtSFQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_LB2J4Di3EfG1TOJnUFtSFQ" name="flottenmanager" type="_gkhdoDi2EfG1TOJnUFtSFQ" association="_LBztoDi3EfG1TOJnUFtSFQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Lz548Di3EfG1TOJnUFtSFQ" memberEnd="_Lz7HEji3EfG1TOJnUFtSFQ _Lz7uIDi3EfG1TOJnUFtSFQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Lz7HEDi3EfG1TOJnUFtSFQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Lz7HETi3EfG1TOJnUFtSFQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Lz7HEji3EfG1TOJnUFtSFQ" name="liste aller e-scooter einsehen" type="_2Hgd8Di2EfG1TOJnUFtSFQ" association="_Lz548Di3EfG1TOJnUFtSFQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Lz7uIDi3EfG1TOJnUFtSFQ" name="service-mitarbeiter" type="_jiGpEDi2EfG1TOJnUFtSFQ" association="_Lz548Di3EfG1TOJnUFtSFQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Mn9MEDi3EfG1TOJnUFtSFQ" memberEnd="_Mn_BQDi3EfG1TOJnUFtSFQ _Mn_BQTi3EfG1TOJnUFtSFQ">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Mn-aMDi3EfG1TOJnUFtSFQ" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Mn-aMTi3EfG1TOJnUFtSFQ" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Mn_BQDi3EfG1TOJnUFtSFQ" name="e-scooter in wartungsmodus schalten" type="_45OXoDi2EfG1TOJnUFtSFQ" association="_Mn9MEDi3EfG1TOJnUFtSFQ"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_Mn_BQTi3EfG1TOJnUFtSFQ" name="service-mitarbeiter" type="_jiGpEDi2EfG1TOJnUFtSFQ" association="_Mn9MEDi3EfG1TOJnUFtSFQ"/>
+  </packagedElement>
+</uml:Model>
