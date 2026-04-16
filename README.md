@@ -1,4 +1,4 @@
-# MiniProje-t – EasyScoot
+# MiniProjekt – EasyScoot
 
 E-Scooter-Verleih Software | Miniprojekt
 
