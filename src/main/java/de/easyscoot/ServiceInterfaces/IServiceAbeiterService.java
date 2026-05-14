@@ -11,6 +11,10 @@ public interface IServiceAbeiterService {
 
     //Wartungsmodus von Escooter setzen
     void updateMaintenanceMode (String id, Maintenancestatus status);
+
+    void addScooter (EScooter scooter);
+
+    void removeScooter (EScooter scooter);
 }
 
 
