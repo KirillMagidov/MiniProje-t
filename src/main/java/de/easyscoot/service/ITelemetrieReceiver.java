@@ -1,4 +1,4 @@
-package de.easyscoot.ServiceInterfaces;
+package de.easyscoot.service;
 
 import de.easyscoot.model.Drivestatus;
 
