@@ -1,4 +1,4 @@
-package de.easyscoot.RepositoryInterfaces;
+package de.easyscoot.repository;
 import de.easyscoot.model.EScooter;
 
 import java.util.List;

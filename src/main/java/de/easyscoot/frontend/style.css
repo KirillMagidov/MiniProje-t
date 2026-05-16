@@ -1,0 +1,118 @@
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    object-fit: cover;
+    object-position: center 6%;
+
+    z-index: -1;
+}
+
+
+.title {
+    position: fixed;
+    top: 29%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 50px;
+}
+
+/*Knöpfe einstellen für Konto erstellen und Anmelden*/
+
+
+.btn {
+    padding: 10px 20px;
+    font-size: 10px;
+    font-family: 'Playfair Display', serif;
+
+    background-color: #a9a799;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 1;
+
+    transition: 0.3s;
+}
+
+
+.btn:hover {
+    background-color: #c79dba;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.btn1 { top: 48%; }
+.btn2 { top: 58%; }
+
+.btn3 {
+    padding: 10px 20px;
+
+    background-color: #a9a799;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    position: fixed;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 1;
+
+    transition: 0.3s;
+
+}
+
+/*CSS für Settings Knopf*/
+
+.settings-btn {
+    position: fixed;
+
+    bottom: 20px;   /* Abstand unten */
+    right: 20px;    /* Abstand rechts */
+
+    width: 30px;
+    height: 30px;
+
+    cursor: pointer;
+
+    z-index: 1;
+
+    transition: 0.3s;
+
+
+}
+
+.settings-btn:hover {
+    transform: rotate(90deg) scale(1.1);
+}
+
+
+
+
+
+
+
+
