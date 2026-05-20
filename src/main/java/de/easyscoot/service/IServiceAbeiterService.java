@@ -14,7 +14,7 @@ public interface IServiceAbeiterService {
 
     void addScooter (EScooter scooter);
 
-    void removeScooter (EScooter scooter);
+    void removeScooter (String scooterId);
 }
 
 
