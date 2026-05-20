@@ -1,4 +1,52 @@
 package de.easyscoot.service;
 
-public class MaintenanceService {
+import de.easyscoot.model.EScooter;
+import de.easyscoot.model.Maintenancestatus;
+import de.easyscoot.repository.IScooterRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MaintenanceService implements IServiceAbeiterService {
+
+    private IScooterRepository scooterRepository;
+
+    public MaintenanceService(IScooterRepository scooterRepository) {
+        this.scooterRepository = scooterRepository;
+    }
+
+    @Override
+    public List<EScooter> getScootersLowBattery(double thresholdPercentage) {
+        ArrayList<EScooter> scootersLowBattery = new ArrayList<>();
+        scooterRepository.findAll().forEach(scooter -> {
+            if(scooter.getLadezustand() <= thresholdPercentage) {
+                scootersLowBattery.add(scooter);
+            }
+
+        });
+        return scootersLowBattery;
+    }
+
+    @Override
+    public void updateMaintenanceMode(String id, Maintenancestatus status) {
+        EScooter scooter = scooterRepository.findById(id);
+
+        if (scooter != null) {
+            scooter.setStatus(status);
+            scooterRepository.save(scooter);
+        } else {
+            throw new RuntimeException("Scooter not found");
+        }
+
+    }
+
+    @Override
+    public void addScooter(EScooter scooter) {
+        scooterRepository.save(scooter);
+    }
+
+    @Override
+    public void removeScooter(String scooterId) {
+        scooterRepository.delete(scooterId);
+    }
 }
