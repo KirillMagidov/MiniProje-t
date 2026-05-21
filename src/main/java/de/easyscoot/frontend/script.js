@@ -1,7 +1,4 @@
-// Konto erstellen Button
-document.getElementById("btnCreate").addEventListener("click", function() {
-    alert("Konto erstellen clicked!");
-});
+
 
 // Login Button
 document.getElementById("btnLogin").addEventListener("click", function() {
@@ -12,3 +9,9 @@ document.getElementById("btnLogin").addEventListener("click", function() {
 document.getElementById("settings").addEventListener("click", function() {
     alert("Einstellungen geöffnet!");
 });
+
+//Weiterleitung zum LogIn Fenster
+document.getElementById("btnCreate").addEventListener("click", function () {
+    window.location.href = "createAccount.html";
+});
+``
