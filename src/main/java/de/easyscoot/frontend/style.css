@@ -110,6 +110,19 @@ body {
 }
 
 
+input {
+    position: relative;
+    z-index: 10;          /* WICHTIG -> über dem Video */
+
+    display: block;
+    margin: 15px auto;
+
+    padding: 12px;
+    width: 300px;
+
+    background-color: white;
+    color: black;
+}
 
 
 
