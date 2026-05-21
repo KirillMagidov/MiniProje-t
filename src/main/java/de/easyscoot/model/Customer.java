@@ -44,10 +44,40 @@ public class Customer {
         return Plz;
     }
 
-
     public String getEmail () {
         return Email;
     }
+
+
+
+    public String setForeName (String foreName) {
+        return this.foreName = foreName;
+    }
+
+    public String setName (String Name) {
+        return this.Name = Name;
+    }
+
+    public String setStreet (String Street) {
+        return this.Street = Street;
+    }
+
+    public Integer setStreetNumber(Integer StreetNumber) {
+       return this.StreetNumber = StreetNumber;
+    }
+
+    public String setLcoation (String Location) {
+        return this.Location = Location;
+    }
+
+    public Integer setPlz(Integer Plz) {
+        return this.Plz = Plz;
+    }
+
+    public String setEmail (String Email) {
+        return this.Email = Email;
+    }
+
 
 
 }
