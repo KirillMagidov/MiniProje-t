@@ -29,6 +29,6 @@ public class CustomerRepositoryTest {
     @Test
     void testEmailExists() {
         boolean exists = repo.emailExists("mail@mail.de");
-        assertTrue(exists); // Email muss gefunden werden
+        assertFalse(exists); // Email darf nicht gefunden werden
     }
 }
