@@ -4,28 +4,44 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AccountServiceTest {
 
-    private AccountService service;
-    private Customer customer;
+        @Test
+        void testCreateAccountSuccess() {
 
-    @BeforeEach
-    void setUp() {
-        customer = new Customer(
+            Customer customer = new Customer(
+                    "Max",
+                    "Mustermann",
+                    "Teststrasse",
+                    12,
+                    "Hannover",
+                    12345,
+                    "Max@gmail.com"
+            );
+
+            AccountService service = new AccountService(customer);
+
+            assertDoesNotThrow(() -> service.createAccount(customer));
+        }
+
+    @Test
+    void testCreateAccountNoSuccess() {
+
+        Customer customer = new Customer(
                 "Max",
                 "Mustermann",
-                "max@test.de",
+                "Teststrasse",
                 12,
                 "Hannover",
                 12345,
                 "Max@gmail.com"
         );
-        service = new AccountService(customer);
-    }
 
-    @Test
-    void testCreateAccountSuccess() {
-        assertDoesNotThrow(() -> service.createAccount(customer));
+        AccountService service = new AccountService(customer);
+
+        assertThrows(RuntimeException.class, () -> service.createAccount(customer));
     }
 }
+
