@@ -8,7 +8,7 @@ import java.util.List;
 
 public class EScooterService implements IFlottenmanagerService {
 
-    private IScooterRepository scooterRepository;
+    private final IScooterRepository scooterRepository;
 
     public EScooterService(IScooterRepository scooterRepository) {
         this.scooterRepository = scooterRepository;
