@@ -29,4 +29,7 @@ public class AccountService implements IAccountService {
             throw new RuntimeException("Account existiert bereits");
         }
     }
+
+    public void logIn () {
+    }
 }
