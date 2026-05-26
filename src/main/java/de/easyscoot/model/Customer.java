@@ -1,83 +1,99 @@
 package de.easyscoot.model;
 
 public class Customer {
-    private String foreName;
-    private String Name;
-    private String Street;
-    private Integer StreetNumber;
-    private String Location;
-    private Integer Plz;
-    private String Email;
 
-    public Customer(String foreName, String Name, String Street, Integer StreetNumber, String Location, Integer Plz, String Email) {
-        this.foreName = foreName;
-        this.Name = Name;
-        this.Street = Street;
-        this.StreetNumber = StreetNumber;
-        this.Location = Location;
-        this.Plz = Plz;
-        this.Email = Email;
+    private String foreName;
+    private String name;
+    private String street;
+    private Integer streetNumber;
+    private String location;
+    private Integer plz;
+    private String email;
+    private String password;
+
+    public Customer () {
 
     }
 
-    public String getForeName () {
+
+
+    public Customer(String foreName, String name, String street,
+                    Integer streetNumber, String location,
+                    Integer plz, String email, String password) {
+
+        this.foreName = foreName;
+        this.name = name;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.location = location;
+        this.plz = plz;
+        this.email = email;
+        this. password = password;
+    }
+
+
+    public String getForeName() {
         return foreName;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
-    public String getStreet () {
-        return Street;
+    public String getStreet() {
+        return street;
     }
 
     public Integer getStreetNumber() {
-        return StreetNumber;
+        return streetNumber;
     }
 
     public String getLocation() {
-        return Location;
+        return location;
     }
 
     public Integer getPlz() {
-        return Plz;
+        return plz;
     }
 
-    public String getEmail () {
-        return Email;
+    public String getEmail() {
+        return email;
     }
 
-
-
-    public String setForeName (String foreName) {
-        return this.foreName = foreName;
-    }
-
-    public String setName (String Name) {
-        return this.Name = Name;
-    }
-
-    public String setStreet (String Street) {
-        return this.Street = Street;
-    }
-
-    public Integer setStreetNumber(Integer StreetNumber) {
-       return this.StreetNumber = StreetNumber;
-    }
-
-    public String setLcoation (String Location) {
-        return this.Location = Location;
-    }
-
-    public Integer setPlz(Integer Plz) {
-        return this.Plz = Plz;
-    }
-
-    public String setEmail (String Email) {
-        return this.Email = Email;
+    public String getPassword (){
+        return password;
     }
 
 
+    public void setForeName(String foreName) {
+        this.foreName = foreName;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setStreetNumber(Integer streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setPlz(Integer plz) {
+        this.plz = plz;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword (String password) {
+        this.password = password;
+    }
 }

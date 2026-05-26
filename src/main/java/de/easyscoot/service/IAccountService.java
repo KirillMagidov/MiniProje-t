@@ -8,5 +8,7 @@ public interface IAccountService {
     //legt Konto an und speichert Daten des Kunden
     void createAccount (Customer customer);
 
+    void logIn();
+
 }
 

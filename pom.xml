@@ -35,6 +35,15 @@
         </dependency>
 
 
+        <!-- Spring Boot Web (für Controller) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>3.2.5</version>
+        </dependency>
+
+
+
     </dependencies>
 
     <build>
