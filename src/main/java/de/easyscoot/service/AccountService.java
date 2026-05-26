@@ -2,6 +2,9 @@ package de.easyscoot.service;
 import de.easyscoot.model.Customer;
 import de.easyscoot.repository.CustomerRepository;
 
+import java.awt.*;
+import java.util.List;
+
 
 public class AccountService implements IAccountService {
 
@@ -31,6 +34,14 @@ public class AccountService implements IAccountService {
         }
     }
 
-    public void logIn () {
+    public boolean logIn (String password) {
+        if (repo.emailExists(customer.getEmail())) {
+            throw new RuntimeException("Accounts existiert noch nicht");
+        } else {
+            if (customer.getPassword().equals(password)) {
+                return true;
+            }
+            throw new RuntimeException("Passowrt ist falsch");
+        }
     }
 }

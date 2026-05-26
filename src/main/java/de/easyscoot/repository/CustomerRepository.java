@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CustomerRepository implements ICustomerRepository {
 
-    private final String filePath = "src/Customer.json";
+    private final String filePath = "src/main/java/de/easyscoot/Database/Customer.json";
     private final Gson gson = new Gson();
 
     // Alle Kunden in der Datei laden

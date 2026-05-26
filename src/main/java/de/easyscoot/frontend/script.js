@@ -4,7 +4,7 @@ window.onload = function() {
     const btnLogin = document.getElementById("btnLogin");
     if (btnLogin) {
         btnLogin.addEventListener("click", function() {
-            alert("Anmelden clicked!");
+            window.location.href = "logIn.html";
         });
     }
 
