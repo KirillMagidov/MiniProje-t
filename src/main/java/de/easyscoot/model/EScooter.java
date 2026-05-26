@@ -1,7 +1,5 @@
 package de.easyscoot.model;
 
-import de.easyscoot.service.ITelemetrieReceiver;
-
 public class EScooter {
 
     private Maintenancestatus status;
@@ -93,5 +91,20 @@ public class EScooter {
 
     public void setStatus(Maintenancestatus status) {
         this.status = status;
+    }
+
+    public void updateZustand(String pos, double lade, Drivestatus drivestatus) {
+        this.ladezustand = lade;
+        this.position = pos;
+        this.drivestatus = drivestatus;
+    }
+
+    public int getRestfahrzeit() {
+        double energie;
+        double zeit;
+
+        energie = batteriekapazitaet * (ladezustand / 100);
+        zeit = energie / verbrauchskoeffizient;
+        return (int) zeit;
     }
 }
