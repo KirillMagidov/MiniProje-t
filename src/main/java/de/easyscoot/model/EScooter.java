@@ -1,5 +1,7 @@
 package de.easyscoot.model;
 
+import de.easyscoot.service.ITelemetrieReceiver;
+
 public class EScooter {
 
     private Maintenancestatus status;
