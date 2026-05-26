@@ -6,26 +6,47 @@
 </head>
 <body>
 
-<h1 class="title1">EasyScoot</h1>
+<h1 class="title1">Konto Erstellen</h1>
 
 <img src="LogInEasyScoot.png" typeof="Image">
 
-<div class="form-container">
+<form id="accountForm">
 
-    <input type="text" id="ForeName" placeholder="Forename">
-    <input type="text" id="Name" placeholder="Name">
-    <input type="text" id="Street" placeholder="Street">
-    <input type="text" id="StreetNumber" placeholder="StreetNumber">
-    <input type="text" id="Location" placeholder="Location">
-    <input type="text" id="Plz" placeholder="PLZ">
-    <input type="text" id="Email" placeholder="Email">
 
-</div>
+    <div class="form-wrapper">
 
-<button class="btn btn4" id="btnCreateAccount">Konto erstellen</button>
+        <!-- LINKS -->
+        <div class="form-left">
+            <input type="text" id="ForeName" placeholder="ForeName" required>
+            <input type="text" id="Name" placeholder="Name" required>
+            <input type="text" id="Street" placeholder="Street">
+            <input type="number" id="StreetNumber" placeholder="StreetNumber">
+            <input type="text" id="Location" placeholder="Location">
+            <input type="text" id="Plz" placeholder="PLZ">
+            <input type="email" id="Email" placeholder="Email">
+        </div>
+
+        <!-- RECHTS -->
+        <div class="form-right">
+            <input type="password" id="Password" placeholder="Password" required>
+            <input type="password" id="RepeatPassword" placeholder="Repeat Password" required>
+        </div>
+
+    </div>
+
+    <!-- BUTTON -->
+    <button class="btn btn4" id="btnCreateAccount" type="submit">Konto erstellen</button>
+
+
+
+</form>
+
+
 
 <!-- JavaScript einbinden -->
 <script src="script.js"></script>
 
 </body>
 </html>
+
+<!-- leere Eingaben noch möglich, Postleitzahl format noch falsch, sowie email, noch bei allem required hinzufügen-->

@@ -24,21 +24,52 @@ window.onload = function() {
         });
     }
 
-    // Konto erstellen Button (nur auf createAccount.html vorhanden)
-    const btn = document.getElementById("btnCreateAccount");
-    if (btn) {
-        btn.addEventListener("click", function() {
-            const foreName     = document.getElementById("ForeName").value;
-            const name         = document.getElementById("Name").value;
-            const street       = document.getElementById("Street").value;
-            const streetNumber = document.getElementById("StreetNumber").value;
-            const location     = document.getElementById("Location").value;
-            const plz          = document.getElementById("Plz").value;
-            const email        = document.getElementById("Email").value;
 
-            alert("Account wird erstellt!");
-            console.log(foreName, name, street, streetNumber, location, plz, email);
-        });
-    }
+    document.getElementById("accountForm").addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const foreName     = document.getElementById("ForeName").value;
+        const name         = document.getElementById("Name").value;
+        const street       = document.getElementById("Street").value;
+        const streetNumber = parseInt(document.getElementById("StreetNumber").value);
+        const location     = document.getElementById("Location").value;
+        const plz          = parseInt(document.getElementById("Plz").value);
+        const email        = document.getElementById("Email").value;
+        const password     = document.getElementById("Password").value;
+        const repeatPassword     = document.getElementById("RepeatPassword").value;
+
+
+        if (password !== repeatPassword) {
+            alert("Password is not the same");
+            return; // kein fetch
+        }
+
+
+        const data = {
+            foreName: foreName,
+            name: name,
+            street: street,
+            streetNumber: streetNumber,
+            location: location,
+            plz: plz,
+            email: email,
+            password: password,
+        };
+
+        fetch("http://localhost:8080/createAccount", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.text())
+            .then(result => {
+                console.log(result);
+                alert(result);
+            });
+
+    });
 
 }

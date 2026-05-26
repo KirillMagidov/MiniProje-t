@@ -2,6 +2,8 @@ package de.easyscoot.repository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import de.easyscoot.model.Customer;
+
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
@@ -60,3 +62,5 @@ public class CustomerRepository implements ICustomerRepository {
         return false;
     }
 }
+
+//jdbc datenbank postres

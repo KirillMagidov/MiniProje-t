@@ -18,7 +18,8 @@ public class AccountServiceTest {
                     12,
                     "Hannover",
                     12345,
-                    "Max@gmail.com"
+                    "Max@gmail.com",
+                    "password"
             );
 
             AccountService service = new AccountService(customer);
@@ -36,7 +37,9 @@ public class AccountServiceTest {
                 12,
                 "Hannover",
                 12345,
-                "Max@gmail.com"
+                "Max@gmail.com",
+                "password"
+
         );
 
         AccountService service = new AccountService(customer);

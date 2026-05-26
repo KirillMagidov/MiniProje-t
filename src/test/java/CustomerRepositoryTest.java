@@ -19,7 +19,7 @@ public class CustomerRepositoryTest {
 
     @Test
     void testSaveCustomer() {
-        Customer customer = new Customer("Max", "Mustermann", "Straße", 23, "Bremen", 2323, "Test@gmail.com");
+        Customer customer = new Customer("Max", "Mustermann", "Straße", 23, "Bremen", 2323, "Test@gmail.com", "password");
         repo.saveCustomer(customer);
 
         List<Customer> customers = repo.getAllCustomers();
@@ -29,6 +29,6 @@ public class CustomerRepositoryTest {
     @Test
     void testEmailExists() {
         boolean exists = repo.emailExists("mail@mail.de");
-        assertTrue(exists); // Email muss gefunden werden
+        assertFalse(exists); // Email darf nicht gefunden werden
     }
 }

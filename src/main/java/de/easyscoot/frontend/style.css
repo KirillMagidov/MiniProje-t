@@ -116,9 +116,10 @@ body {
 /* Container */
 .form-container {
     position: fixed;
-    top: 50%;                    /* leicht nach oben */
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 40%;
+    transform: translate(-65%, -50%);
+    grid-template-columns: 1fr 1fr;
 
     font-family: 'Playfair Display', serif;
 
@@ -131,8 +132,29 @@ body {
     width: 350px;
 }
 
+
 /* Inputs */
-.form-container input {
+/* Wrapper = beide Spalten nebeneinander */
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 60px;  /* Abstand zwischen links & rechts */
+
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Spalten */
+.form-left,
+.form-right {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Inputs */
+.form-wrapper input {
     width: 300px;
     padding: 14px;
     margin: 10px 0;
@@ -141,9 +163,14 @@ body {
     border: none;
 
     font-size: 16px;
-
-    background:  rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8);
     color: black;
+}
+
+/* Button unter allem */
+button {
+    display: block;
+    margin: 30px auto;
 }
 
 .title1 {
@@ -162,6 +189,12 @@ body {
     left: 50%;
 
 }
+
+.label1 {
+
+    color: white;
+}
+
 
 /*Konto wurde erstellt zurück zur startseite noch machen
 
