@@ -67,7 +67,7 @@ public class Booking {
     public void setBookingPrice(Integer bookingPrice) {
         this.bookingPrice = bookingPrice;
     }
-    public void setBookingDuration(Integer bookingDuration) {
+    public void setBookingDuration(Time bookingDuration) {
         this.bookingDuration = bookingDuration;
     }
     public void setCustomer(String customerID) {
