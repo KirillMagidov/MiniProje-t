@@ -30,24 +30,31 @@ public class Booking {
     public String getBookingID() {
         return bookingID;
     }
+
     public LocalTime getStartingTime() {
         return startingTime;
     }
+
     public LocalTime getEndingTime() {
         return endingTime;
     }
+
     public LocalDate getBookingDate() {
         return bookingDate;
     }
+
     public Integer getBookingPrice() {
         return bookingPrice;
     }
+
     public Long getBookingDuration(LocalTime startingTime, LocalTime endingTime) {
         return Duration.between(startingTime, endingTime).toMinutes();
     }
+
     public Customer getCustomer() {
         return customer;
     }
+
     public EScooter getEScooter() {
         return escooter;
     }
@@ -55,24 +62,31 @@ public class Booking {
     public void setBookingID(String bookingID) {
         this.bookingID = bookingID;
     }
+
     public void setStartingTime(LocalTime startingTime) {
         this.startingTime = startingTime;
     }
+
     public void setEndingTime(LocalTime endingTime) {
         this.endingTime = endingTime;
     }
+
     public void setBookingDate(LocalDate bookingDate) {
         this.bookingDate = bookingDate;
     }
+
     public void setBookingPrice(Integer bookingPrice) {
         this.bookingPrice = bookingPrice;
     }
-    public void setBookingDuration(Integer bookingDuration) {
-        this.bookingDuration = bookingDuration;
+
+    public void setBookingDuration(Time bookingDuration) {
+        this.bookingDuration = bookingDuration; //bookingDuration ist Time.
     }
+
     public void setCustomer(String customerID) {
         this.customer = customer;
     }
+
     public void seteScooter(String eScooterID) {
         this.escooter = escooter;
     }

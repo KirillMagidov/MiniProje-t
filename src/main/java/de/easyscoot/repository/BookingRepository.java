@@ -33,7 +33,7 @@ public class BookingRepository implements IBookingRepository{
     // löscht eine Buchung nach Beenden der Fahrt
     @Override
     public void deleteBookingEntry(String bookingID) {
-        String filePath = "Booking.json";
+        String filePath = "Booking.json"; //PATH ist falsch
 
         try {
             // Prüfe ob Buchung existiert
@@ -43,7 +43,7 @@ public class BookingRepository implements IBookingRepository{
             List<Booking> bookings = getAllBookings();
 
             // 3. Buchung entfernen
-            bookings.remove(bookingToDelete);
+            bookings.remove(bookingToDelete); //Es wird nicht funktionieren. removeIf oder for-schleife mit if-Bedingung
 
             // 4. Liste zurückschreiben
             try (FileWriter writer = new FileWriter(filePath)) {

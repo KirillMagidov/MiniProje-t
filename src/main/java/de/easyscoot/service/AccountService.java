@@ -1,4 +1,5 @@
 package de.easyscoot.service;
+
 import de.easyscoot.model.Customer;
 import de.easyscoot.repository.CustomerRepository;
 
@@ -10,7 +11,10 @@ public class AccountService implements IAccountService {
 
     private CustomerRepository repo = new CustomerRepository();
 
+    private final ValidationService validation = new ValidationService();
+
     private Customer customer;
+
 
     public AccountService(Customer customer) {
         this.customer = customer;
@@ -25,17 +29,24 @@ public class AccountService implements IAccountService {
  */
 
     @Override
-    public void createAccount (Customer customer) {
-        if (!repo.emailExists(customer.getEmail())) {
-            repo.saveCustomer(customer);
-        }
-        else {
+    public void createAccount(Customer customer) {
+        if (repo.emailExists(customer.getEmail())) {
             throw new RuntimeException("Account existiert bereits");
         }
+
+        if (!validation.isValid(customer.getEmail())) {
+            throw new RuntimeException("Invalid email");
+        }
+
+        if (!validation.isValidAdresse(customer.getStreet(), customer.getStreetNumber(), customer.getPlz(), customer.getLocation())) {
+            throw new RuntimeException("Invalid Addresse");
+        }
+
+        repo.saveCustomer(customer);
     }
 
-    public boolean logIn (String password) {
-        if (repo.emailExists(customer.getEmail())) {
+    public boolean logIn(String password) {
+        if (!repo.emailExists(customer.getEmail())) {
             throw new RuntimeException("Accounts existiert noch nicht");
         } else {
             if (customer.getPassword().equals(password)) {
