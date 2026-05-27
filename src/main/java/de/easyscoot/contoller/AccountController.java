@@ -1,4 +1,4 @@
-package de.easyscoot.frontend;
+package de.easyscoot.contoller;
 
 import de.easyscoot.model.Customer;
 import de.easyscoot.service.AccountService;

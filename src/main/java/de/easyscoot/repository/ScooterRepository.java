@@ -13,7 +13,7 @@ import java.util.List;
 public class ScooterRepository implements IScooterRepository {
 
     private final Gson gson = new Gson();
-    String filePath = "Scooter.json";
+    String filePath = "src/main/java/de/easyscoot/Database/Scooter.json";
 
     @Override
     public List<EScooter> findAll() {
