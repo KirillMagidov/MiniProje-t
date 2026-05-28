@@ -43,7 +43,7 @@ public class BookingRepository implements IBookingRepository{
             List<Booking> bookings = getAllBookings();
 
             // 3. Buchung entfernen
-            bookings.remove(bookingToDelete);
+            bookings.remove(bookingToDelete); //Es wird nicht funktionieren. removeIf oder for-schleife mit if-Bedingung
 
             // 4. Liste zurückschreiben
             try (FileWriter writer = new FileWriter(filePath)) {
