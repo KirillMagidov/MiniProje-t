@@ -15,11 +15,11 @@ public class AccountServiceTest {
             Customer customer = new Customer(
                     "Max",
                     "Mustermann",
-                    "Teststrasse",
+                    "Bismarckstraße",
                     12,
                     "Hannover",
                     12345,
-                    "Max@gmail.com",
+                    "max@gmail.com",
                     "password"
             );
 
