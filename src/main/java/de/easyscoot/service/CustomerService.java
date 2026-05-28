@@ -33,7 +33,7 @@ public class CustomerService implements ICustomerService{
                currentStartingTime,
                null,
                 currentDate,
-                0,
+                0.0,
                 null,
                 customer,
                 chosenEScooter);
@@ -50,8 +50,8 @@ public class CustomerService implements ICustomerService{
         // Berechung der letzten Fehlern werte für die Zusammenfeasende Übersicht
 
         LocalTime currentEndingTime = LocalTime.now();
-        Integer currentBookingPrice = booking.getBookingPrice();
         Long currentBookingDuration = booking.getBookingDuration(booking.getStartingTime(), currentEndingTime);
+        Double currentBookingPrice = booking.getBookingPrice(currentBookingDuration);
 
         // E-Scooter wieder verfügbar machen
 
