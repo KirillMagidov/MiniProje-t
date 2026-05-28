@@ -4,8 +4,9 @@ import de.easyscoot.model.Maintenancestatus;
 
 import java.util.List;
 
-public interface IServiceAbeiterService {
-
+public interface IServiceArbeiterService {
+    List<EScooter> getAllEScooter();
+    EScooter getScooterDetails(String id);
     //Liste der Escooter bis zum angegebenen Batterlevel einsehen
     List<EScooter> getScootersLowBattery(double thresholdPercentage);
 

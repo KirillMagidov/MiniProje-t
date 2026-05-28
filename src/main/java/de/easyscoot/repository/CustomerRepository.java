@@ -1,5 +1,6 @@
 package de.easyscoot.repository;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.easyscoot.model.Customer;
 
@@ -12,13 +13,12 @@ import java.util.List;
 
 public class CustomerRepository implements ICustomerRepository {
 
-    private final String filePath = "src/Customer.json";
-    private final Gson gson = new Gson();
+    private final String filePath = "src/main/java/de/easyscoot/Database/Customer.json";
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     // Alle Kunden in der Datei laden
     public List<Customer> getAllCustomers() {
-        try {
-            FileReader reader = new FileReader(filePath);
+        try (FileReader reader = new FileReader(filePath)){
 
             Type listType = new TypeToken<List<Customer>>(){}.getType(); //ListenTyp für gson
             List<Customer> customers = gson.fromJson(reader, listType);
@@ -40,12 +40,11 @@ public class CustomerRepository implements ICustomerRepository {
         List<Customer> customers = getAllCustomers();
         customers.add(customer);
 
-        try {
-            FileWriter writer = new FileWriter(filePath);
+        try (FileWriter writer = new FileWriter(filePath)){
             gson.toJson(customers, writer); //schreibt customer in die Datei
-            writer.close(); //schließt die Datei
         } catch (Exception e) {
-            e.printStackTrace(); //Falls fehler auftritt wird es angezeigt
+            e.printStackTrace();
+            throw new RuntimeException("Fehler beim Speichern", e);
         }
     }
 

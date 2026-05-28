@@ -1,7 +1,5 @@
 package de.easyscoot.model;
 
-import de.easyscoot.service.ITelemetrieReceiver;
-
 public class EScooter {
 
     private Maintenancestatus status;
@@ -11,9 +9,30 @@ public class EScooter {
     private String modell;
     private double batteriekapazitaet;
     private double verbrauchskoeffizient;
-    private String position;
+    private double latitude;
+    private double longitude;
     private Drivestatus drivestatus;
     private Availability availability;
+
+    public EScooter() {
+
+    }
+
+    public EScooter(Maintenancestatus status, String id, String marke, String modell, double latitude, double longitude
+            , double ladezustand, double batteriekapazitaet, double verbrauchskoeffizient, Drivestatus drivestatus,
+                    Availability availability) {
+        this.status = status;
+        this.id = id;
+        this.marke = marke;
+        this.modell = modell;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.ladezustand = ladezustand;
+        this.batteriekapazitaet = batteriekapazitaet;
+        this.verbrauchskoeffizient = verbrauchskoeffizient;
+        this.drivestatus = drivestatus;
+        this.availability = availability;
+    }
 
     public String getId() {
         return id;
@@ -63,12 +82,20 @@ public class EScooter {
         this.verbrauchskoeffizient = verbrauchskoeffizient;
     }
 
-    public String getPosition() {
-        return position;
+    public double getLatitude() {
+        return latitude;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     public Availability getAvailability() {
@@ -93,5 +120,21 @@ public class EScooter {
 
     public void setStatus(Maintenancestatus status) {
         this.status = status;
+    }
+
+    public void updateZustand(double latitude, double longitude, double lade, Drivestatus drivestatus) {
+        this.ladezustand = lade;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.drivestatus = drivestatus;
+    }
+
+    public int getRestfahrzeit() {
+        double energie;
+        double zeit;
+
+        energie = batteriekapazitaet * (ladezustand / 100);
+        zeit = energie / verbrauchskoeffizient;
+        return (int) zeit;
     }
 }

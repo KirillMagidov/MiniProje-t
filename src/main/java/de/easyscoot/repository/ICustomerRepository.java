@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ICustomerRepository {
 
-    public List<Customer> getAllCustomers();
+    List<Customer> getAllCustomers();
 
-    public void saveCustomer(Customer customer);
+    void saveCustomer(Customer customer);
 
-    public boolean emailExists(String email);
+    boolean emailExists(String email);
 }
