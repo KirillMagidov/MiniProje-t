@@ -74,6 +74,35 @@ window.onload = function () {
                 .catch(error => alert("Verbindungsfehler: " + error));
         });
     }
+
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+        loginForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            const email = document.getElementById("LoginEmail").value;
+            const password = document.getElementById("LoginPassword").value;
+            const data = {
+                email: email,
+                password: password
+            };
+
+            fetch("http://localhost:8080/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        window.location.href = "availability.html";
+                    } else {
+                        return response.text().then(msg => alert(msg));
+                    }
+                })
+                .catch(error => alert("Verbindungsfehler: " + error));
+        });
+    }
 }
 
 // Map

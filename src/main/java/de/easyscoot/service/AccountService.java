@@ -1,11 +1,13 @@
 package de.easyscoot.service;
 
 import de.easyscoot.model.Customer;
+import de.easyscoot.model.LoginRequest;
 import de.easyscoot.repository.CustomerRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.awt.*;
-import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 public class AccountService implements IAccountService {
@@ -52,13 +54,15 @@ public class AccountService implements IAccountService {
         repo.saveCustomer(customer);
     }
 
-    public boolean logIn(String password) {
-        if (!repo.emailExists(customer.getEmail())) {
-            throw new RuntimeException("Accounts existiert noch nicht");
+    public boolean logIn(String email, String password) {
+        Customer savedCustomers = repo.getCustomer(email);
+        if (savedCustomers == null) {
+            throw new RuntimeException("Account existiert noch nicht");
+        }
+
+        if (passwordEncoder.matches(password, savedCustomers.getPassword())) {
+            return true;
         } else {
-            if (passwordEncoder.matches(password, customer.getPassword())) {
-                return true;
-            }
             throw new RuntimeException("Passowrt ist falsch");
         }
     }

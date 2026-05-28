@@ -60,6 +60,16 @@ public class CustomerRepository implements ICustomerRepository {
         }
         return false;
     }
+
+    public Customer getCustomer(String email) {
+        List<Customer> customers = getAllCustomers();
+        for (Customer c : customers) {
+            if (c.getEmail().equals(email)) {
+                return c;
+            }
+        }
+        return null;
+    }
 }
 
 //jdbc datenbank postres
