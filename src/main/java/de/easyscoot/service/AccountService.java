@@ -5,23 +5,27 @@ import de.easyscoot.model.LoginRequest;
 import de.easyscoot.repository.CustomerRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+
+import java.awt.*;
+import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+@Service
 public class AccountService implements IAccountService {
 
-    private CustomerRepository repo = new CustomerRepository();
-    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final CustomerRepository repo;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    private final ValidationService validation = new ValidationService();
-
-    private Customer customer;
+    private final ValidationService validation;
 
 
-    public AccountService(Customer customer) {
-        this.customer = customer;
+    public AccountService(CustomerRepository repo, ValidationService validation) {
+        this.repo = repo;
+        this.validation = validation;
     }
 
 /*
