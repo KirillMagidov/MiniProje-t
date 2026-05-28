@@ -20,13 +20,13 @@
     "password": "$2a$10$Fw8T2uRYSFL9PwibDK.mBereAwVpu7VT1ERo8346u8Z3/YPucAOIa"
   },
   {
-    "street": "Straße",
+    "street": "Hagebuttenweg",
     "streetNumber": 23,
-    "location": "Bremen",
-    "plz": 2323,
-    "foreName": "Max",
-    "name": "Mustermann",
-    "email": "Test@gmail.com",
-    "password": "password"
+    "location": "Hannover",
+    "plz": 30657,
+    "foreName": "Kirill",
+    "name": "Magidov",
+    "email": "magi2003@icloud.com",
+    "password": "$2a$10$9MyMSTfF965vhbx0GjxLuuIK0xwP96CGbhnq2W21QeybaZBcqHoLy"
   }
 ]

@@ -1,13 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <!-- CSS einbinden -->
+    <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <title>Login - EasyScoot</title>
 </head>
 <body>
 
-<h1 class="Login1">Anmelden</h1>
+<h1 class="title1">Anmelden</h1>
 
-<img src="LogInEasyScoot.png" typeof="Image">
+<img src="LogInEasyScoot.png" typeof="Image" alt="Logo">
 
-<body>
+<form id="loginForm">
+
+    <div class="form-wrapper">
+
+        <div class="form-left">
+            <input type="email" id="LoginEmail" placeholder="E-Mail" required>
+            <input type="password" id="LoginPassword" placeholder="Passwort" required>
+        </div>
+
+    </div>
+
+    <button class="btn btn4" id="btnLoginSubmit" type="submit">Anmelden</button>
+
+</form>
+
+<script src="script.js"></script>
+
+</body>
+</html>

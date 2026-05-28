@@ -21,9 +21,8 @@ public class BookingRepository implements IBookingRepository{
         List<Booking> bookings = getAllBookings();
         bookings.add(booking);
 
-        try (FileWriter writer = new FileWriter(filePath)){
+        try (FileWriter writer = new FileWriter(filePath)) {
             gson.toJson(bookings, writer); //schreibt Buchung in die Datei
-            writer.close(); //schließt die Datei
         } catch (Exception e) {
             e.printStackTrace(); //Falls fehler auftritt wird es angezeigt
         }
@@ -42,8 +41,7 @@ public class BookingRepository implements IBookingRepository{
             List<Booking> bookings = getAllBookings();
 
             // 3. Buchung entfernen
-            bookings.remove(bookingToDelete); //Es wird nicht funktionieren. removeIf oder for-schleife mit if-Bedingung
-
+            bookings.removeIf(b -> b.getBookingID().equals(bookingToDelete.getBookingID()));
             // 4. Liste zurückschreiben
             try (FileWriter writer = new FileWriter(filePath)) {
                 gson.toJson(bookings, writer);

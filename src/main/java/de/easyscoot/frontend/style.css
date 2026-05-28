@@ -212,4 +212,11 @@ body.availability-page #map {
 /*Konto wurde erstellt zurück zur startseite noch machen
 */
 
+.password-hint {
+    font-size: 12px;
+    color: #666666;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    text-align: center;
+}
 
