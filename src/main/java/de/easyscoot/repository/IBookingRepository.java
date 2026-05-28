@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface IBookingRepository {
 
-    public void saveBookingEntry(Booking booking);
+    void saveBookingEntry(Booking booking);
 
-    public void deleteBookingEntry(String bookingID);
+    void deleteBookingEntry(String bookingID);
 
-    public List<Booking> getAllBookings();
+    List<Booking> getAllBookings();
 
-    public Booking findBookingByID(String bookingID);
+    Booking findBookingByID(String bookingID);
 }

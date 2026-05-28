@@ -7,7 +7,7 @@ import de.easyscoot.repository.IScooterRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaintenanceService implements IServiceAbeiterService {
+public class MaintenanceService implements IServiceArbeiterService {
 
     private IScooterRepository scooterRepository;
 
@@ -48,5 +48,15 @@ public class MaintenanceService implements IServiceAbeiterService {
     @Override
     public void removeScooter(String scooterId) {
         scooterRepository.delete(scooterId);
+    }
+
+    @Override
+    public List<EScooter> getAllEScooter() {
+        return scooterRepository.findAll();
+    }
+
+    @Override
+    public EScooter getScooterDetails(String id) {
+        return scooterRepository.findById(id);
     }
 }

@@ -26,10 +26,10 @@ public class EScooterService implements IFlottenmanagerService, ITelemetrieRecei
     }
 
     @Override
-    public void receiveTelemetrie(String scooterId, String position, double ladezustand, Drivestatus drivestatus){
+    public void receiveTelemetrie(String scooterId, double latitude, double longitude, double ladezustand, Drivestatus drivestatus){
         EScooter scooter = scooterRepository.findById(scooterId);
         if (scooter != null) {
-            scooter.updateZustand(position,ladezustand,drivestatus);
+            scooter.updateZustand(latitude, longitude ,ladezustand,drivestatus);
             scooterRepository.save(scooter);
         }
     }

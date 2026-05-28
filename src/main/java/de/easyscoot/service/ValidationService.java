@@ -8,12 +8,11 @@ public class ValidationService {
 
     private final String apiKey = "f1fa5825285148d2904c6c242a293ad3";
     private final String baseUrl = "https://emailreputation.abstractapi.com/v1/";
-
+    private final RestTemplate restTemplate = new RestTemplate();
     private final String loqateKey = "UA99-XW38-HU72-BX52";
     private final String loqateUrl = "https://api.addressy.com/Capture/Interactive/Find/v1.10/json3.ws";
 
     public boolean isValid(String email) {
-        RestTemplate restTemplate = new RestTemplate();
         String url = baseUrl + "?api_key=" + apiKey + "&email=" + email;
 
         try {
@@ -25,8 +24,6 @@ public class ValidationService {
     }
 
     public boolean isValidAdresse(String street, Integer streetNumber, Integer plz, String location) {
-        RestTemplate restTemplate = new RestTemplate();
-
         String urlTemplate = loqateUrl + "?Key={key}&Countries=DE&Text={text}";
         String addressQuery = street + " " + streetNumber + ", " + plz + " " + location;
 
