@@ -12,7 +12,7 @@ import java.util.List;
 
 public class BookingRepository implements IBookingRepository{
 
-    private final String filePath = "src/Booking.json";
+    private final String filePath = "src/main/java/de/easyscoot/Database/Booking.json";
     private final Gson gson = new Gson();
 
     // trägt eine Buchung eines E-Scooters ein
@@ -33,7 +33,7 @@ public class BookingRepository implements IBookingRepository{
     // löscht eine Buchung nach Beenden der Fahrt
     @Override
     public void deleteBookingEntry(String bookingID) {
-        String filePath = "Booking.json";
+        String filePath = "src/main/java/de/easyscoot/Database/Booking.json";
 
         try {
             // Prüfe ob Buchung existiert

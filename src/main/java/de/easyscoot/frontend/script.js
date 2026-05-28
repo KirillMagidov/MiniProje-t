@@ -24,7 +24,7 @@ window.onload = function() {
         });
     }
 
-
+//Account Speicherung
     document.getElementById("accountForm").addEventListener("submit", function (event) {
 
         event.preventDefault();
@@ -67,9 +67,17 @@ window.onload = function() {
             .then(response => response.text())
             .then(result => {
                 console.log(result);
-                alert(result);
+                window.location.href = "availability.html";
             });
 
     });
-
 }
+
+
+//Map
+const map = L.map('map').setView([52.3759, 9.7320], 13);
+
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
