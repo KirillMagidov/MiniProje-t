@@ -44,6 +44,10 @@ public class AccountService implements IAccountService {
             throw new RuntimeException("Invalid Addresse");
         }
 
+        if (!validation.isValidPassword(customer.getPassword())) {
+            throw new RuntimeException("Invalid Password");
+        }
+
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         repo.saveCustomer(customer);
     }
