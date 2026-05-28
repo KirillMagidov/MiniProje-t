@@ -81,19 +81,18 @@ public class ScooterRepository implements IScooterRepository {
             throw new IllegalArgumentException("ID darf nicht null oder leer sein");
         }
 
-        String filePath = "Scooter.json";
-
         try {
-            // Prüfe ob Scooter existiert
-            EScooter scooterToDelete = findById(id);
-
-            // Alle Scooter laden
             List<EScooter> scooters = findAll();
 
-            // 3. SCooter entfernen
-            scooters.remove(scooterToDelete);
+            // Löscht Scooter
+            boolean removed = scooters.removeIf(s -> s.getId().equals(id));
 
-            // 4. Liste zurückschreiben
+            // Fals kein Scooter gefunden
+            if (!removed) {
+                throw new RuntimeException("Kein Scooter mit der ID " + id + " gefunden");
+            }
+
+            // Liste zurückschreiben
             try (FileWriter writer = new FileWriter(filePath)) {
                 gson.toJson(scooters, writer);
             }
@@ -102,4 +101,5 @@ public class ScooterRepository implements IScooterRepository {
             throw new RuntimeException("Fehler beim Löschen des Scooters mit ID: " + id, e);
         }
     }
+
 }
