@@ -17,8 +17,7 @@ public class CustomerRepository implements ICustomerRepository {
 
     // Alle Kunden in der Datei laden
     public List<Customer> getAllCustomers() {
-        try {
-            FileReader reader = new FileReader(filePath);
+        try (FileReader reader = new FileReader(filePath)){
 
             Type listType = new TypeToken<List<Customer>>(){}.getType(); //ListenTyp für gson
             List<Customer> customers = gson.fromJson(reader, listType);
@@ -40,12 +39,11 @@ public class CustomerRepository implements ICustomerRepository {
         List<Customer> customers = getAllCustomers();
         customers.add(customer);
 
-        try {
-            FileWriter writer = new FileWriter(filePath);
+        try (FileWriter writer = new FileWriter(filePath)){
             gson.toJson(customers, writer); //schreibt customer in die Datei
-            writer.close(); //schließt die Datei
         } catch (Exception e) {
-            e.printStackTrace(); //Falls fehler auftritt wird es angezeigt
+            e.printStackTrace();
+            throw new RuntimeException("Fehler beim Speichern", e);
         }
     }
 

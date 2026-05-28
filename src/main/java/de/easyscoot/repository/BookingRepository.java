@@ -21,8 +21,7 @@ public class BookingRepository implements IBookingRepository{
         List<Booking> bookings = getAllBookings();
         bookings.add(booking);
 
-        try {
-            FileWriter writer = new FileWriter(filePath);
+        try (FileWriter writer = new FileWriter(filePath)){
             gson.toJson(bookings, writer); //schreibt Buchung in die Datei
             writer.close(); //schließt die Datei
         } catch (Exception e) {
