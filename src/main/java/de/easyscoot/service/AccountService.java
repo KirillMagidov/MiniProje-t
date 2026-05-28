@@ -2,6 +2,7 @@ package de.easyscoot.service;
 
 import de.easyscoot.model.Customer;
 import de.easyscoot.repository.CustomerRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.awt.*;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
 public class AccountService implements IAccountService {
 
     private CustomerRepository repo = new CustomerRepository();
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private final ValidationService validation = new ValidationService();
 
@@ -42,6 +44,7 @@ public class AccountService implements IAccountService {
             throw new RuntimeException("Invalid Addresse");
         }
 
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         repo.saveCustomer(customer);
     }
 
@@ -49,7 +52,7 @@ public class AccountService implements IAccountService {
         if (!repo.emailExists(customer.getEmail())) {
             throw new RuntimeException("Accounts existiert noch nicht");
         } else {
-            if (customer.getPassword().equals(password)) {
+            if (passwordEncoder.matches(password, customer.getPassword())) {
                 return true;
             }
             throw new RuntimeException("Passowrt ist falsch");
