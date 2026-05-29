@@ -14,17 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AccountController {
 
+    private final AccountService service;
+
+    public AccountController(AccountService service) {
+
+        this.service = service;
+    }
+
     @PostMapping("/createAccount")
     public ResponseEntity<String> createAccount(@RequestBody Customer customer) {
-
         try {
-            AccountService service = new AccountService(customer);
-
             service.createAccount(customer);
-
             return ResponseEntity.ok("Account erfolgreich erstellt!");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
@@ -32,7 +34,6 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         try {
-            AccountService service = new AccountService(null);
             service.logIn(loginRequest.getEmail(), loginRequest.getPassword());
             return ResponseEntity.ok("Login erfolgreich");
         } catch (Exception e) {

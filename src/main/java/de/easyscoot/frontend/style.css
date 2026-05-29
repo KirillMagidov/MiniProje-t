@@ -185,7 +185,7 @@ button {
 /*button für das Konto erstellen */
 .btn4 {
     position: fixed;
-    top: 90%;
+    top:90%;
     left: 50%;
 
 }
@@ -220,3 +220,29 @@ body.availability-page #map {
     text-align: center;
 }
 
+/* Hintergrund für Login und CreateAccount Seiten */
+body.form-page {
+    background-color: #C9C2A3;
+}
+
+/* Weiterleitung zwischen Login und Registrierung */
+.form-switch {
+    text-align: center;
+    position: fixed;
+    top: 87%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: white;
+    z-index: 10;
+}
+
+.form-switch-link {
+    color: white;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.form-switch-link:hover {
+    color: #c79dba;
+}

@@ -4,7 +4,7 @@ window.onload = function () {
     const btnLogin = document.getElementById("btnLogin");
     if (btnLogin) {
         btnLogin.addEventListener("click", function () {
-            window.location.href = "logIn.html";
+            window.location.href = "auth.html?mode=login";
         });
     }
 
@@ -20,7 +20,7 @@ window.onload = function () {
     const btnCreate = document.getElementById("btnCreate");
     if (btnCreate) {
         btnCreate.addEventListener("click", function () {
-            window.location.href = "createAccount.html";
+            window.location.href = "auth.html?mode=register";
         });
     }
 

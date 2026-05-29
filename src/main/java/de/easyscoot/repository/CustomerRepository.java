@@ -3,6 +3,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import de.easyscoot.model.Customer;
+import org.springframework.stereotype.Repository;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,6 +12,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class CustomerRepository implements ICustomerRepository {
 
     private final String filePath = "src/main/java/de/easyscoot/Database/Customer.json";
