@@ -9,5 +9,16 @@
     "name": "Magidov",
     "email": "magi2003@icloud.com",
     "password": "$2a$10$H2xUjTm8H1yoMEl81XhSI.dFNRJHj9DDy/fH/sjMHRkIp1iRG7ita"
+  },
+  {
+    "customerId": "551888",
+    "street": "Hagebuttenweg",
+    "streetNumber": 23,
+    "location": "Hannover",
+    "plz": 30657,
+    "foreName": "Kirill",
+    "name": "Magidov",
+    "email": "magi20032011@gmail.com",
+    "password": "$2a$10$TZjT/atWQFurmE2WKDNVJusZHeejPjHjRTIMDa1vIKHe2F7RhHJri"
   }
 ]
