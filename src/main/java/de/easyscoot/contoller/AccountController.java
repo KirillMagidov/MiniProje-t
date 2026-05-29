@@ -4,7 +4,6 @@ import de.easyscoot.model.Customer;
 import de.easyscoot.model.LoginRequest;
 import de.easyscoot.service.AccountService;
 
-import de.easyscoot.service.ValidationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,12 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     private final AccountService service;
-    private final ValidationService validationService;
 
     public AccountController(AccountService service) {
 
         this.service = service;
-        this.validationService = validationService;
     }
 
     @PostMapping("/createAccount")
