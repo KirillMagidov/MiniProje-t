@@ -51,7 +51,6 @@ public class ValidationService {
             return false;
         }
 
-        // 4. Проверяем наличие хотя бы одной цифры
         if (!password.matches(".*[0-9].*")) {
             return false;
         }
