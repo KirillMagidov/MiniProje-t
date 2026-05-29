@@ -1,7 +1,7 @@
 package de.easyscoot.model;
 
 public class Customer extends User {
-
+    private String customerId;
     private String street;
     private Integer streetNumber;
     private String location;
@@ -55,5 +55,13 @@ public class Customer extends User {
 
     public void setPlz(Integer plz) {
         this.plz = plz;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 }

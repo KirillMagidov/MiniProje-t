@@ -1,25 +1,6 @@
 [
   {
-    "street": "Schulenburger landstraße",
-    "streetNumber": 100,
-    "location": "Hannover",
-    "plz": 30165,
-    "foreName": "Kirill",
-    "name": "Magidov",
-    "email": "magi20032011@gmail.com",
-    "password": "$2a$10$rz5i8VGq8TBgC0jqaINIBu0TRlYBQMuZ.jMZpWcjqMETnVUBheXIy"
-  },
-  {
-    "street": "Schulenburger landstraße",
-    "streetNumber": 100,
-    "location": "Hannover",
-    "plz": 30165,
-    "foreName": "Kirill",
-    "name": "Magidov",
-    "email": "magistx009@gmail.com",
-    "password": "$2a$10$Fw8T2uRYSFL9PwibDK.mBereAwVpu7VT1ERo8346u8Z3/YPucAOIa"
-  },
-  {
+    "customerId": "217975",
     "street": "Hagebuttenweg",
     "streetNumber": 23,
     "location": "Hannover",
@@ -27,6 +8,17 @@
     "foreName": "Kirill",
     "name": "Magidov",
     "email": "magi2003@icloud.com",
-    "password": "$2a$10$9MyMSTfF965vhbx0GjxLuuIK0xwP96CGbhnq2W21QeybaZBcqHoLy"
+    "password": "$2a$10$H2xUjTm8H1yoMEl81XhSI.dFNRJHj9DDy/fH/sjMHRkIp1iRG7ita"
+  },
+  {
+    "customerId": "551888",
+    "street": "Hagebuttenweg",
+    "streetNumber": 23,
+    "location": "Hannover",
+    "plz": 30657,
+    "foreName": "Kirill",
+    "name": "Magidov",
+    "email": "magi20032011@gmail.com",
+    "password": "$2a$10$TZjT/atWQFurmE2WKDNVJusZHeejPjHjRTIMDa1vIKHe2F7RhHJri"
   }
 ]

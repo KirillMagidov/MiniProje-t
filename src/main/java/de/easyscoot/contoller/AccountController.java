@@ -18,7 +18,8 @@ public class AccountController {
     private final AccountService service;
     private final ValidationService validationService;
 
-    public AccountController(AccountService service, ValidationService validationService) {
+    public AccountController(AccountService service) {
+
         this.service = service;
         this.validationService = validationService;
     }
@@ -36,7 +37,6 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
         try {
-            AccountService service = new AccountService(null);
             service.logIn(loginRequest.getEmail(), loginRequest.getPassword());
             return ResponseEntity.ok("Login erfolgreich");
         } catch (Exception e) {
