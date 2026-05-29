@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AccountController {
 
     private final AccountService service;
-    private final ValidationService validationService;
 
     public AccountController(AccountService service) {
 
         this.service = service;
-        this.validationService = validationService;
     }
 
     @PostMapping("/createAccount")
