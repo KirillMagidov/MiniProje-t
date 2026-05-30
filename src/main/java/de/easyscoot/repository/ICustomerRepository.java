@@ -11,4 +11,8 @@ public interface ICustomerRepository {
     void saveCustomer(Customer customer);
 
     boolean emailExists(String email);
+
+    void removeCustomer (String customerId);
+
+    void changeCustomerData (String customerId, Customer newCustomer);
 }
