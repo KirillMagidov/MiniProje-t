@@ -79,17 +79,7 @@ public class AccountService implements IAccountService {
 
     //Daten ändern
     public void changeCustomerData (String email, String password, String customerId, Customer newCustomer) {
-        Customer savedCustomer = repo.getCustomer(email);
-
-        if (savedCustomer == null) {
-            throw new RuntimeException("Account existiert noch nicht oder E-Mail ist falsch");
-        }
-
-        if (this.logIn(email, password)){
-            repo.changeCustomerData(customerId, newCustomer);
-        }
-        else {
-            throw new RuntimeException("Daten konnten nicht geändert werden, versuches erneut");
-        }
+        this.logIn(email, password);
+        repo.changeCustomerData(customerId, newCustomer);
     }
 }
