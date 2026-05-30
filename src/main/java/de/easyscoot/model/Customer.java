@@ -1,5 +1,8 @@
 package de.easyscoot.model;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class Customer extends User {
     private String customerId;
     private String street;
