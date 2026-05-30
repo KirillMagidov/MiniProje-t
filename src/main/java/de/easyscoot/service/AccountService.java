@@ -41,7 +41,7 @@ public class AccountService implements IAccountService {
         repo.saveCustomer(customer);
     }
 
-    public boolean logIn(String email, String password) {
+    public Customer logIn(String email, String password) {
         Customer savedCustomer = repo.getCustomer(email);
 
         if (savedCustomer == null) {
@@ -49,7 +49,7 @@ public class AccountService implements IAccountService {
         }
 
         if (passwordEncoder.matches(password, savedCustomer.getPassword())) {
-            return true;
+            return savedCustomer;
         } else {
             throw new RuntimeException("Passwort ist falsch");
         }

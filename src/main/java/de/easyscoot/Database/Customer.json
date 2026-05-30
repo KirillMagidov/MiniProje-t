@@ -42,5 +42,16 @@
     "name": "Magidov",
     "email": "magidovkirill29@gmail.com",
     "password": "$2a$10$xo/a0FRzNxbSXAQJX9T2w.apafdYSw2nrPtcUW/CfBO3Opql2o8wW"
+  },
+  {
+    "customerId": "828195",
+    "street": "Hagebuttenweg",
+    "streetNumber": 23,
+    "location": "Hannover",
+    "plz": 30657,
+    "foreName": "Kirill",
+    "name": "Magidov",
+    "email": "magidovmihail@gmail.com",
+    "password": "$2a$10$zMhPKeV88i0fG7Z/DQ0d2OGspPrl.YKmfAgKfrNybXscwVR.MpCLu"
   }
 ]

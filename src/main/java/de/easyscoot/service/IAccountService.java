@@ -8,7 +8,7 @@ public interface IAccountService {
     //legt Konto an und speichert Daten des Kunden
     void createAccount (Customer customer);
 
-    boolean logIn(String email, String password);
+    Customer logIn(String email, String password);
 
 }
 
