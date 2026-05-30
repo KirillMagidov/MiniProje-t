@@ -1,5 +1,7 @@
 import de.easyscoot.model.Customer;
 import de.easyscoot.repository.CustomerRepository;
+import de.easyscoot.service.AccountService;
+import de.easyscoot.service.ValidationService;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class CustomerRepositoryTest {
 
     @Test
     void testSaveCustomer() {
-        Customer customer = new Customer("Max", "Mustermann", "Straße", 23, "Bremen", 2323, "Test@gmail.com", "password");
+        Customer customer = new Customer("Max", "Mustermann", "Straße", 23, "Bremen", 2323, "Test@gmail.com", "ahhhhhhh123A2");
         repo.saveCustomer(customer);
 
         List<Customer> customers = repo.getAllCustomers();
@@ -31,4 +33,29 @@ public class CustomerRepositoryTest {
         boolean exists = repo.emailExists("mail@mail.de");
         assertFalse(exists); // Email darf nicht gefunden werden
     }
+
+    //funkioniert nun auch
+    @Test
+    void testRemoveCustomer() {
+        Customer c = new Customer("Max", "Mustermann", "Straße", 23, "Bremen", 2323, "furalles56@gmail.com","ahhhhhhh123A2");
+        ValidationService vService = new ValidationService();
+        AccountService service = new AccountService(repo, vService);
+        service.createAccount(c);
+        repo.removeCustomer(c.getCustomerId());
+        boolean exists = repo.emailExists("Test@gmail.com");
+        assertFalse(exists);
+    }
+
+
+    //funktioniert bereits
+    @Test
+    void testChangeCustomerData () {
+        Customer c = new Customer("Max", "Mustermann", "Straße", 23, "Bremen", 2323, "furalles56@gmail.com","ahhhhhhh123A2");
+        ValidationService vService = new ValidationService();
+        AccountService service = new AccountService(repo, vService);
+        service.createAccount(c);
+        Customer newCustomer = new Customer ("Dave", "Mustermann", "Straße", 23, "Bremen", 2323, "Test@gmail.com", "ahhhhhhh123A2");
+        repo.changeCustomerData (c.getCustomerId(), newCustomer);
+    }
+
 }

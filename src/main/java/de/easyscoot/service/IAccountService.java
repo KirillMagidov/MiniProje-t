@@ -10,5 +10,9 @@ public interface IAccountService {
 
     boolean logIn(String email, String password);
 
+
+    void deleteAccount (String email, String password, String customerId);
+
+    void changeCustomerData (String email, String password,String customerId, Customer newCustomer);
 }
 

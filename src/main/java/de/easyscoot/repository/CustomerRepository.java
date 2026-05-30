@@ -50,6 +50,24 @@ public class CustomerRepository implements ICustomerRepository {
         }
     }
 
+
+    public void removeCustomer (String customerId) {
+        List<Customer> customers = getAllCustomers();
+        customers.removeIf(c -> customerId.equals(c.getCustomerId()));
+        try (FileWriter writer = new FileWriter(filePath)){
+            gson.toJson(customers, writer); //schreibt customer in die Datei
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Fehler beim loeschen", e);
+        }
+    }
+
+    //Kundendaten ändern
+    public void changeCustomerData (String customerId, Customer newCustomer) {
+        removeCustomer(customerId);
+        saveCustomer(newCustomer);
+    }
+
     // prüft ob Email existiert
     public boolean emailExists(String email) {
         List<Customer> customers = getAllCustomers();
