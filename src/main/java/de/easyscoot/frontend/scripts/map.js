@@ -53,6 +53,13 @@ document.addEventListener('click', function(e) {
     }
 });
 
+const profilbtn = document.getElementById("profilbtn");
+    if (profilbtn) {
+        profilbtn.addEventListener("click", function () {
+            window.location.href = "profil.html";
+        });
+}
+
 async function goToLocation() {
     const input = document.getElementById('location-input').value.trim();
     const error = document.getElementById('location-error');

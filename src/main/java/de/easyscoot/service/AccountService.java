@@ -78,8 +78,13 @@ public class AccountService implements IAccountService {
     }
 
     //Daten ändern
-    public void changeCustomerData (String email, String password, String customerId, Customer newCustomer) {
+    public void changeCustomerData(String email, String password, String customerId, Customer newCustomer) {
         this.logIn(email, password);
+        newCustomer.setPassword(passwordEncoder.encode(newCustomer.getPassword()));
         repo.changeCustomerData(customerId, newCustomer);
+    }
+
+    public Customer getCustomer (String customerId) {
+        return repo.getCustomerById(customerId);
     }
 }
