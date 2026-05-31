@@ -64,7 +64,7 @@ if (accountForm) {
         })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "availability.html";
+                    window.location.href = "index.html";
                 } else {
                     return response.text().then(msg => alert(msg));
                 }
@@ -89,9 +89,18 @@ if (loginForm) {
         })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "availability.html";
+                    return response.text();
                 } else {
-                    return response.text().then(msg => alert(msg));
+                    return response.text().then(msg => {
+                        alert(msg);
+                        return Promise.reject();
+                    });
+                }
+            })
+            .then (customerId => {
+                if (customerId) {
+                    sessionStorage.setItem('customerId', customerId);
+                    window.location.href = "availability.html";
                 }
             })
             .catch(error => alert("Verbindungsfehler: " + error));

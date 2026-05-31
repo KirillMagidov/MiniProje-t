@@ -75,5 +75,15 @@
     "name": "Radchenko",
     "email": "radchenkoviktoria67@gmail.com",
     "password": "$2a$10$H1ew5Kq5PfAsW5N362.6leTuMFox5WKGDwPVcQzen7baxFAgLsNQm"
+  },
+  {
+    "street": "Freundallee",
+    "streetNumber": 15,
+    "location": "Hannover",
+    "plz": 30173,
+    "foreName": "Bao",
+    "name": "Bao",
+    "email": "furalles56@gmail.com",
+    "password": "$2a$10$xGljXx9UnsDQlPpBWKcWDOS/bbcXsJGHeNlW5AsTacE6J1.6Vrgce"
   }
 ]
