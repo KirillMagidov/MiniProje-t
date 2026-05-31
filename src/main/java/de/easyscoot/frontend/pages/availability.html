@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Bitlana – Map Layout</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="../styles/marker.css"/>
+    <link rel="stylesheet" href="../styles/availability.css"/>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div class="left-bar">
+    <span class="nav-logo">ES</span>
+    <button class="nav-icon active" id="btn-home" title="Home" onclick="togglePanel('home')">
+        <i class="ti ti-home"></i>
+    </button>
+    <button class="nav-icon" id="btn-bell" title="Benachrichtigungen" onclick="togglePanel('bell')">
+        <i class="ti ti-bell"></i>
+    </button>
+    <div class="nav-spacer"></div>
+    <button class="nav-icon logout" title="Logout">
+        <i class="ti ti-logout"></i>
+    </button>
+</div>
+
+<div class="home-panel" id="home-panel">
+    <p class="panel-title">Home</p>
+
+    <div class="profile-card">
+        <div class="avatar">MM</div>
+        <div>
+            <p class="profile-name">MaxMustermann</p>
+            <span class="profile-badge">Tester</span>
+        </div>
+    </div>
+
+    <button class="menu-btn active"><i class="ti ti-user"></i> Profil</button>
+    <button class="menu-btn"><i class="ti ti-settings"></i> Einstellungen</button>
+
+    <div class="divider"></div>
+    <div class="divider"></div>
+
+    <button class="menu-btn danger"><i class="ti ti-logout"></i> Logout</button>
+
+</div>
+
+<div class="search-float">
+    <i class="ti ti-search"></i>
+    <input type="text" placeholder="Suchen..."/>
+</div>
+
+<div class="location-popup" id="location-popup">
+    <label>Ort eingeben</label>
+    <input type="text" id="location-input" placeholder="z.B. Berlin, Hamburg, München..."/>
+    <span class="location-error" id="location-error">Ort nicht gefunden. Bitte nochmal versuchen.</span>
+    <button class="location-go-btn" onclick="goToLocation()">
+        <i class="ti ti-map-pin"></i> Zur Position springen
+    </button>
+</div>
+
+<button class="location-btn" id="location-btn" onclick="toggleLocationPopup()">
+    <i class="ti ti-map-pin"></i>
+    <span id="location-label">Hannover, Deutschland</span>
+</button>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../scripts/marker.js"></script>
+<script src="../scripts/map.js"></script>
+</body>
+</html>

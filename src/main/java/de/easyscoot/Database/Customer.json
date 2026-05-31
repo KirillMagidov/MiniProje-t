@@ -53,5 +53,27 @@
     "name": "Magidov",
     "email": "magidovmihail@gmail.com",
     "password": "$2a$10$zMhPKeV88i0fG7Z/DQ0d2OGspPrl.YKmfAgKfrNybXscwVR.MpCLu"
+  },
+  {
+    "customerId": "408349",
+    "street": "Schulenburger landstraße",
+    "streetNumber": 100,
+    "location": "Hannover",
+    "plz": 30165,
+    "foreName": "Viktoriya",
+    "name": "Radchenko",
+    "email": "radchenkoviktoria67@gail.com",
+    "password": "$2a$10$oce.lrZZ7ZzooFseZD2ju.0DjgztFhJfvOwv98hW.eyGSWj4cC5a2"
+  },
+  {
+    "customerId": "237699",
+    "street": "Schulenburger landstraße",
+    "streetNumber": 100,
+    "location": "Hannover",
+    "plz": 30165,
+    "foreName": "Viktoriya",
+    "name": "Radchenko",
+    "email": "radchenkoviktoria67@gmail.com",
+    "password": "$2a$10$H1ew5Kq5PfAsW5N362.6leTuMFox5WKGDwPVcQzen7baxFAgLsNQm"
   }
 ]
