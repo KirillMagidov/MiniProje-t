@@ -1,0 +1,20 @@
+[
+  {
+    "bookingID": "0096e0cf",
+    "startingTime": "12:31:34.7982645",
+    "endingTime": "12:31:36.1469997",
+    "bookingDate": "2026-05-31",
+    "bookingPrice": 1.0,
+    "customerId": "237699",
+    "scooterId": "01KSQ0MR1EQQQ8T1BCP4XQ27WQ"
+  },
+  {
+    "bookingID": "1a39979b",
+    "startingTime": "12:32:01.8795424",
+    "endingTime": "12:32:11.4945424",
+    "bookingDate": "2026-05-31",
+    "bookingPrice": 1.0,
+    "customerId": "237699",
+    "scooterId": "01KSQ0MR1EQQQ8T1BCP4XQ27WQ"
+  }
+]

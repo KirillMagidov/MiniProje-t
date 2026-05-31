@@ -89,7 +89,10 @@ if (loginForm) {
         })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "availability.html";
+                    return response.text().then(customerId => {
+                        localStorage.setItem('customerId', customerId);
+                        window.location.href = "availability.html";
+                    });
                 } else {
                     return response.text().then(msg => alert(msg));
                 }

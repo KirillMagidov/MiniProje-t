@@ -44,52 +44,41 @@ public class BookingService {
         scooter.setAvailability(Availability.IN_BENUTZUNG);
         scooterRepository.save(scooter);
 
-
         Booking newBooking = new Booking();
-
-        //ID für Booking
         newBooking.setBookingID(UUID.randomUUID().toString().substring(0, 8));
-
-        //Kunde drin
-        newBooking.setCustomer(customer);
-        newBooking.setEscooter(scooter);
-
-        //Zeit und Data
+        newBooking.setCustomerId(customerId);
+        newBooking.setScooterId(scooterID);
         newBooking.setStartingTime(LocalTime.now());
         newBooking.setBookingDate(LocalDate.now());
 
-        //Speichern
         bookingRepository.saveBookingEntry(newBooking);
         return newBooking;
     }
 
     public Booking endRide(String bookingID) {
         Booking booking = bookingRepository.findBookingByID(bookingID);
-        EScooter scooter = booking.getEScooter();
-        Customer customer = booking.getCustomer();
+        EScooter scooter = scooterRepository.findById(booking.getScooterId());
 
-        if (scooter.getAvailability() != Availability.IN_BENUTZUNG) {
-            throw new RuntimeException("Scooter ist nicht gebucht");
-        }
-
+        // Scooter freigeben
         scooter.setAvailability(Availability.NICHT_IN_BENUTZUNG);
         scooterRepository.save(scooter);
 
+        // Alte Buchung löschen
         bookingRepository.deleteBookingEntry(bookingID);
 
+        // Abgeschlossene Buchung speichern
         booking.setEndingTime(LocalTime.now());
-        booking.setBookingDate(LocalDate.now());
-
+        booking.setBookingPrice(booking.getBookingPrice());
         bookingRepository.saveBookingEntry(booking);
 
         return booking;
     }
 
     public List<Booking> getCustomerHistory(String customerID) {
-        List<Booking> allBokings = bookingRepository.getAllBookings();
+        List<Booking> allBookings = bookingRepository.getAllBookings();
         List<Booking> customerHistory = new ArrayList<>();
-        for (Booking booking : allBokings) {
-            if(booking.getCustomer() != null && booking.getCustomer().getCustomerId().equals(customerID)) {
+        for (Booking booking : allBookings) {
+            if (booking.getCustomerId() != null && booking.getCustomerId().equals(customerID)) {
                 customerHistory.add(booking);
             }
         }

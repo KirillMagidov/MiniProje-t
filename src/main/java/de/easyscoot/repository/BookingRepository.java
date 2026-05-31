@@ -1,6 +1,9 @@
 package de.easyscoot.repository;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 import de.easyscoot.model.Booking;
 import org.springframework.stereotype.Repository;
@@ -8,6 +11,9 @@ import org.springframework.stereotype.Repository;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +21,21 @@ import java.util.List;
 public class BookingRepository implements IBookingRepository{
 
     private final String filePath = "src/main/java/de/easyscoot/Database/Booking.json";
-    private final Gson gson = new Gson();
-
+    private final Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(LocalTime.class,
+                    (JsonSerializer<LocalTime>) (src, type, ctx) ->
+                            ctx.serialize(src.format(DateTimeFormatter.ISO_LOCAL_TIME)))
+            .registerTypeAdapter(LocalTime.class,
+                    (JsonDeserializer<LocalTime>) (json, type, ctx) ->
+                            LocalTime.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_TIME))
+            .registerTypeAdapter(LocalDate.class,
+                    (JsonSerializer<LocalDate>) (src, type, ctx) ->
+                            ctx.serialize(src.format(DateTimeFormatter.ISO_LOCAL_DATE)))
+            .registerTypeAdapter(LocalDate.class,
+                    (JsonDeserializer<LocalDate>) (json, type, ctx) ->
+                            LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE))
+            .create();
     // trägt eine Buchung eines E-Scooters ein
     @Override
     public void saveBookingEntry(Booking booking) {
