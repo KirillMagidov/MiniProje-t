@@ -1,7 +1,7 @@
 package de.easyscoot.contoller;
 
 import de.easyscoot.model.Booking;
-import de.easyscoot.repository.BookingRepository;
+import de.easyscoot.model.StartRideRequest;
 import de.easyscoot.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +11,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 public class BookingController {
+
     private final BookingService bookingService;
 
     @Autowired
@@ -19,17 +20,17 @@ public class BookingController {
     }
 
     @PostMapping("/booking/start")
-    public Booking startRide(@RequestBody String customerId, @RequestParam String scooterId) {
-        return bookingService.startRide(customerId, scooterId);
+    public Booking startRide(@RequestBody StartRideRequest request) {
+        return bookingService.startRide(request.getCustomerId(), request.getScooterId());
     }
 
     @PostMapping("/booking/end")
-    public Booking endRide(@RequestBody String bookingId) {
+    public Booking endRide(@RequestParam("bookingId") String bookingId) {
         return bookingService.endRide(bookingId);
     }
 
     @GetMapping("/bookings/history")
-    public List<Booking> getHistory(@RequestParam String customerId) {
+    public List<Booking> getHistory(@RequestParam("customerId") String customerId) {
         return bookingService.getCustomerHistory(customerId);
     }
 }

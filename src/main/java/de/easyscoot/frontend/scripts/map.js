@@ -6,6 +6,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
+window.addEventListener('load', () => {
+    if (localStorage.getItem('bookingId')) {
+        showRideDashboard();
+    }
+});
+
 let activePanel = null;
 
 function togglePanel(name) {

@@ -169,3 +169,113 @@
     background: transparent;
     border: none;
 }
+
+.ride-dashboard {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(28, 26, 23, 0.97);
+    border: 0.5px solid #3a3830;
+    border-radius: 16px;
+    padding: 20px 28px;
+    z-index: 200;
+    text-align: center;
+    min-width: 220px;
+    backdrop-filter: blur(16px);
+    color: #f0ede8;
+}
+
+.ride-title {
+    font-size: 14px;
+    color: #a9a799;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.ride-timer {
+    font-size: 48px;
+    font-weight: 700;
+    color: #f0ede8;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+
+.ride-price {
+    font-size: 14px;
+    color: #a9a799;
+    margin-bottom: 16px;
+}
+
+.btn-end-ride {
+    background: #c0392b;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.15s;
+    width: 100%;
+}
+
+.btn-end-ride:hover {
+    background: #a93226;
+}
+
+.ride-summary {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(28, 26, 23, 0.97);
+    border: 0.5px solid #3a3830;
+    border-radius: 16px;
+    padding: 20px 28px;
+    z-index: 200;
+    min-width: 240px;
+    backdrop-filter: blur(16px);
+    color: #f0ede8;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.summary-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #00d26a;
+    margin-bottom: 14px;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #a9a799;
+    margin-bottom: 8px;
+    gap: 24px;
+}
+
+.summary-row span:last-child {
+    color: #f0ede8;
+    font-weight: 600;
+}
+
+.btn-summary-close {
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px;
+    background: rgba(169, 167, 153, 0.15);
+    border: 0.5px solid #3a3830;
+    border-radius: 8px;
+    color: #f0ede8;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-summary-close:hover {
+    background: rgba(169, 167, 153, 0.25);
+}
