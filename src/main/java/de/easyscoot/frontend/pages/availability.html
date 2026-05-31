@@ -6,6 +6,7 @@
     <title>Bitlana – Map Layout</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="../styles/marker.css" />
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -316,10 +317,8 @@
 </head>
 <body>
 
-<!-- Leaflet Karte -->
 <div id="map"></div>
 
-<!-- Linke Icon-Leiste -->
 <div class="left-bar">
     <span class="nav-logo">ES</span>
     <button class="nav-icon active" id="btn-home" title="Home" onclick="togglePanel('home')">
@@ -334,7 +333,6 @@
     </button>
 </div>
 
-<!-- Drauf drücken dann kommt fenster raus -->
 <div class="home-panel" id="home-panel">
     <p class="panel-title">Home</p>
 
@@ -356,13 +354,11 @@
 
 </div>
 
-<!-- Schwebende Suchleiste oben rechts -->
 <div class="search-float">
     <i class="ti ti-search"></i>
     <input type="text" placeholder="Suchen..." />
 </div>
 
-<!-- Location Popup -->
 <div class="location-popup" id="location-popup">
     <label>Ort eingeben</label>
     <input type="text" id="location-input" placeholder="z.B. Berlin, Hamburg, München..." />
@@ -372,7 +368,6 @@
     </button>
 </div>
 
-<!-- Location Button -->
 <button class="location-btn" id="location-btn" onclick="toggleLocationPopup()">
     <i class="ti ti-map-pin"></i>
     <span id="location-label">Hannover, Deutschland</span>
@@ -462,10 +457,36 @@
             error.style.display = 'block';
         }
     }
+
+    async function loadScooters() {
+        try {
+            const response = await fetch('http://localhost:8080/scooters/available');
+            const scooters = await response.json();
+
+            scooters.forEach(scooter => {
+
+                const customIcon = L.divIcon({
+                    className: 'clear-leaflet-bg',
+                    html: getMarkerHTML(),
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 30],
+                    popupAnchor: [0, -30]
+                });
+
+
+                const marker = L.marker([scooter.latitude, scooter.longitude], { icon: customIcon }).addTo(map);
+
+                marker.bindPopup(getPopupHTML(scooter));
+            });
+
+        } catch (error) {
+            console.error("Ошибка при загрузке самокатов из БД:", error);
+        }
+    }
+
+
+    loadScooters();
 </script>
+<script src="../scripts/marker.js"></script>
 </body>
 </html>
-
-<!--  <button class="menu-btn"><i class="ti ti-wallet"></i> Token-Wallet</button>
-    <button class="menu-btn"><i class="ti ti-message"></i> Chat</button>
-    <button class="menu-btn"><i class="ti ti-users"></i> Affiliate-Programm</button> -->

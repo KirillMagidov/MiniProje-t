@@ -3,10 +3,11 @@ package de.easyscoot.service;
 import de.easyscoot.model.Drivestatus;
 import de.easyscoot.model.EScooter;
 import de.easyscoot.repository.IScooterRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class EScooterService implements IFlottenmanagerService, ITelemetrieReceiver {
 
     private final IScooterRepository scooterRepository;

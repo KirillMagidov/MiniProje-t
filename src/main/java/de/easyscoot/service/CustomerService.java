@@ -56,7 +56,7 @@ public class CustomerService implements ICustomerService{
         // E-Scooter wieder verfügbar machen
 
         EScooter stopedEscooter = booking.getEScooter();
-        stopedEscooter.setAvailability(Availability.NOT_IN_USE);
+        stopedEscooter.setAvailability(Availability.NICHT_IN_BENUTZUNG);
         stopedEscooter.setDrivestatus(Drivestatus.STANDING);
 
         // buchung aus dem REpo löschen
@@ -68,8 +68,8 @@ public class CustomerService implements ICustomerService{
     public EScooter searchEScooter() {
         List<EScooter> escooters = scooterRepository.findAll();
         for (EScooter escooter : escooters) {                                // der Kunde wählt den E-Scooter
-            if(escooter.getAvailability() == Availability.NOT_IN_USE && escooter.getDrivestatus() == Drivestatus.STANDING && escooter.getStatus() == Maintenancestatus.NOT_IN_WARTUNG) {
-                escooter.setAvailability(Availability.IN_USE);
+            if(escooter.getAvailability() == Availability.NICHT_IN_BENUTZUNG && escooter.getDrivestatus() == Drivestatus.STANDING && escooter.getStatus() == Maintenancestatus.NOT_IN_WARTUNG) {
+                escooter.setAvailability(Availability.IN_BENUTZUNG);
                 escooter.setDrivestatus(Drivestatus.DRIVING);
                 return escooter;
             }

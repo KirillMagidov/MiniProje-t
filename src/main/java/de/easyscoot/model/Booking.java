@@ -1,5 +1,8 @@
 package de.easyscoot.model;
 
+import de.easyscoot.repository.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -14,6 +17,10 @@ public class Booking {
     private Time bookingDuration;
     private Customer customer;
     private EScooter escooter;
+
+    public Booking() {
+
+    }
 
     public Booking(String bookingID, LocalTime startingTime, LocalTime endingTime, LocalDate bookingDate, Double bookingPrice,
                    Time bookingDuration, Customer customer, EScooter escooter) {

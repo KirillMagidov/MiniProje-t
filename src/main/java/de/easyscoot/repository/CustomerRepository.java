@@ -1,4 +1,5 @@
 package de.easyscoot.repository;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -20,9 +21,10 @@ public class CustomerRepository implements ICustomerRepository {
 
     // Alle Kunden in der Datei laden
     public List<Customer> getAllCustomers() {
-        try (FileReader reader = new FileReader(filePath)){
+        try (FileReader reader = new FileReader(filePath)) {
 
-            Type listType = new TypeToken<List<Customer>>(){}.getType(); //ListenTyp für gson
+            Type listType = new TypeToken<List<Customer>>() {
+            }.getType(); //ListenTyp für gson
             List<Customer> customers = gson.fromJson(reader, listType);
 
             if (customers == null) { //wenn Liste leer und gson null gibt
@@ -42,7 +44,7 @@ public class CustomerRepository implements ICustomerRepository {
         List<Customer> customers = getAllCustomers();
         customers.add(customer);
 
-        try (FileWriter writer = new FileWriter(filePath)){
+        try (FileWriter writer = new FileWriter(filePath)) {
             gson.toJson(customers, writer); //schreibt customer in die Datei
         } catch (Exception e) {
             e.printStackTrace();
@@ -51,10 +53,10 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
 
-    public void removeCustomer (String customerId) {
+    public void removeCustomer(String customerId) {
         List<Customer> customers = getAllCustomers();
         customers.removeIf(c -> customerId.equals(c.getCustomerId()));
-        try (FileWriter writer = new FileWriter(filePath)){
+        try (FileWriter writer = new FileWriter(filePath)) {
             gson.toJson(customers, writer); //schreibt customer in die Datei
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,7 +65,7 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     //Kundendaten ändern
-    public void changeCustomerData (String customerId, Customer newCustomer) {
+    public void changeCustomerData(String customerId, Customer newCustomer) {
         removeCustomer(customerId);
         saveCustomer(newCustomer);
     }
@@ -90,6 +92,14 @@ public class CustomerRepository implements ICustomerRepository {
         }
         return null;
     }
-}
 
-//jdbc datenbank postres
+    public Customer getCustomerById(String customerId) {
+        List<Customer> customers = getAllCustomers();
+        for (Customer c : customers) {
+            if (c.getCustomerId().equals(customerId)) {
+                return c;
+            }
+        }
+        return null;
+    }
+}
