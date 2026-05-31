@@ -94,48 +94,7 @@
 
 </div>
 
-<script>
-    const slider       = document.getElementById('slider');
-    const panelLogin   = document.getElementById('panel-login');
-    const panelReg     = document.getElementById('panel-register');
-    const toReg        = document.getElementById('slider-to-register');
-    const toLogin      = document.getElementById('slider-to-login');
-    const btnShowReg   = document.getElementById('btn-show-register');
-    const btnShowLogin = document.getElementById('btn-show-login');
-
-
-    btnShowReg.addEventListener('click', () => {
-        slider.classList.add('slide-right');
-        panelLogin.classList.remove('move-left');
-        panelReg.classList.add('move-right');
-        toReg.style.display   = 'none';
-        toLogin.style.display = 'block';
-    });
-
-
-    btnShowLogin.addEventListener('click', () => {
-        slider.classList.remove('slide-right');
-        panelLogin.classList.add('move-left');
-        panelReg.classList.remove('move-right');
-        toReg.style.display   = 'block';
-        toLogin.style.display = 'none';
-    });
-
-
-    // Zurück zur Startseite
-    document.getElementById('btn-back-home').addEventListener('click', () => {
-        window.location.href = 'index.html';
-    });
-
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('mode') === 'register') {
-        btnShowReg.click();
-    } else {
-        panelLogin.classList.add('move-left');
-    }
-</script>
-
-<script src="../scripts/script.js"></script>
+<script src="../scripts/auth.js"></script>
 
 </body>
 </html>
