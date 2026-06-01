@@ -3,63 +3,61 @@ package de.easyscoot.service;
 import de.easyscoot.model.*;
 import de.easyscoot.repository.IScooterRepository;
 import de.easyscoot.repository.BookingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
+@Service
+public class CustomerService implements ICustomerService {
 
-public class CustomerService implements ICustomerService{
+    private final IScooterRepository scooterRepository;
+    private final BookingRepository bookingRepository;
 
-
-    private IScooterRepository scooterRepository;
-    private BookingRepository bookingRepository;
-
+    @Autowired
+    public CustomerService(IScooterRepository scooterRepository, BookingRepository bookingRepository) {
+        this.scooterRepository = scooterRepository;
+        this.bookingRepository = bookingRepository;
+    }
 
     @Override
     public void bookEScooter(Customer customer, EScooter chosenEScooter) {
         chosenEScooter = searchEScooter();
-        if  (chosenEScooter == null) {
-            throw new RuntimeException("Kein E-Scooter verfügbar");
-        }
-        // Ermittlung der fehlenden Daten für das Starten der Fahrt
+
         String bookingID = UUID.randomUUID().toString();
         LocalDate currentDate = LocalDate.now();
         LocalTime currentStartingTime = LocalTime.now();
-        // generieren einr neuen Buchung
+
         Booking booking = new Booking(
-               bookingID,
-               currentStartingTime,
-               null,
+                bookingID,
+                currentStartingTime,
+                null,
                 currentDate,
                 0.0,
-                null,
-                customer,
-                chosenEScooter);
+                customer.getCustomerId(),
+                chosenEScooter.getId()
+        );
+
         bookingRepository.saveBookingEntry(booking);
     }
-    // anbindung an das Frontend mit Übersicht vom Fahrtende, Kunde klickt auf Fahrt beenden
+
     @Override
     public void stopEScooter(Booking booking) {
-
         if (booking == null) {
             throw new RuntimeException("Keine Buchung vorhanden");
         }
 
-        // Berechung der letzten Fehlern werte für die Zusammenfeasende Übersicht
-
         LocalTime currentEndingTime = LocalTime.now();
-        Long currentBookingDuration = booking.getBookingDuration(booking.getStartingTime(), currentEndingTime);
-        Double currentBookingPrice = booking.getBookingPrice(currentBookingDuration);
+        booking.setEndingTime(currentEndingTime);
+        booking.setBookingPrice(booking.getBookingPrice());
 
-        // E-Scooter wieder verfügbar machen
-
-        EScooter stopedEscooter = booking.getEScooter();
-        stopedEscooter.setAvailability(Availability.NICHT_IN_BENUTZUNG);
-        stopedEscooter.setDrivestatus(Drivestatus.STANDING);
-
-        // buchung aus dem REpo löschen
+        EScooter stoppedScooter = scooterRepository.findById(booking.getScooterId());
+        stoppedScooter.setAvailability(Availability.NICHT_IN_BENUTZUNG);
+        stoppedScooter.setDrivestatus(Drivestatus.STANDING);
+        scooterRepository.save(stoppedScooter);
 
         bookingRepository.deleteBookingEntry(booking.getBookingID());
     }
@@ -67,13 +65,15 @@ public class CustomerService implements ICustomerService{
     @Override
     public EScooter searchEScooter() {
         List<EScooter> escooters = scooterRepository.findAll();
-        for (EScooter escooter : escooters) {                                // der Kunde wählt den E-Scooter
-            if(escooter.getAvailability() == Availability.NICHT_IN_BENUTZUNG && escooter.getDrivestatus() == Drivestatus.STANDING && escooter.getStatus() == Maintenancestatus.NOT_IN_WARTUNG) {
+        for (EScooter escooter : escooters) {
+            if (escooter.getAvailability() == Availability.NICHT_IN_BENUTZUNG
+                    && escooter.getDrivestatus() == Drivestatus.STANDING
+                    && escooter.getStatus() == Maintenancestatus.NOT_IN_WARTUNG) {
                 escooter.setAvailability(Availability.IN_BENUTZUNG);
                 escooter.setDrivestatus(Drivestatus.DRIVING);
                 return escooter;
             }
         }
-        throw new RuntimeException("No Scooter available");
+        throw new RuntimeException("Kein Scooter verfügbar");
     }
 }
