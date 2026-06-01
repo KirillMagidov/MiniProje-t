@@ -54,6 +54,22 @@ const profilbtn = document.getElementById("profilbtn");
         });
 }
 
+const logoutBtn = document.getElementById("logoutBtn");
+    if(logoutBtn) {
+        logoutBtn.addEventListener("click", function () {
+            sessionStorage.clear()
+            window.location.href = "index.html";
+        });
+    }
+
+const logoutBtn1 = document.getElementById("logoutBtn1");
+if(logoutBtn1) {
+    logoutBtn1.addEventListener("click", function () {
+        sessionStorage.clear()
+        window.location.href = "index.html";
+    });
+}
+
 async function goToLocation() {
     const input = document.getElementById('location-input').value.trim();
     const error = document.getElementById('location-error');
