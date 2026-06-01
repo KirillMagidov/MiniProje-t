@@ -77,13 +77,14 @@
     "password": "$2a$10$H1ew5Kq5PfAsW5N362.6leTuMFox5WKGDwPVcQzen7baxFAgLsNQm"
   },
   {
+    "customerId": "708588",
     "street": "Freundallee",
     "streetNumber": 15,
     "location": "Hannover",
     "plz": 30173,
-    "foreName": "Bao",
-    "name": "Bao",
+    "foreName": "bao",
+    "name": "BAO",
     "email": "furalles56@gmail.com",
-    "password": "$2a$10$xGljXx9UnsDQlPpBWKcWDOS/bbcXsJGHeNlW5AsTacE6J1.6Vrgce"
+    "password": "$2a$10$rPWLagVsiuZaYLVJsIiR5O/ruHWmIP9AjlnQX8oxehgDzklrT5ojW"
   }
 ]

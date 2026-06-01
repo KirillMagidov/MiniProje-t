@@ -178,3 +178,10 @@ function toggleEdit() {
         }
     });
 
+const logoutBtn2 = document.getElementById("logoutBtn2");
+if(logoutBtn2) {
+    logoutBtn2.addEventListener("click", function () {
+        sessionStorage.clear()
+        window.location.href = "index.html";
+    });
+}

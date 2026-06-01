@@ -54,7 +54,7 @@ public class CustomerRepositoryTest {
         ValidationService vService = new ValidationService();
         AccountService service = new AccountService(repo, vService);
         service.createAccount(c);
-        Customer newCustomer = new Customer ("Dave", "Mustermann", "Straße", 23, "Bremen", 2323, "Test@gmail.com", "ahhhhhhh123A2");
+        Customer newCustomer = new Customer ("Dave", "Mustermann", "Straße", 23, "Bremen", 2323, "furalles56@gmail.com", "ahhhhhhh123A2");
         repo.changeCustomerData (c.getCustomerId(), newCustomer);
     }
 
