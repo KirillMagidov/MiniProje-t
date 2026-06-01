@@ -9,6 +9,7 @@ public class Customer extends User {
     private Integer streetNumber;
     private String location;
     private Integer plz;
+    private Double credit;
 
     public Customer() {
 
@@ -43,6 +44,10 @@ public class Customer extends User {
         return plz;
     }
 
+    public Double getCredit() {
+        return credit;
+    }
+
 
     public void setStreet(String street) {
         this.street = street;
@@ -58,6 +63,10 @@ public class Customer extends User {
 
     public void setPlz(Integer plz) {
         this.plz = plz;
+    }
+
+    public void setCredit(Double credit) {
+        this.credit = credit;
     }
 
     public String getCustomerId() {
