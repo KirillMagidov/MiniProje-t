@@ -4,13 +4,12 @@ import de.easyscoot.model.Availability;
 import de.easyscoot.model.Booking;
 import de.easyscoot.model.Customer;
 import de.easyscoot.model.EScooter;
-import de.easyscoot.service.CustomerService;
 import de.easyscoot.repository.BookingRepository;
 import de.easyscoot.repository.CustomerRepository;
 import de.easyscoot.repository.ScooterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class BookingService {
     private final CustomerService customerService;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository, ScooterRepository scooterRepository, CustomerRepository customerRepository,  CustomerService customerService) {
+    public BookingService(BookingRepository bookingRepository, ScooterRepository scooterRepository, CustomerRepository customerRepository, CustomerService customerService) {
         this.bookingRepository = bookingRepository;
         this.scooterRepository = scooterRepository;
         this.customerRepository = customerRepository;
@@ -43,7 +42,8 @@ public class BookingService {
         if (customer == null) {
             throw new RuntimeException("Kunde nicht gefunden");
         }
-        //überprüfen ob genug Geld für die Fahrt hat
+
+        // Überprüfen, ob genug Geld für die Fahrt vorhanden ist
         customerService.enoughMoneyForARide(customer);
 
         scooter.setAvailability(Availability.IN_BENUTZUNG);
@@ -55,7 +55,6 @@ public class BookingService {
         newBooking.setScooterId(scooterID);
         newBooking.setStartingTime(LocalTime.now());
         newBooking.setBookingDate(LocalDate.now());
-
 
         bookingRepository.saveBookingEntry(newBooking);
         return newBooking;
@@ -70,19 +69,15 @@ public class BookingService {
         scooter.setAvailability(Availability.NICHT_IN_BENUTZUNG);
         scooterRepository.save(scooter);
 
-        // Alte Buchung löschen
         bookingRepository.deleteBookingEntry(bookingID);
-
-        // Abgeschlossene Buchung speichern
         booking.setEndingTime(LocalTime.now());
-        booking.setBookingPrice(booking.getBookingPrice());
+        long minutesDriven = Duration.between(booking.getStartingTime(), booking.getEndingTime()).toMinutes();
+        double finalPrice = 2.00 + (minutesDriven * 0.15);
+        booking.setBookingPrice(finalPrice);
 
-        //Abbuchung vom Guthaben des Kunden
-        customerService.debitMoney(customer, booking.getBookingPrice());
-        customerRepository.saveCustomer(customer);
+        customerService.debitMoney(customer, finalPrice);
 
         bookingRepository.saveBookingEntry(booking);
-
         return booking;
     }
 
@@ -96,5 +91,4 @@ public class BookingService {
         }
         return customerHistory;
     }
-
 }

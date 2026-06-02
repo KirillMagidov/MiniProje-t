@@ -6,6 +6,7 @@
     <title>Easy Scoot</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
     <link rel="stylesheet" href="../styles/marker.css"/>
     <link rel="stylesheet" href="../styles/availability.css"/>
 </head>
@@ -22,7 +23,7 @@
         <i class="ti ti-bell"></i>
     </button>
     <div class="nav-spacer"></div>
-    <button class="nav-icon logout" id = "logoutBtn" title="Logout">
+    <button class="nav-icon logout" id="logoutBtn" title="Logout">
         <i class="ti ti-logout"></i>
     </button>
 </div>
@@ -38,14 +39,13 @@
         </div>
     </div>
 
-    <button class="menu-btn active" id ="profilbtn"><i class="ti ti-user"></i> Profil</button>
+    <button class="menu-btn active" id="profilbtn"><i class="ti ti-user"></i> Profil</button>
     <button class="menu-btn"><i class="ti ti-settings"></i> Einstellungen</button>
 
     <div class="divider"></div>
     <div class="divider"></div>
 
     <button class="menu-btn danger" id="logoutBtn1"><i class="ti ti-logout"></i> Logout</button>
-
 </div>
 
 <div class="search-float">
@@ -66,7 +66,9 @@
     <i class="ti ti-map-pin"></i>
     <span id="location-label">Hannover, Deutschland</span>
 </button>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
 <script src="../scripts/marker.js"></script>
 <script src="../scripts/map.js"></script>
 </body>

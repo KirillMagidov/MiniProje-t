@@ -1,7 +1,5 @@
 package de.easyscoot.contoller;
 
-import de.easyscoot.model.Customer;
-import de.easyscoot.repository.CustomerRepository;
 import de.easyscoot.service.CustomerService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,22 +9,20 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     private final CustomerService customerService;
-    private final CustomerRepository customerRepository;
 
-    public CustomerController(CustomerService customerService, CustomerRepository customerRepository) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
-        this.customerRepository = customerRepository;
     }
+
     @PostMapping("/{customerId}/deposit")
     public ResponseEntity<?> depositMoney(
             @PathVariable String customerId,
-             @RequestParam Double deposit) {
-        Customer customer = customerRepository.getCustomerById(customerId);
-        if (customer == null) {
-            return ResponseEntity.badRequest().body("Kunde nicht gefunden");
+            @RequestParam Double deposit) {
+        try {
+            Double newBalance = customerService.depositMoneyById(customerId, deposit);
+            return ResponseEntity.ok("Neues Guthaben: " + newBalance);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        customerService.depositMoney(customer, deposit);
-        customerRepository.saveCustomer(customer);
-        return ResponseEntity.ok("Neues Guthaben: "+ customer.getCredit());
     }
 }

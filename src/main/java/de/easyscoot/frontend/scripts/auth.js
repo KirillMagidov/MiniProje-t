@@ -90,22 +90,18 @@ if (loginForm) {
             .then(response => {
                 if (response.ok) {
                     return response.text().then(customerId => {
-                        localStorage.setItem('customerId', customerId);
+                        sessionStorage.setItem('customerId', customerId);
                         window.location.href = "availability.html";
                     });
                 } else {
                     return response.text().then(msg => {
                         alert(msg);
-                        return Promise.reject();
+                        throw new Error(msg);
                     });
                 }
             })
-            .then (customerId => {
-                if (customerId) {
-                    sessionStorage.setItem('customerId', customerId);
-                    window.location.href = "availability.html";
-                }
-            })
-            .catch(error => alert("Verbindungsfehler: " + error));
+            .catch(error => {
+                console.error("Fehler beim Login:", error);
+            });
     });
 }
