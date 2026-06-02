@@ -88,7 +88,7 @@ body {
 
 }
 
-/*CSS für Settings Knopf*/
+
 
 .settings-btn {
     position: fixed;
@@ -107,6 +107,18 @@ body {
 
 
 }
+
+
+.filter-bar input::-webkit-outer-spin-button,
+.filter-bar input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.filter-bar input[type=number] {
+    -moz-appearance: textfield;
+}
+
 
 .settings-btn:hover {
     transform: rotate(90deg) scale(1.1);
@@ -209,8 +221,6 @@ body.availability-page #map {
     width: 100%;
 }
 
-/*Konto wurde erstellt zurück zur startseite noch machen
-*/
 
 .password-hint {
     font-size: 12px;

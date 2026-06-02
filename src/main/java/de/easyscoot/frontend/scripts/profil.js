@@ -84,7 +84,7 @@ if (saveBtn) {
                     return res.text().then(msg => alert(msg));
                 }
             })
-            .catch(() => alert('Verbindungsfehler.'));
+            .catch(() => alert("Fehler bie derm Ändern der Daten!"));
     })
 }
 
@@ -121,7 +121,7 @@ function confirmAuth() {
                             return res.text().then(msg => alert(msg));
                         }
                     })
-                    .catch(() => alert('Verbindungsfehler.'));
+                    .catch(() => alert("Fehler biem Löschen der Daten!"));
             }
         });
 }

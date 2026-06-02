@@ -3,10 +3,12 @@ package de.easyscoot.service;
 import de.easyscoot.model.EScooter;
 import de.easyscoot.model.Maintenancestatus;
 import de.easyscoot.repository.IScooterRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class MaintenanceService implements IServiceArbeiterService {
 
     private IScooterRepository scooterRepository;
