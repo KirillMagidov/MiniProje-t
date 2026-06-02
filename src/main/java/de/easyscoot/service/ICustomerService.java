@@ -6,10 +6,9 @@ import de.easyscoot.model.Customer;
 
 public interface ICustomerService {
 
-    EScooter searchEScooter();
+    void depositMoney(Customer customer, Double deposit);
 
-    void bookEScooter(Customer customer, EScooter escooter);
+    void debitMoney(Customer customer, Double debit);
 
-    void stopEScooter(Booking booking);
-//test
+    void enoughMoneyForARide(Customer customer);
 }
