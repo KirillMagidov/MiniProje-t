@@ -6,63 +6,26 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-let userMarker = null;
-
-function initUserLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const lat = position.coords.latitude;
-                const lon = position.coords.longitude;
-
-                window.currentUserLat = lat;
-                window.currentUserLon = lon;
-
-                map.setView([lat, lon], 15);
-
-                const userIconHTML = `
-                    <div class="user-location-marker">
-                        <div class="user-location-pulse"></div>
-                        <div class="user-location-dot"></div>
-                    </div>
-                `;
-
-                const userIcon = L.divIcon({
-                    className: 'clear-leaflet-bg',
-                    html: userIconHTML,
-                    iconSize: [20, 20],
-                    iconAnchor: [10, 10]
-                });
-
-                if (userMarker) {
-                    map.removeLayer(userMarker);
-                }
-                userMarker = L.marker([lat, lon], { icon: userIcon, zIndexOffset: 1000 }).addTo(map);
-            },
-            (error) => {
-                console.warn("Geolocation warning:", error.message);
-                map.setView([52.3759, 9.7320], 13);
-            },
-            {
-                enableHighAccuracy: false,
-                timeout: 10000,
-                maximumAge: 60000
-            }
-        );
-    }
-}
-
-initUserLocation();
-
 window.addEventListener('load', () => {
-    if (sessionStorage.getItem('bookingId')) {
+    if (localStorage.getItem('bookingId')) {
         showRideDashboard();
     }
 });
 
+
 let activePanel = null;
+
 function togglePanel(name) {
-    const panel = document.getElementById('home-panel');
+    let panel;
+
+    if (name === 'home') {
+        panel = document.getElementById('home-panel');
+    } else if (name === 'scooter') {
+        panel = document.getElementById('scooter-panel');
+    } else {
+        return;
+    }
+
     const btn = document.getElementById('btn-' + name);
     const allBtns = document.querySelectorAll('.nav-icon');
 
@@ -70,14 +33,19 @@ function togglePanel(name) {
         panel.classList.remove('open');
         btn.classList.remove('active');
         activePanel = null;
-    } else {
-        panel.classList.add('open');
-        allBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        activePanel = name;
+        return;
     }
 
-    setTimeout(() => map.invalidateSize(), 280);
+    document.getElementById('home-panel').classList.remove('open');
+    document.getElementById('scooter-panel').classList.remove('open');
+
+    allBtns.forEach(b => b.classList.remove('active'));
+
+    panel.classList.add('open');
+    btn.classList.add('active');
+
+    activePanel = name;
+
 }
 
 function toggleLocationPopup() {
@@ -168,28 +136,68 @@ async function loadScooters() {
             });
 
             const marker = L.marker([scooter.latitude, scooter.longitude], { icon: customIcon }).addTo(map);
-
-            marker.bindPopup(() => {
-                return getPopupHTML(scooter);
-            });
+            marker.bindPopup(getPopupHTML(scooter));
         });
 
     } catch (error) {
-        console.error("Error loading scooters:", error);
+        console.error("Fehler beim Laden der Scooter:", error);
     }
 }
 
-loadScooters();
 
-const locateBtn = document.createElement('button');
-locateBtn.className = 'locate-me-btn';
-locateBtn.innerHTML = `<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>`;
-document.body.appendChild(locateBtn);
+function openScooterPopup(id) {
+    document.getElementById("popup-overlay").classList.add("active");
+    document.getElementById("popup-overlay").dataset.scooterId = id;
 
-locateBtn.addEventListener('click', () => {
-    if (window.currentUserLat && window.currentUserLon) {
-        map.flyTo([window.currentUserLat, window.currentUserLon], 15, { duration: 1.5 });
-    } else {
-        initUserLocation();
+}
+
+
+
+
+//noch bearbeiten
+let allScooters = [];
+fetch('http://localhost:8080/scooterList', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+})
+    .then(response => response.json())
+    .then(data => {
+        allScooters = data;
+        renderScooterList(data);
+    })
+    .catch(() => alert("Fehler beim Anzeigen der Scooter"))
+
+function renderScooterList(scooters) {
+    const list = document.getElementById('scooter-list');
+    list.innerHTML = '';
+
+    if (scooters.length === 0) {
+        list.innerHTML = '<p style="color:#555;font-size:12px;text-align:center;margin-top:20px">Keine Scooter gefunden</p>';
+        return;
     }
-});
+
+    scooters.forEach(scooter => {
+        const batteryColor = scooter.ladezustand <= 50 ? '#f44336' : '#4caf50';
+        const statusText   = scooter.drivestatus === 'IN_BENUTZUNG' ? '🔴 In Benutzung' : '🟢 Verfügbar';
+        const card = document.createElement('div');
+        card.className = 'scooter-card';
+        card.innerHTML = `
+            <p class="scooter-title">${scooter.marke} ${scooter.modell}</p>
+            <p class="scooter-id">ID: ${scooter.id}</p>
+            <p class="scooter-battery" style="color:${batteryColor}">🔋 ${scooter.ladezustand}%</p>
+            <p class="scooter-maintenance">🔧 Wartung: ${scooter.status}</p>
+            <p class="scooter-maintenance">🛴 Fahrstatus: ${scooter.drivestatus}</p>
+            <p class="scooter-maintenance">📍  ${scooter.latitude}, ${scooter.longitude} </p>
+        `;
+        card.addEventListener("click", () => {
+            map.flyTo([scooter.latitude, scooter.longitude]), 25, {duration: 1.2};
+            openScooterPopup(scooter.id);
+        });
+        list.appendChild(card);
+    });
+}
+
+
+
+
+loadScooters();

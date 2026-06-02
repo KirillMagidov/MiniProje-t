@@ -6,9 +6,9 @@
     <title>Easy Scoot</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
     <link rel="stylesheet" href="../styles/marker.css"/>
     <link rel="stylesheet" href="../styles/availability.css"/>
+    <link rel="stylesheet" href="../styles/ServiceArbeiter.css"/>
 </head>
 <body>
 
@@ -19,8 +19,13 @@
     <button class="nav-icon active" id="btn-home" title="Home" onclick="togglePanel('home')">
         <i class="ti ti-home"></i>
     </button>
+
+    <button class="nav-icon" id="btn-scooter" title="Scooter anzeigen" onclick="togglePanel('scooter')">
+        <i class="ti ti-search"></i>
+    </button>
+
     <div class="nav-spacer"></div>
-    <button class="nav-icon logout" id="logoutBtn" title="Logout">
+    <button class="nav-icon logout" id = "logoutBtn" title="Logout">
         <i class="ti ti-logout"></i>
     </button>
 </div>
@@ -36,13 +41,52 @@
         </div>
     </div>
 
-    <button class="menu-btn active" id="profilbtn"><i class="ti ti-user"></i> Profil</button>
+    <button class="menu-btn active" id ="profilbtn"><i class="ti ti-user"></i> Profil</button>
     <button class="menu-btn"><i class="ti ti-settings"></i> Einstellungen</button>
 
     <div class="divider"></div>
     <div class="divider"></div>
 
     <button class="menu-btn danger" id="logoutBtn1"><i class="ti ti-logout"></i> Logout</button>
+
+</div>
+
+<div class="scooter-panel" id="scooter-panel">
+
+    <div class="panel-header">
+        <p class="panel-title">Scooter</p>
+
+        <button class="filter-btn" onclick="toggleFilter()">
+            <i class="ti ti-adjustments"></i>
+        </button>
+    </div>
+
+    <div class="filter-bar" id="filter-box">
+        <i class="ti ti-battery"></i>
+        <input type="range" id="battery-filter" min="0" max="100" value="50" />
+        <span id="battery-value">50%</span>
+        <button class="filter-go-btn" id="filterGoBtn">Filtern</button>
+    </div>
+
+    <div class="scooter-list" id="scooter-list">
+    </div>
+
+
+</div>
+
+<div class="popup-overlay" id="popup-overlay">
+    <div class="popup-box">
+
+        <p class="popup-title">Scooter Aktionen</p>
+
+        <button class="popup-btn" id="wartungBtn"> In Wartung setzen </button>
+        <button class="popup-btn popup-btn-green" id="wartungWegBtn"> Aus Wartung nehmen</button>
+
+        <button class="popup-close" onclick="closeScooterPopup()">
+            Schließen
+        </button>
+
+    </div>
 </div>
 
 <div class="search-float">
@@ -63,10 +107,8 @@
     <i class="ti ti-map-pin"></i>
     <span id="location-label">Hannover, Deutschland</span>
 </button>
-
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
 <script src="../scripts/marker.js"></script>
-<script src="../scripts/map.js"></script>
+<script src="../scripts/ServiceArbeiter.js"></script>
 </body>
 </html>
