@@ -1,5 +1,7 @@
 const customerId = sessionStorage.getItem('customerId');
 
+
+
 fetch(`http://localhost:8080/getCustomer?customerId=${customerId}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
