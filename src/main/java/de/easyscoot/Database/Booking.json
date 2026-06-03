@@ -16,5 +16,14 @@
     "bookingPrice": 1.0,
     "customerId": "237699",
     "scooterId": "01KSQ0MR1EQQQ8T1BCP4XQ27WQ"
+  },
+  {
+    "bookingID": "4bdf4124",
+    "startingTime": "10:05:25.258834",
+    "endingTime": "10:05:49.7429136",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 1.0,
+    "customerId": "502779",
+    "scooterId": "01KSQ0MR1EQQQ8T1BCP4XQ27WQ"
   }
 ]

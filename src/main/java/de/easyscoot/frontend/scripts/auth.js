@@ -90,7 +90,7 @@ if (loginForm) {
             .then(response => {
                 if (response.ok) {
                     return response.text().then(customerId => {
-                        localStorage.setItem('customerId', customerId);
+                        sessionStorage.setItem('customerId', customerId);
                         window.location.href = "availability.html";
                     });
                 } else {
