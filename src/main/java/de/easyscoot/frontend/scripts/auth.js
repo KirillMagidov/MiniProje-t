@@ -51,7 +51,7 @@ if (accountForm) {
         const repeatPassword = document.getElementById("RepeatPassword").value;
 
         if (password !== repeatPassword) {
-            alert("Passwörter stimmen nicht überein!");
+            showWarning("Passwörter stimmen nicht überein!");
             return;
         }
 
@@ -64,13 +64,13 @@ if (accountForm) {
         })
             .then(response => {
                 if (response.ok) {
-                    alert("Konto erfolgreich erstellt! Bitte melde dich an.");
+                    showSuccess("Konto erfolgreich erstellt! Bitte melde dich an.");
                     btnShowLogin.click();
                 } else {
-                    return response.text().then(msg => alert(msg));
+                    return response.text().then(msg => showError(msg));
                 }
             })
-            .catch(error => alert("Verbindungsfehler: " + error));
+            .catch(error => showError("Verbindungsfehler: " + error));
     });
 }
 
@@ -96,7 +96,7 @@ if (loginForm) {
                     });
                 } else {
                     return response.text().then(msg => {
-                        alert(msg);
+                        showError(msg);
                         throw new Error(msg);
                     });
                 }
