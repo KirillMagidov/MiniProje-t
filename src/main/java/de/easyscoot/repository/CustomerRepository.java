@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import de.easyscoot.model.Customer;
 import org.springframework.stereotype.Repository;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.lang.reflect.Type;

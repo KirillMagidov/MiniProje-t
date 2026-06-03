@@ -64,7 +64,8 @@ if (accountForm) {
         })
             .then(response => {
                 if (response.ok) {
-                    window.location.href = "index.html";
+                    alert("Konto erfolgreich erstellt! Bitte melde dich an.");
+                    btnShowLogin.click();
                 } else {
                     return response.text().then(msg => alert(msg));
                 }

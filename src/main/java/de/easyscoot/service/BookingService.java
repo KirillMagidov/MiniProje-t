@@ -34,6 +34,10 @@ public class BookingService {
     public Booking startRide(String customerId, String scooterID) {
         EScooter scooter = scooterRepository.findById(scooterID);
 
+        if (scooter == null) {
+            throw new RuntimeException("Scooter nicht gefunden");
+        }
+
         if (scooter.getAvailability() != Availability.NICHT_IN_BENUTZUNG) {
             throw new RuntimeException("Scooter ist schon gebucht oder nicht verfügbar");
         }
@@ -64,6 +68,10 @@ public class BookingService {
         Booking booking = bookingRepository.findBookingByID(bookingID);
         EScooter scooter = scooterRepository.findById(booking.getScooterId());
         Customer customer = customerRepository.getCustomerById(booking.getCustomerId());
+
+        if (customer == null) {
+            throw new RuntimeException("Kunde nicht gefunden");
+        }
 
         // Scooter freigeben
         scooter.setAvailability(Availability.NICHT_IN_BENUTZUNG);

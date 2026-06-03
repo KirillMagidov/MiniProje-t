@@ -6,18 +6,13 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-window.addEventListener('load', () => {
-    if (localStorage.getItem('bookingId')) {
-        showRideDashboard();
-    }
-});
-
-
 let activePanel = null;
+let allScooters = [];
+let mapMarkers = [];
+let filterActive = false;
 
 function togglePanel(name) {
     let panel;
-
     if (name === 'home') {
         panel = document.getElementById('home-panel');
     } else if (name === 'scooter') {
@@ -38,14 +33,13 @@ function togglePanel(name) {
 
     document.getElementById('home-panel').classList.remove('open');
     document.getElementById('scooter-panel').classList.remove('open');
-
     allBtns.forEach(b => b.classList.remove('active'));
 
     panel.classList.add('open');
     btn.classList.add('active');
-
     activePanel = name;
 
+    setTimeout(() => map.invalidateSize(), 280);
 }
 
 function toggleLocationPopup() {
@@ -68,6 +62,7 @@ document.addEventListener('click', function(e) {
     }
 });
 
+// Profil Button
 const profilbtn = document.getElementById("profilbtn");
 if (profilbtn) {
     profilbtn.addEventListener("click", function () {
@@ -76,17 +71,17 @@ if (profilbtn) {
 }
 
 const logoutBtn = document.getElementById("logoutBtn");
-if(logoutBtn) {
+if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
-        sessionStorage.clear()
+        sessionStorage.clear();
         window.location.href = "index.html";
     });
 }
 
 const logoutBtn1 = document.getElementById("logoutBtn1");
-if(logoutBtn1) {
+if (logoutBtn1) {
     logoutBtn1.addEventListener("click", function () {
-        sessionStorage.clear()
+        sessionStorage.clear();
         window.location.href = "index.html";
     });
 }
@@ -121,51 +116,46 @@ async function goToLocation() {
     }
 }
 
-async function loadScooters() {
-    try {
-        const response = await fetch('http://localhost:8080/scooters/available');
-        const scooters = await response.json();
+function clearMarkers() {
+    mapMarkers.forEach(m => map.removeLayer(m));
+    mapMarkers = [];
+}
 
-        scooters.forEach(scooter => {
-            const customIcon = L.divIcon({
-                className: 'clear-leaflet-bg',
-                html: getMarkerHTML(),
-                iconSize: [30, 30],
-                iconAnchor: [15, 30],
-                popupAnchor: [0, -30]
-            });
+// Marker HTML direkt eingefügt, falls marker.js nicht geladen ist
+function getFlottenmanagerMarkerHTML() {
+    return `
+        <div class="marker-wrapper">
+            <div class="pin"></div>
+            <div class="pulse"></div>
+        </div>
+    `;
+}
 
-            const marker = L.marker([scooter.latitude, scooter.longitude], { icon: customIcon }).addTo(map);
-            marker.bindPopup(getPopupHTML(scooter));
+function renderMarkers(scooters) {
+    clearMarkers();
+    scooters.forEach(scooter => {
+        const customIcon = L.divIcon({
+            className: 'clear-leaflet-bg',
+            html: getFlottenmanagerMarkerHTML(),
+            iconSize: [30, 30],
+            iconAnchor: [15, 30],
+            popupAnchor: [0, -30]
         });
-
-    } catch (error) {
-        console.error("Fehler beim Laden der Scooter:", error);
-    }
+        const marker = L.marker([scooter.latitude, scooter.longitude], { icon: customIcon }).addTo(map);
+        marker.bindPopup(`
+            <div class="scooter-popup">
+                <div class="scooter-header">
+                    <span>${scooter.marke} ${scooter.modell}</span>
+                    <span>🔋 ${scooter.ladezustand}%</span>
+                </div>
+                <div class="scooter-id">ID: ${scooter.id}</div>
+                <div class="scooter-id" style="margin-top: 8px;">🔧 ${scooter.status}</div>
+                <div class="scooter-id">🛴 ${scooter.availability || scooter.drivestatus}</div>
+            </div>
+        `);
+        mapMarkers.push(marker);
+    });
 }
-
-
-function openScooterPopup(id) {
-    document.getElementById("popup-overlay").classList.add("active");
-    document.getElementById("popup-overlay").dataset.scooterId = id;
-
-}
-
-
-
-
-//noch bearbeiten
-let allScooters = [];
-fetch('http://localhost:8080/scooterList', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
-})
-    .then(response => response.json())
-    .then(data => {
-        allScooters = data;
-        renderScooterList(data);
-    })
-    .catch(() => alert("Fehler beim Anzeigen der Scooter"))
 
 function renderScooterList(scooters) {
     const list = document.getElementById('scooter-list');
@@ -178,7 +168,6 @@ function renderScooterList(scooters) {
 
     scooters.forEach(scooter => {
         const batteryColor = scooter.ladezustand <= 50 ? '#f44336' : '#4caf50';
-        const statusText   = scooter.drivestatus === 'IN_BENUTZUNG' ? '🔴 In Benutzung' : '🟢 Verfügbar';
         const card = document.createElement('div');
         card.className = 'scooter-card';
         card.innerHTML = `
@@ -186,18 +175,40 @@ function renderScooterList(scooters) {
             <p class="scooter-id">ID: ${scooter.id}</p>
             <p class="scooter-battery" style="color:${batteryColor}">🔋 ${scooter.ladezustand}%</p>
             <p class="scooter-maintenance">🔧 Wartung: ${scooter.status}</p>
-            <p class="scooter-maintenance">🛴 Fahrstatus: ${scooter.drivestatus}</p>
-            <p class="scooter-maintenance">📍  ${scooter.latitude}, ${scooter.longitude} </p>
+            <p class="scooter-maintenance">🛴 Fahrstatus: ${scooter.availability || scooter.drivestatus}</p>
+            <p class="scooter-maintenance">📍 ${scooter.latitude}, ${scooter.longitude}</p>
         `;
         card.addEventListener("click", () => {
-            map.flyTo([scooter.latitude, scooter.longitude]), 25, {duration: 1.2};
-            openScooterPopup(scooter.id);
+            map.flyTo([scooter.latitude, scooter.longitude], 15, { duration: 1.2 });
         });
         list.appendChild(card);
     });
 }
 
+function toggleFilter() {
+    filterActive = !filterActive;
+    const btn = document.querySelector('.filter-btn');
 
+    if (filterActive) {
+        btn.style.color = '#c0392b';
+        const filtered = allScooters.filter(s => s.ladezustand <= 50);
+        renderScooterList(filtered);
+        renderMarkers(filtered);
+    } else {
+        btn.style.color = '';
+        renderScooterList(allScooters);
+        renderMarkers(allScooters);
+    }
+}
 
-
-loadScooters();
+fetch('http://localhost:8080/scooterList', {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+})
+    .then(response => response.json())
+    .then(data => {
+        allScooters = data;
+        renderScooterList(data);
+        renderMarkers(data);
+    })
+    .catch(() => alert("Fehler beim Anzeigen der Scooter"));
