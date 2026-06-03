@@ -83,7 +83,7 @@ function showRouteTo(scooterLat, scooterLon) {
     }
 
     if (!window.currentUserLat || !window.currentUserLon) {
-        alert("Standort nicht verfügbar.");
+        showWarning("Standort nicht verfügbar.");
         return;
     }
 
@@ -114,7 +114,7 @@ function clearRoute() {
 function startBooking(scooterId) {
     const customerId = sessionStorage.getItem('customerId');
     if (!customerId) {
-        alert("Bitte loggen Sie sich zuerst ein!");
+        showWarning("Bitte loggen Sie sich zuerst ein!");
         return;
     }
 
@@ -144,7 +144,7 @@ function startBooking(scooterId) {
             if (msg.includes('Guthaben')) {
                 showInsufficientFundsNotification(msg);
             } else {
-                alert("Fehler beim Buchen: " + msg);
+                showError("Fehler beim Buchen: " + msg);
             }
         });
 }
@@ -157,7 +157,8 @@ function showRideDashboard() {
     dashboard.id = 'ride-dashboard';
     dashboard.innerHTML = `
         <div class="ride-dashboard">
-            <div class="ride-title">🛴 Fahrt läuft</div>
+            <div class="ride-title">🛴 Fahrt läuft</div>          
+            <img src="../assets/fahrt.gif" alt="Fahrt Animation" class="ride-gif" />
             <div class="ride-timer" id="ride-timer">00:00</div>
             <div class="ride-price">Preis: <span id="ride-price">2.00 €</span></div>
             <button class="btn-end-ride" onclick="endRide()">Fahrt beenden</button>
@@ -198,7 +199,7 @@ function endRide() {
 
             showRideSummary(rideSeconds, booking.bookingPrice);
         })
-        .catch(err => alert("Fehler beim Beenden: " + err.message));
+        .catch(err => showError("Fehler beim Beenden: " + err.message));
 }
 
 function showRideSummary(seconds, finalPrice) {
@@ -271,7 +272,7 @@ function depositMoney(customerId) {
             closeFundsNotification();
             showToast('✅ 10 € wurden aufgeladen!');
         })
-        .catch(err => alert("Fehler: " + err.message));
+        .catch(err => showError("Fehler: " + err.message));
 }
 
 function closeFundsNotification() {

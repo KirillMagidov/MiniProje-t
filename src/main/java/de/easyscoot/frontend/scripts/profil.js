@@ -3,8 +3,6 @@ let editing = false;
 let pendingAction = null;
 let authCredentials = { email: '', password: '' };
 
-
-
 fetch(`http://localhost:8080/getCustomer?customerId=${customerId}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
@@ -28,7 +26,7 @@ fetch(`http://localhost:8080/getCustomer?customerId=${customerId}`, {
             nameEl.textContent = `${customer.foreName} ${customer.name}`;
         }
     })
-    .catch(() => alert('Kundendaten konnten nicht geladen werden.'));
+    .catch(() => showError('Kundendaten konnten nicht geladen werden.'));
 
 function openPopup(action) {
     pendingAction = action;
@@ -74,12 +72,12 @@ if (saveBtn) {
         const repeatPassword = document.getElementById("repeatPassword").value;
 
         if (newPassword && newPassword !== repeatPassword) {
-            alert('Passwörter stimmen nicht überein!');
+            showWarning('Passwörter stimmen nicht überein!');
             return;
         }
 
         if (newPassword && newPassword.length < 8) {
-            alert('Das Passwort muss mindestens 8 Zeichen lang sein.');
+            showWarning('Das Passwort muss mindestens 8 Zeichen lang sein.');
             return;
         }
 
@@ -96,13 +94,13 @@ if (saveBtn) {
                     const nameEl   = document.querySelector('.left-name');
                     if (avatarEl) avatarEl.textContent = foreName[0] + name[0];
                     if (nameEl)   nameEl.textContent   = `${foreName} ${name}`;
-                    alert('Änderungen gespeichert!');
+                    showSuccess('Änderungen gespeichert!');
                     toggleEdit();
                 } else {
-                    return res.text().then(msg => alert(msg));
+                    return res.text().then(msg => showError(msg));
                 }
             })
-            .catch(() => alert("Fehler beim Ändern der Daten!"));
+            .catch(() => showError("Fehler beim Ändern der Daten!"));
     });
 }
 
@@ -135,10 +133,10 @@ function confirmAuth() {
                             sessionStorage.clear();
                             window.location.href = 'index.html';
                         } else {
-                            return res.text().then(msg => alert(msg));
+                            return res.text().then(msg => showError(msg));
                         }
                     })
-                    .catch(() => alert("Fehler beim Löschen des Kontos!"));
+                    .catch(() => showError("Fehler beim Löschen des Kontos!"));
             }
         });
 }

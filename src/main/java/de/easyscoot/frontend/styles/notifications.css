@@ -1,0 +1,172 @@
+#app-notification {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    /* Анимация появления */
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+#app-notification.hide {
+    /* Анимация исчезновения */
+    animation: slideOutRight 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.custom-alert {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
+    border-radius: 8px;
+    min-width: 300px;
+    max-width: 400px;
+    background-color: rgba(10, 14, 25, 0.85); /* Темный фон под стать дизайну */
+    backdrop-filter: blur(10px);
+    font-family: 'Jost', sans-serif;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+
+/* Вертикальная полоска слева (как в оригинале) */
+.custom-alert::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15%;
+    height: 70%;
+    width: 3px;
+    border-radius: 0 4px 4px 0;
+}
+
+/* --- УСПЕХ (Зеленый неон) --- */
+.alert-success {
+    border: 1px solid rgba(36, 241, 6, 0.46);
+    background-color: rgba(7, 149, 66, 0.12);
+    box-shadow: 0px 0px 10px rgba(37, 156, 8, 0.3);
+}
+.alert-success:hover { background-color: rgba(7, 149, 66, 0.35); }
+.alert-success::before { background-color: #0ad406; }
+.alert-success .custom-alert-icon, .alert-success .custom-alert-title {
+    color: #0ad406;
+    text-shadow: 0 0 5px rgba(10, 212, 6, 0.6);
+}
+
+/* --- ОШИБКА (Красный неон) --- */
+.alert-error {
+    border: 1px solid rgba(241, 6, 6, 0.81);
+    background-color: rgba(220, 17, 1, 0.16);
+    box-shadow: 0px 0px 10px rgba(255, 3, 3, 0.4);
+}
+.alert-error:hover { background-color: rgba(220, 17, 1, 0.33); }
+.alert-error::before { background-color: #ff0303; }
+.alert-error .custom-alert-icon, .alert-error .custom-alert-title {
+    color: #ff0303;
+    text-shadow: 0 0 5px rgba(255, 3, 3, 0.6);
+}
+
+/* --- ПРЕДУПРЕЖДЕНИЕ (Оранжевый неон) --- */
+.alert-warning {
+    border: 1px solid rgba(241, 142, 6, 0.81);
+    background-color: rgba(220, 128, 1, 0.16);
+    box-shadow: 0px 0px 10px rgba(255, 177, 3, 0.3);
+}
+.alert-warning:hover { background-color: rgba(220, 128, 1, 0.33); }
+.alert-warning::before { background-color: #ffb103; }
+.alert-warning .custom-alert-icon, .alert-warning .custom-alert-title {
+    color: #ffb103;
+    text-shadow: 0 0 5px rgba(255, 177, 3, 0.6);
+}
+
+/* --- ИНФО (Голубой неон) --- */
+.alert-info {
+    border: 1px solid rgba(6, 44, 241, 0.46);
+    background-color: rgba(7, 73, 149, 0.12);
+    box-shadow: 0px 0px 10px rgba(3, 150, 255, 0.3);
+}
+.alert-info:hover { background-color: rgba(7, 73, 149, 0.35); }
+.alert-info::before { background-color: #0396ff; }
+.alert-info .custom-alert-icon, .alert-info .custom-alert-title {
+    color: #0396ff;
+    text-shadow: 0 0 5px rgba(3, 150, 255, 0.6);
+}
+
+/* Текст и расположение */
+.custom-alert-icon {
+    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-alert-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-alert-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.custom-alert-message {
+    font-size: 13px;
+    color: #e2e8f0;
+    line-height: 1.4;
+}
+
+.custom-alert-close {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.custom-alert-close:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* --- АНИМАЦИИ ВЫЕЗДА --- */
+@keyframes slideInRight {
+    from { opacity: 0; transform: translateX(100px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideOutRight {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100px); }
+}
+
+/* --- АНИМАЦИИ ИКОНОК --- */
+.alert-error .notification-icon-animated {
+    animation: pulse-icon 1.5s infinite;
+}
+.alert-warning .notification-icon-animated {
+    animation: flash-icon 2s infinite;
+}
+.alert-success .notification-icon-animated {
+    animation: bounce-icon 2s infinite;
+}
+
+@keyframes pulse-icon {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes flash-icon {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0.4; }
+}
+
+@keyframes bounce-icon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}

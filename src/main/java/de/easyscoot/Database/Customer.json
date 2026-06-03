@@ -34,5 +34,17 @@
     "name": "BAO",
     "email": "furalles56@gmail.com",
     "password": "$2a$10$rPWLagVsiuZaYLVJsIiR5O/ruHWmIP9AjlnQX8oxehgDzklrT5ojW"
+  },
+  {
+    "customerId": "344052",
+    "street": "Hagebuttenweg",
+    "streetNumber": 23,
+    "location": "Hannover",
+    "plz": 30657,
+    "credit": 3.5499999999999994,
+    "foreName": "Kirill",
+    "name": "Magidov",
+    "email": "magistx009@gmail.com",
+    "password": "$2a$10$WiIcEBIthQMkYdW7Xqasne4ED4ztxCKphKXe8bWAkbuJv8VxRDlv."
   }
 ]

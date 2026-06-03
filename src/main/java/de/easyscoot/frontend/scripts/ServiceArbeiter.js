@@ -7,11 +7,10 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
 window.addEventListener('load', () => {
-    if (localStorage.getItem('bookingId')) {
+    if (sessionStorage.getItem('bookingId')) {
         showRideDashboard();
     }
 });
-
 
 let activePanel = null;
 
@@ -45,7 +44,6 @@ function togglePanel(name) {
     btn.classList.add('active');
 
     activePanel = name;
-
 }
 
 function toggleLocationPopup() {
@@ -140,7 +138,7 @@ async function loadScooters() {
         });
 
     } catch (error) {
-        console.error("Fehler beim Laden der Scooter:", error);
+        showError("Fehler beim Laden der Scooter.");
     }
 }
 
@@ -163,13 +161,13 @@ function updateMaintenance(id, status) {
     })
         .then (res => {
             if (res.ok) {
-                alert(inWartung ? "Scooter in Wartung gesetzt." : "Scooter aus Wartung genommen.");
+                showSuccess(status === "IN_WARTUNG" ? "Scooter in Wartung gesetzt." : "Scooter aus Wartung genommen.");
                 closeScooterPopup();
             } else {
-                return res.text().then(msg => alert(msg));
+                return res.text().then(msg => showError(msg));
             }
         })
-        .catch (() => alert("Fehler beim in Wartung setzen"));
+        .catch (() => showError("Fehler beim in Wartung setzen"));
 }
 
 function closeScooterPopup() {
@@ -183,18 +181,22 @@ function toggleFilter() {
     }
 }
 
-//noch bearbeiten
 let allScooters = [];
-fetch('http://localhost:8080/scooterList', {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
-})
-    .then(response => response.json())
-    .then(data => {
-        allScooters = data;
-        renderScooterList(data);
+
+function loadScooterList() {
+    fetch('http://localhost:8080/scooterList', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' }
     })
-    .catch(() => alert("Fehler beim Anzeigen der Scooter"))
+        .then(response => response.json())
+        .then(data => {
+            allScooters = data;
+            renderScooterList(data);
+        })
+        .catch(() => showError("Fehler beim Anzeigen der Scooter"));
+}
+
+loadScooterList();
 
 function renderScooterList(scooters) {
     const list = document.getElementById('scooter-list');
@@ -207,7 +209,6 @@ function renderScooterList(scooters) {
 
     scooters.forEach(scooter => {
         const batteryColor = scooter.ladezustand <= 50 ? '#f44336' : '#4caf50';
-        const statusText   = scooter.drivestatus === 'IN_BENUTZUNG' ? '🔴 In Benutzung' : '🟢 Verfügbar';
         const card = document.createElement('div');
         card.className = 'scooter-card';
         card.innerHTML = `
@@ -222,7 +223,7 @@ function renderScooterList(scooters) {
             map.flyTo([scooter.latitude, scooter.longitude], 15, { duration: 1.2 });
             openScooterPopup(scooter.id);
         });
-      list.appendChild(card);
+        list.appendChild(card);
     });
 }
 
@@ -243,6 +244,32 @@ document.getElementById('filterGoBtn').addEventListener('click', function() {
         .then(data => {
             renderScooterList(data);
         })
-        .catch(() => alert('Fehler beim Filtern.'));
+        .catch(() => showError('Fehler beim Filtern.'));
 });
+
 loadScooters();
+
+async function loadCustomerProfile() {
+    const customerId = sessionStorage.getItem('customerId');
+    if (!customerId) return;
+
+    try {
+        const response = await fetch(`http://localhost:8080/getCustomer?customerId=${customerId}`);
+        if (!response.ok) return;
+        const customer = await response.json();
+
+        const nameEl   = document.querySelector('.profile-name');
+        const avatarEl = document.querySelector('.avatar');
+
+        if (nameEl && customer.foreName && customer.name) {
+            nameEl.textContent = `${customer.foreName} ${customer.name}`;
+        }
+        if (avatarEl && customer.foreName && customer.name) {
+            avatarEl.textContent = customer.foreName[0] + customer.name[0];
+        }
+    } catch (e) {
+        showError("Fehler beim Laden der Profildaten.");
+    }
+}
+
+loadCustomerProfile();
