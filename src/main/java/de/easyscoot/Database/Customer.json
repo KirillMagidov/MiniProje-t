@@ -1,65 +1,5 @@
 [
   {
-    "customerId": "217975",
-    "street": "Hagebuttenweg",
-    "streetNumber": 23,
-    "location": "Hannover",
-    "plz": 30657,
-    "credit": 10.0,
-    "foreName": "Kirill",
-    "name": "Magidov",
-    "email": "magi2003@icloud.com",
-    "password": "$2a$10$H2xUjTm8H1yoMEl81XhSI.dFNRJHj9DDy/fH/sjMHRkIp1iRG7ita"
-  },
-  {
-    "customerId": "551888",
-    "street": "Hagebuttenweg",
-    "streetNumber": 23,
-    "location": "Hannover",
-    "plz": 30657,
-    "credit": 10.0,
-    "foreName": "Kirill",
-    "name": "Magidov",
-    "email": "magi20032011@gmail.com",
-    "password": "$2a$10$TZjT/atWQFurmE2WKDNVJusZHeejPjHjRTIMDa1vIKHe2F7RhHJri"
-  },
-  {
-    "customerId": "858877",
-    "street": "Hagebuttenweg",
-    "streetNumber": 23,
-    "location": "Hannover",
-    "plz": 30657,
-    "credit": 11.85,
-    "foreName": "Kirill",
-    "name": "Magidov",
-    "email": "magistx009@gmail.com",
-    "password": "$2a$10$1JfXq0aZDhpdM2R96.huwO1z0LUTHVkKxcSO1PFHIFsz2b6RThsv6"
-  },
-  {
-    "customerId": "853017",
-    "street": "Hagebuttenweg",
-    "streetNumber": 23,
-    "location": "Hannover",
-    "plz": 30657,
-    "credit": 10.0,
-    "foreName": "Kirill",
-    "name": "Magidov",
-    "email": "magidovkirill29@gmail.com",
-    "password": "$2a$10$xo/a0FRzNxbSXAQJX9T2w.apafdYSw2nrPtcUW/CfBO3Opql2o8wW"
-  },
-  {
-    "customerId": "828195",
-    "street": "Hagebuttenweg",
-    "streetNumber": 23,
-    "location": "Hannover",
-    "plz": 30657,
-    "credit": 10.0,
-    "foreName": "Kirill",
-    "name": "Magidov",
-    "email": "magidovmihail@gmail.com",
-    "password": "$2a$10$zMhPKeV88i0fG7Z/DQ0d2OGspPrl.YKmfAgKfrNybXscwVR.MpCLu"
-  },
-  {
     "customerId": "408349",
     "street": "Schulenburger landstraße",
     "streetNumber": 100,
@@ -94,17 +34,5 @@
     "name": "BAO",
     "email": "furalles56@gmail.com",
     "password": "$2a$10$rPWLagVsiuZaYLVJsIiR5O/ruHWmIP9AjlnQX8oxehgDzklrT5ojW"
-  },
-  {
-    "customerId": "858877",
-    "street": "Hagebuttenweg",
-    "streetNumber": 23,
-    "location": "Hannover",
-    "plz": 30657,
-    "credit": 9.0,
-    "foreName": "Kirill",
-    "name": "Magidov",
-    "email": "magistx009@gmail.com",
-    "password": "$2a$10$1JfXq0aZDhpdM2R96.huwO1z0LUTHVkKxcSO1PFHIFsz2b6RThsv6"
   }
 ]

@@ -2,9 +2,11 @@ package de.easyscoot.service;
 
 import de.easyscoot.model.EScooter;
 import de.easyscoot.repository.IScooterRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FlottenmanagerService implements IFlottenmanagerService{
 
     private final IScooterRepository scooterRepository;
