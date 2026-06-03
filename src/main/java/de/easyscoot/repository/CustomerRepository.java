@@ -42,10 +42,22 @@ public class CustomerRepository implements ICustomerRepository {
     // neuen Kunden speichern
     public void saveCustomer(Customer customer) {
         List<Customer> customers = getAllCustomers();
-        customers.add(customer);
+
+        boolean found = false;
+        for (int i = 0; i < customers.size(); i++) {
+            if (customers.get(i).getCustomerId().equals(customer.getCustomerId())) {
+                customers.set(i, customer);
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            customers.add(customer);
+        }
 
         try (FileWriter writer = new FileWriter(filePath)) {
-            gson.toJson(customers, writer); //schreibt customer in die Datei
+            gson.toJson(customers, writer);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Fehler beim Speichern", e);

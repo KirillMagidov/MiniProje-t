@@ -36,9 +36,7 @@ public class Booking {
     public String getScooterId() { return scooterId; }
 
     public Double getBookingPrice() {
-        if (startingTime == null || endingTime == null) return 0.0;
-        long minutes = Duration.between(startingTime, endingTime).toMinutes();
-        return Math.max(minutes * 0.15, 1.00);
+        return bookingPrice;
     }
 
     public Long getBookingDuration() {
