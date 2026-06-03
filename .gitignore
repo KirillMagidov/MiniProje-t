@@ -26,7 +26,10 @@ target/
 hs_err_pid*
 replay_pid*
 
-#eclipse und papyrus
+# eclipse und papyrus
 .settings/
 .project
 .classpath
+
+# Secrets
+src/main/resources/application.properties

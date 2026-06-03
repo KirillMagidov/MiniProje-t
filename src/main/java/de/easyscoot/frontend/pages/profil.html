@@ -1,34 +1,32 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Profil</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap"
+          rel="stylesheet"/>
     <link rel="stylesheet" href="../styles/profil.css"/>
 </head>
 <body>
 <div class="card">
 
-    <!-- Linke Seite -->
     <div class="left">
         <div class="avatar-wrap">
-            <div class="avatar">MM</div>
+            <div class="avatar"></div>
             <div class="avatar-edit"><i class="ti ti-pencil"></i></div>
         </div>
-        <p class="left-name">MaxMustermann</p>
+        <p class="left-name"></p>
         <span class="badge">Premium</span>
 
         <div class="left-divider"></div>
 
         <button class="left-btn" id="editBtn" onclick="toggleEdit()">Änderung eingeben</button>
-        <button class="left-btn" onclick="window.history.back()">← Zurück zur Karte</button>
         <button class="left-btn danger" id="logoutBtn2">Logout</button>
         <button class="left-btn delete" onclick="confirmDelete()">Konto löschen</button>
     </div>
 
-    <!-- Rechte Seite -->
     <div class="right">
         <a class="back-link" onclick="window.history.back()">
             <i class="ti ti-arrow-left"></i> Zurück
@@ -42,25 +40,26 @@
                 <div class="two-col">
                     <div class="field">
                         <label>Vorname</label>
-                        <input type="text" id="foreName" value="Max" readonly />
+                        <input type="text" id="foreName" value="" readonly/>
                     </div>
                     <div class="field">
                         <label>Name</label>
-                        <input type="text" id="name" value="Mustermann" readonly />
+                        <input type="text" id="name" value="" readonly/>
                     </div>
                 </div>
                 <div class="field">
                     <label>E-Mail</label>
-                    <input type="email" id="email" value="max@mustermann.com" readonly />
+                    <input type="email" id="email" value="" readonly/>
                 </div>
                 <div class="field">
                     <label>Passwort</label>
-                    <input type="password" id="password" placeholder="Neues Passwort" readonly />
+                    <input type="password" id="password" placeholder="Neues Passwort" readonly/>
                 </div>
 
-                <div class="field" id="repeatPasswordField" style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; opacity: 0;">
+                <div class="field" id="repeatPasswordField"
+                     style="max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.4s ease; opacity: 0;">
                     <label>Passwort wiederholen</label>
-                    <input type="password" id="repeatPassword" placeholder="••••••••" readonly />
+                    <input type="password" id="repeatPassword" placeholder="••••••••" readonly/>
                 </div>
             </div>
         </div>
@@ -71,21 +70,21 @@
                 <div class="two-col">
                     <div class="field">
                         <label>Straße</label>
-                        <input type="text" id="street" value="Musterstraße" readonly />
+                        <input type="text" id="street" value="" readonly/>
                     </div>
                     <div class="field">
                         <label>Hausnummer</label>
-                        <input type="text" id="streetNumber" value="12" readonly />
+                        <input type="text" id="streetNumber" value="" readonly/>
                     </div>
                 </div>
                 <div class="two-col">
                     <div class="field">
                         <label>Postleitzahl</label>
-                        <input type="text" id="plz" value="30159" readonly />
+                        <input type="text" id="plz" value="" readonly/>
                     </div>
                     <div class="field">
                         <label>Ort</label>
-                        <input type="text" id="location" value="Hannover" readonly />
+                        <input type="text" id="location" value="" readonly/>
                     </div>
                 </div>
             </div>
@@ -96,18 +95,17 @@
 
 </div>
 
-<!-- Auth Popup -->
 <div class="popup-overlay" id="popupOverlay" onclick="closePopup()">
     <div class="popup" onclick="event.stopPropagation()">
         <p class="popup-title" id="popupTitle">Identität bestätigen</p>
         <p class="popup-sub" id="popupSub">Bitte gib deine Zugangsdaten ein um fortzufahren.</p>
         <div class="field">
             <label>E-Mail</label>
-            <input type="email" id="authEmail" placeholder="deine@email.com" />
+            <input type="email" id="authEmail" placeholder="deine@email.com"/>
         </div>
         <div class="field">
             <label>Passwort</label>
-            <input type="password" id="authPassword" placeholder="••••••••" />
+            <input type="password" id="authPassword" placeholder="••••••••"/>
         </div>
         <p class="popup-error" id="popupError">E-Mail oder Passwort falsch.</p>
         <div class="popup-btns">

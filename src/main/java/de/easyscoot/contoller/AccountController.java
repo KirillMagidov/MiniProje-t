@@ -47,25 +47,30 @@ public class AccountController {
     }
 
     @GetMapping("/getCustomer")
-    public ResponseEntity<Customer> getCustomer(@RequestParam String customerId) {
-            try {
-                Customer customer = service.getCustomer(customerId);
-                if (customer == null) {
-                    return ResponseEntity.notFound().build();
-                }
-                return ResponseEntity.ok(customer);
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().build();
+    public ResponseEntity<Customer> getCustomer(@RequestParam("customerId") String customerId) {
+        try {
+            Customer customer = service.getCustomer(customerId);
+            if (customer == null) {
+                return ResponseEntity.notFound().build();
             }
+            return ResponseEntity.ok(customer);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
+
     @PutMapping("/updateAccount")
-    public ResponseEntity<Customer> changeCustomerData (@RequestParam String email,@RequestParam String password,@RequestParam String customerId, @RequestBody Customer newCustomer) {
-            try {
-                service.changeCustomerData(email, password, customerId, newCustomer);
-                return ResponseEntity.ok(newCustomer);
-            } catch (Exception e) {
-                return ResponseEntity.badRequest().build();
-            }
+    public ResponseEntity<Customer> changeCustomerData(
+            @RequestParam("email") String email,
+            @RequestParam("password") String password,
+            @RequestParam("customerId") String customerId,
+            @RequestBody Customer newCustomer) {
+        try {
+            service.changeCustomerData(email, password, customerId, newCustomer);
+            return ResponseEntity.ok(newCustomer);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/deleteAccount")

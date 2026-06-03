@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class BookingRepository implements IBookingRepository{
+public class BookingRepository implements IBookingRepository {
 
     private final String filePath = "src/main/java/de/easyscoot/Database/Booking.json";
     private final Gson gson = new GsonBuilder()
@@ -36,6 +36,7 @@ public class BookingRepository implements IBookingRepository{
                     (JsonDeserializer<LocalDate>) (json, type, ctx) ->
                             LocalDate.parse(json.getAsString(), DateTimeFormatter.ISO_LOCAL_DATE))
             .create();
+
     // trägt eine Buchung eines E-Scooters ein
     @Override
     public void saveBookingEntry(Booking booking) {
@@ -45,15 +46,13 @@ public class BookingRepository implements IBookingRepository{
         try (FileWriter writer = new FileWriter(filePath)) {
             gson.toJson(bookings, writer); //schreibt Buchung in die Datei
         } catch (Exception e) {
-            e.printStackTrace(); //Falls fehler auftritt wird es angezeigt
+            throw new RuntimeException("Fehler beim Speichern der Buchung", e);
         }
     }
 
     // löscht eine Buchung nach Beenden der Fahrt
     @Override
     public void deleteBookingEntry(String bookingID) {
-        String filePath = "src/main/java/de/easyscoot/Database/Booking.json";
-
         try {
             // Prüfe ob Buchung existiert
             Booking bookingToDelete = findBookingByID(bookingID);

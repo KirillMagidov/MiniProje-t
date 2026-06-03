@@ -80,8 +80,13 @@ public class AccountService implements IAccountService {
     //Daten ändern
     public void changeCustomerData(String email, String password, String customerId, Customer newCustomer) {
         this.logIn(email, password);
-        repo.removeCustomer(customerId);
-        this.createAccount(newCustomer);
+        if (!validation.isValidPassword(newCustomer.getPassword())) {
+            throw new RuntimeException("Invalid Password");
+        }
+        Customer existing = repo.getCustomerById(customerId);
+        newCustomer.setCustomerId(customerId);
+        newCustomer.setPassword(passwordEncoder.encode(newCustomer.getPassword()));
+        repo.saveCustomer(newCustomer);
     }
 
     public Customer getCustomer (String customerId) {

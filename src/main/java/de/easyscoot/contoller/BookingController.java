@@ -41,7 +41,11 @@ public class BookingController {
     }
 
     @GetMapping("/bookings/history")
-    public List<Booking> getHistory(@RequestParam("customerId") String customerId) {
-        return bookingService.getCustomerHistory(customerId);
+    public ResponseEntity<?> getHistory(@RequestParam("customerId") String customerId) {
+        try {
+            return ResponseEntity.ok(bookingService.getCustomerHistory(customerId));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }

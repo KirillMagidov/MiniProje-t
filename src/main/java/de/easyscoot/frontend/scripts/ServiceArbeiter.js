@@ -219,7 +219,7 @@ function renderScooterList(scooters) {
             <p class="scooter-maintenance">📍  ${scooter.latitude}, ${scooter.longitude} </p>
         `;
         card.addEventListener("click", () => {
-            map.flyTo([scooter.latitude, scooter.longitude]), 25, {duration: 1.2};
+            map.flyTo([scooter.latitude, scooter.longitude], 15, { duration: 1.2 });
             openScooterPopup(scooter.id);
         });
       list.appendChild(card);
