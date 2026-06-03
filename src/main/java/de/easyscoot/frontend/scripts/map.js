@@ -1,10 +1,10 @@
-const map = L.map('map', { zoomControl: false }).setView([52.3759, 9.7320], 13);
+const map = L.map('map', {zoomControl: false}).setView([52.3759, 9.7320], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-L.control.zoom({ position: 'bottomright' }).addTo(map);
+L.control.zoom({position: 'bottomright'}).addTo(map);
 
 let userMarker = null;
 
@@ -37,10 +37,10 @@ function initUserLocation() {
                 if (userMarker) {
                     map.removeLayer(userMarker);
                 }
-                userMarker = L.marker([lat, lon], { icon: userIcon, zIndexOffset: 1000 }).addTo(map);
+                userMarker = L.marker([lat, lon], {icon: userIcon, zIndexOffset: 1000}).addTo(map);
             },
             (error) => {
-                console.warn("Geolocation warning:", error.message);
+                showWarning("Standort konnte nicht ermittelt werden.");
                 map.setView([52.3759, 9.7320], 13);
             },
             {
@@ -88,11 +88,11 @@ function toggleLocationPopup() {
     }
 }
 
-document.getElementById('location-input').addEventListener('keydown', function(e) {
+document.getElementById('location-input').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') goToLocation();
 });
 
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     const popup = document.getElementById('location-popup');
     const btn = document.getElementById('location-btn');
     if (!popup.contains(e.target) && !btn.contains(e.target)) {
@@ -108,7 +108,7 @@ if (profilbtn) {
 }
 
 const logoutBtn = document.getElementById("logoutBtn");
-if(logoutBtn) {
+if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
         sessionStorage.clear()
         window.location.href = "index.html";
@@ -116,7 +116,7 @@ if(logoutBtn) {
 }
 
 const logoutBtn1 = document.getElementById("logoutBtn1");
-if(logoutBtn1) {
+if (logoutBtn1) {
     logoutBtn1.addEventListener("click", function () {
         sessionStorage.clear()
         window.location.href = "index.html";
@@ -140,8 +140,8 @@ async function goToLocation() {
             return;
         }
 
-        const { lat, lon, display_name } = data[0];
-        map.flyTo([parseFloat(lat), parseFloat(lon)], 13, { duration: 1.2 });
+        const {lat, lon, display_name} = data[0];
+        map.flyTo([parseFloat(lat), parseFloat(lon)], 13, {duration: 1.2});
 
         const shortName = display_name.split(',').slice(0, 2).join(',').trim();
         label.textContent = shortName;
@@ -167,7 +167,7 @@ async function loadScooters() {
                 popupAnchor: [0, -30]
             });
 
-            const marker = L.marker([scooter.latitude, scooter.longitude], { icon: customIcon }).addTo(map);
+            const marker = L.marker([scooter.latitude, scooter.longitude], {icon: customIcon}).addTo(map);
 
             marker.bindPopup(() => {
                 return getPopupHTML(scooter);
@@ -175,7 +175,7 @@ async function loadScooters() {
         });
 
     } catch (error) {
-        console.error("Error loading scooters:", error);
+        showError("Fehler beim Laden der Scooter. Bitte lade die Seite neu.");
     }
 }
 
@@ -188,7 +188,7 @@ document.body.appendChild(locateBtn);
 
 locateBtn.addEventListener('click', () => {
     if (window.currentUserLat && window.currentUserLon) {
-        map.flyTo([window.currentUserLat, window.currentUserLon], 15, { duration: 1.5 });
+        map.flyTo([window.currentUserLat, window.currentUserLon], 15, {duration: 1.5});
     } else {
         initUserLocation();
     }
@@ -203,7 +203,7 @@ async function loadCustomerProfile() {
         if (!response.ok) return;
         const customer = await response.json();
 
-        const nameEl   = document.querySelector('.profile-name');
+        const nameEl = document.querySelector('.profile-name');
         const avatarEl = document.querySelector('.avatar');
 
         if (nameEl && customer.foreName && customer.name) {
@@ -213,7 +213,7 @@ async function loadCustomerProfile() {
             avatarEl.textContent = customer.foreName[0] + customer.name[0];
         }
     } catch (e) {
-        console.error("Fehler beim Laden des Profils:", e);
+        showError("Fehler beim Laden der Profildaten.");
     }
 }
 

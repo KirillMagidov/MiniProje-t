@@ -223,5 +223,77 @@
     "bookingPrice": 2.0,
     "customerId": "694296",
     "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
+  },
+  {
+    "bookingID": "06fea273",
+    "startingTime": "22:53:39.4268203",
+    "endingTime": "22:53:40.7973516",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 2.0,
+    "customerId": "344052",
+    "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
+  },
+  {
+    "bookingID": "f26172bf",
+    "startingTime": "22:53:42.6488891",
+    "endingTime": "22:53:43.3229707",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 2.0,
+    "customerId": "344052",
+    "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
+  },
+  {
+    "bookingID": "7e13d043",
+    "startingTime": "22:53:44.0167198",
+    "endingTime": "22:53:44.8664976",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 2.0,
+    "customerId": "344052",
+    "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
+  },
+  {
+    "bookingID": "1e625d81",
+    "startingTime": "23:19:38.8091559",
+    "endingTime": "23:19:52.4021962",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 2.0,
+    "customerId": "344052",
+    "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
+  },
+  {
+    "bookingID": "eca7a6b4",
+    "startingTime": "23:21:32.4092281",
+    "endingTime": "23:23:43.2924082",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 2.3,
+    "customerId": "344052",
+    "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
+  },
+  {
+    "bookingID": "637adba0",
+    "startingTime": "23:23:48.6564657",
+    "endingTime": "23:23:49.8486937",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 2.0,
+    "customerId": "344052",
+    "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
+  },
+  {
+    "bookingID": "0264b3d0",
+    "startingTime": "23:23:57.4391425",
+    "endingTime": "23:23:59.7532237",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 2.0,
+    "customerId": "344052",
+    "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
+  },
+  {
+    "bookingID": "a561971f",
+    "startingTime": "23:24:22.7099097",
+    "endingTime": "23:25:58.4048535",
+    "bookingDate": "2026-06-03",
+    "bookingPrice": 2.15,
+    "customerId": "344052",
+    "scooterId": "01KSQ0MQYFGGG58ZF0868G0QRM"
   }
 ]

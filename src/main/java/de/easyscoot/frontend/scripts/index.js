@@ -10,7 +10,7 @@ window.onload = function () {
     const settings = document.getElementById("settings");
     if (settings) {
         settings.addEventListener("click", function () {
-            alert("Einstellungen geöffnet!");
+            showInfo("Einstellungen geöffnet!");
         });
     }
 

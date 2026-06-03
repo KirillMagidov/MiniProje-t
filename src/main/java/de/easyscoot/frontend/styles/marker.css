@@ -467,3 +467,11 @@
     backdrop-filter: blur(8px);
     transition: opacity 0.3s;
 }
+
+.ride-gif {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 15px auto 5px auto;
+    border-radius: 12px;
+}
