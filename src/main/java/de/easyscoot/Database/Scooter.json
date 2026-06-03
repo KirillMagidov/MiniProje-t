@@ -1123,5 +1123,27 @@
     "latitude": 52.3835,
     "longitude": 9.738,
     "availability": "NICHT_IN_BENUTZUNG"
+  },
+  {
+    "ladezustand": 76.2,
+    "id": "01KSQ0MR1EQQQ8T1BCP4XQ27WQ",
+    "marke": "Niu",
+    "modell": "KQi3 Pro",
+    "batteriekapazitaet": 13395.0,
+    "verbrauchskoeffizient": 21.8,
+    "latitude": 52.3835,
+    "longitude": 9.738,
+    "availability": "IN_BENUTZUNG"
+  },
+  {
+    "ladezustand": 76.2,
+    "id": "01KSQ0MR1EQQQ8T1BCP4XQ27WQ",
+    "marke": "Niu",
+    "modell": "KQi3 Pro",
+    "batteriekapazitaet": 13395.0,
+    "verbrauchskoeffizient": 21.8,
+    "latitude": 52.3835,
+    "longitude": 9.738,
+    "availability": "NICHT_IN_BENUTZUNG"
   }
 ]

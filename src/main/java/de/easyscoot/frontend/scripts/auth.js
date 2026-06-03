@@ -92,7 +92,13 @@ if (loginForm) {
                 if (response.ok) {
                     return response.text().then(customerId => {
                         sessionStorage.setItem('customerId', customerId);
-                        window.location.href = "availability.html";
+                        if (email === "furalles56@gmail.com") {
+                            window.location.href = "availabilityServiceArbeiter.html";
+                        } else if (email === "radchenkoviktoria67@gmail.com") {
+                            window.location.href = "availabilityFlottenManager.html"
+                        } else {
+                            window.location.href = "availability.html";
+                        }
                     });
                 } else {
                     return response.text().then(msg => {
