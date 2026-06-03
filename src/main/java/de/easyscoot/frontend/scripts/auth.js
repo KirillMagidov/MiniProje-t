@@ -96,16 +96,12 @@ if (loginForm) {
                 } else {
                     return response.text().then(msg => {
                         alert(msg);
-                        return Promise.reject();
+                        throw new Error(msg);
                     });
                 }
             })
-            .then (customerId => {
-                if (customerId) {
-                    sessionStorage.setItem('customerId', customerId);
-                    window.location.href = "availability.html";
-                }
-            })
-            .catch(error => alert("Verbindungsfehler: " + error));
+            .catch(error => {
+                console.error("Fehler beim Login:", error);
+            });
     });
 }

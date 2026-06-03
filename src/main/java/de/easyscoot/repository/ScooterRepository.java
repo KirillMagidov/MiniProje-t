@@ -28,7 +28,7 @@ public class ScooterRepository implements IScooterRepository {
             List<EScooter> scooters = gson.fromJson(reader, listType);
 
             // Return scooter oder leere list
-            return scooters != null ? scooters : new ArrayList<>(); //return scooter oder leere list
+            return scooters != null ? scooters : new ArrayList<>();
 
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Lesen der Datei: " + filePath, e);
@@ -41,7 +41,7 @@ public class ScooterRepository implements IScooterRepository {
         // Alle Scooter laden
         List<EScooter> scooters = findAll();
 
-        //Scooter in Liste suchen
+        // Scooter in Liste suchen
         for (EScooter scooter : scooters) {
             if (scooter.getId().equals(id)) {
                 return scooter;
@@ -63,11 +63,23 @@ public class ScooterRepository implements IScooterRepository {
         try {
             // Alle Scooter laden
             List<EScooter> scooters = findAll();
+            boolean isUpdated = false;
 
-            // Scooter hinzufügen
-            scooters.add(scooterToAdd);
+            // Ueberpruefen, ob der Scooter bereits existiert (Update)
+            for (int i = 0; i < scooters.size(); i++) {
+                if (scooters.get(i).getId().equals(scooterToAdd.getId())) {
+                    scooters.set(i, scooterToAdd); // Alten Scooter durch den neuen ersetzen
+                    isUpdated = true;
+                    break;
+                }
+            }
 
-            // Liste zurückschreiben
+            // Wenn er nicht existiert, neu hinzufuegen (Insert)
+            if (!isUpdated) {
+                scooters.add(scooterToAdd);
+            }
+
+            // Liste zurueckschreiben
             try (FileWriter writer = new FileWriter(filePath)) {
                 gson.toJson(scooters, writer);
             }
@@ -87,22 +99,21 @@ public class ScooterRepository implements IScooterRepository {
         try {
             List<EScooter> scooters = findAll();
 
-            // Löscht Scooter
+            // Loescht Scooter
             boolean removed = scooters.removeIf(s -> s.getId().equals(id));
 
-            // Fals kein Scooter gefunden
+            // Falls kein Scooter gefunden
             if (!removed) {
                 throw new RuntimeException("Kein Scooter mit der ID " + id + " gefunden");
             }
 
-            // Liste zurückschreiben
+            // Liste zurueckschreiben
             try (FileWriter writer = new FileWriter(filePath)) {
                 gson.toJson(scooters, writer);
             }
 
         } catch (Exception e) {
-            throw new RuntimeException("Fehler beim Löschen des Scooters mit ID: " + id, e);
+            throw new RuntimeException("Fehler beim Loeschen des Scooters mit ID: " + id, e);
         }
     }
-
 }

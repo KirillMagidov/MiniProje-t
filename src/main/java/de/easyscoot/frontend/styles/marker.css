@@ -1,5 +1,5 @@
 /* =========================================
-   1. СТИЛИ ДЛЯ МАРКЕРА (ТОЧКИ НА КАРТЕ)
+   1. MARKER STYLES
    ========================================= */
 .marker-wrapper {
     position: relative;
@@ -32,7 +32,6 @@
     border-radius: 50%;
 }
 
-/* Цвет при клике (выделенный самокат) */
 .pin.selected {
     background: #00d26a;
 }
@@ -68,7 +67,7 @@
 }
 
 /* =========================================
-   2. СТИЛИ ДЛЯ ВСПЛЫВАЮЩЕГО ОКНА (ПО ЭСКИЗУ)
+   2. POPUP STYLES
    ========================================= */
 .scooter-popup {
     background: white;
@@ -108,7 +107,6 @@
     gap: 10px;
 }
 
-/* Кнопки */
 .btn-abbrechen, .btn-buchen {
     flex: 1;
     padding: 10px 0;
@@ -125,7 +123,7 @@
 }
 
 .btn-buchen {
-    background: #00d26a; /* Зеленый в цвет маркера */
+    background: #00d26a;
     color: white;
 }
 
@@ -133,7 +131,7 @@
     opacity: 0.8;
 }
 
-/* Анимации */
+/* Animations */
 @keyframes pulsate {
     0% {
         transform: scale(0.1, 0.1);
@@ -278,4 +276,194 @@
 
 .btn-summary-close:hover {
     background: rgba(169, 167, 153, 0.25);
+}
+
+.user-location-marker {
+    position: relative;
+    width: 20px;
+    height: 20px;
+}
+
+.user-location-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #007aff;
+    border: 3px solid white;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+.user-location-pulse {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 122, 255, 0.4);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: userPulse 2s infinite ease-out;
+    z-index: 1;
+}
+
+@keyframes userPulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+.locate-me-btn {
+    position: absolute;
+    bottom: 110px;
+    right: 20px;
+    z-index: 1000;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #007aff;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.locate-me-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.scooter-distance {
+    display: flex;
+    justify-content: space-between;
+    background: #f4f6f8;
+    padding: 8px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 12px;
+    font-weight: bold;
+}
+
+.btn-route {
+    width: 100%;
+    padding: 7px 0;
+    margin-bottom: 10px;
+    background: #f0f4ff;
+    border: 1.5px solid #007aff;
+    border-radius: 6px;
+    color: #007aff;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-route:hover {
+    background: #dceeff;
+}
+
+.funds-notification {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(28, 26, 23, 0.97);
+    border: 0.5px solid #c0392b;
+    border-radius: 16px;
+    padding: 20px 24px;
+    z-index: 200;
+    min-width: 260px;
+    max-width: 300px;
+    backdrop-filter: blur(16px);
+    color: #f0ede8;
+    text-align: center;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.funds-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.funds-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f0ede8;
+    margin-bottom: 8px;
+}
+
+.funds-message {
+    font-size: 12px;
+    color: #a9a799;
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.funds-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-deposit {
+    width: 100%;
+    padding: 10px;
+    background: #00d26a;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-deposit:hover {
+    background: #00b359;
+}
+
+.btn-funds-close {
+    width: 100%;
+    padding: 10px;
+    background: rgba(169, 167, 153, 0.15);
+    border: 0.5px solid #3a3830;
+    border-radius: 8px;
+    color: #a9a799;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-funds-close:hover {
+    background: rgba(169, 167, 153, 0.25);
+}
+
+.toast {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 210, 106, 0.95);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 20px;
+    z-index: 300;
+    backdrop-filter: blur(8px);
+    transition: opacity 0.3s;
 }

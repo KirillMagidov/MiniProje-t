@@ -6,8 +6,56 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 L.control.zoom({ position: 'bottomright' }).addTo(map);
 
+let userMarker = null;
+
+function initUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+
+                window.currentUserLat = lat;
+                window.currentUserLon = lon;
+
+                map.setView([lat, lon], 15);
+
+                const userIconHTML = `
+                    <div class="user-location-marker">
+                        <div class="user-location-pulse"></div>
+                        <div class="user-location-dot"></div>
+                    </div>
+                `;
+
+                const userIcon = L.divIcon({
+                    className: 'clear-leaflet-bg',
+                    html: userIconHTML,
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                });
+
+                if (userMarker) {
+                    map.removeLayer(userMarker);
+                }
+                userMarker = L.marker([lat, lon], { icon: userIcon, zIndexOffset: 1000 }).addTo(map);
+            },
+            (error) => {
+                console.warn("Geolocation warning:", error.message);
+                map.setView([52.3759, 9.7320], 13);
+            },
+            {
+                enableHighAccuracy: false,
+                timeout: 10000,
+                maximumAge: 60000
+            }
+        );
+    }
+}
+
+initUserLocation();
+
 window.addEventListener('load', () => {
-    if (localStorage.getItem('bookingId')) {
+    if (sessionStorage.getItem('bookingId')) {
         showRideDashboard();
     }
 });
@@ -53,19 +101,19 @@ document.addEventListener('click', function(e) {
 });
 
 const profilbtn = document.getElementById("profilbtn");
-    if (profilbtn) {
-        profilbtn.addEventListener("click", function () {
-            window.location.href = "profil.html";
-        });
+if (profilbtn) {
+    profilbtn.addEventListener("click", function () {
+        window.location.href = "profil.html";
+    });
 }
 
 const logoutBtn = document.getElementById("logoutBtn");
-    if(logoutBtn) {
-        logoutBtn.addEventListener("click", function () {
-            sessionStorage.clear()
-            window.location.href = "index.html";
-        });
-    }
+if(logoutBtn) {
+    logoutBtn.addEventListener("click", function () {
+        sessionStorage.clear()
+        window.location.href = "index.html";
+    });
+}
 
 const logoutBtn1 = document.getElementById("logoutBtn1");
 if(logoutBtn1) {
@@ -120,12 +168,28 @@ async function loadScooters() {
             });
 
             const marker = L.marker([scooter.latitude, scooter.longitude], { icon: customIcon }).addTo(map);
-            marker.bindPopup(getPopupHTML(scooter));
+
+            marker.bindPopup(() => {
+                return getPopupHTML(scooter);
+            });
         });
 
     } catch (error) {
-        console.error("Fehler beim Laden der Scooter:", error);
+        console.error("Error loading scooters:", error);
     }
 }
 
 loadScooters();
+
+const locateBtn = document.createElement('button');
+locateBtn.className = 'locate-me-btn';
+locateBtn.innerHTML = `<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon></svg>`;
+document.body.appendChild(locateBtn);
+
+locateBtn.addEventListener('click', () => {
+    if (window.currentUserLat && window.currentUserLon) {
+        map.flyTo([window.currentUserLat, window.currentUserLon], 15, { duration: 1.5 });
+    } else {
+        initUserLocation();
+    }
+});

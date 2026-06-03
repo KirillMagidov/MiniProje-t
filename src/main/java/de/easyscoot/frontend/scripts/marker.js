@@ -1,6 +1,19 @@
 let activeBookingId = null;
 let rideTimer = null;
 let rideSeconds = 0;
+let activeRoute = null;
+
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    if (!lat1 || !lon1 || !lat2 || !lon2) return null;
+    const R = 6371;
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
 
 function getMarkerHTML() {
     return `
@@ -18,7 +31,31 @@ function selectMarker(clickedElement) {
 }
 
 function getPopupHTML(scooter) {
-    const isRiding = !!localStorage.getItem('bookingId');
+    const isRiding = !!sessionStorage.getItem('bookingId');
+
+    let distanceHtml = '';
+    let routeBtn = '';
+
+    if (window.currentUserLat && window.currentUserLon) {
+        const distKm = calculateDistance(window.currentUserLat, window.currentUserLon, scooter.latitude, scooter.longitude);
+        if (distKm !== null) {
+            const walkTime = Math.ceil((distKm / 5) * 60);
+            const driveTime = Math.ceil((distKm / 30) * 60);
+            distanceHtml = `
+                <div class="scooter-distance">
+                    <span>🚶 ${walkTime} Min</span>
+                    <span>🚗 ${driveTime} Min</span>
+                    <span>📍 ${distKm.toFixed(2)} km</span>
+                </div>
+            `;
+        }
+        routeBtn = `
+            <button class="btn-route" onclick="showRouteTo(${scooter.latitude}, ${scooter.longitude})">
+                🗺️ Route anzeigen
+            </button>
+        `;
+    }
+
     return `
         <div class="scooter-popup">
             <div class="scooter-header">
@@ -26,7 +63,9 @@ function getPopupHTML(scooter) {
                 <span>🔋 ${scooter.ladezustand}%</span>
             </div>
             <div class="scooter-id">ID: ${scooter.id}</div>
-            <div class="scooter-price">0.15 € / Min</div>
+            ${distanceHtml}
+            ${routeBtn}
+            <div class="scooter-price">2.00 € Start + 0.15 € / Min</div>
             <div class="scooter-actions">
                 <button class="btn-abbrechen" onclick="cancelBooking()" ${isRiding ? 'disabled' : ''}>Abbrechen</button>
                 <button class="btn-buchen" onclick="startBooking('${scooter.id}')" ${isRiding ? 'disabled style="background:#888;cursor:not-allowed;"' : ''}>
@@ -37,15 +76,49 @@ function getPopupHTML(scooter) {
     `;
 }
 
+function showRouteTo(scooterLat, scooterLon) {
+    if (activeRoute) {
+        map.removeControl(activeRoute);
+        activeRoute = null;
+    }
+
+    if (!window.currentUserLat || !window.currentUserLon) {
+        alert("Standort nicht verfügbar.");
+        return;
+    }
+
+    activeRoute = L.Routing.control({
+        waypoints: [
+            L.latLng(window.currentUserLat, window.currentUserLon),
+            L.latLng(scooterLat, scooterLon)
+        ],
+        routeWhileDragging: false,
+        show: false,
+        addWaypoints: false,
+        draggableWaypoints: false,
+        fitSelectedRoutes: true,
+        lineOptions: {
+            styles: [{ color: '#007aff', weight: 4, opacity: 0.8 }]
+        },
+        createMarker: () => null
+    }).addTo(map);
+}
+
+function clearRoute() {
+    if (activeRoute) {
+        map.removeControl(activeRoute);
+        activeRoute = null;
+    }
+}
+
 function startBooking(scooterId) {
-    const customerId = localStorage.getItem('customerId');
+    const customerId = sessionStorage.getItem('customerId');
     if (!customerId) {
         alert("Bitte loggen Sie sich zuerst ein!");
         return;
     }
 
-    // Wenn schon eine Fahrt aktiv ist, Dashboard anzeigen
-    if (localStorage.getItem('bookingId')) {
+    if (sessionStorage.getItem('bookingId')) {
         const existing = document.getElementById('ride-dashboard');
         if (!existing) showRideDashboard();
         return;
@@ -62,14 +135,21 @@ function startBooking(scooterId) {
         })
         .then(booking => {
             activeBookingId = booking.bookingID;
-            localStorage.setItem('bookingId', activeBookingId);
+            sessionStorage.setItem('bookingId', activeBookingId);
+            clearRoute();
             showRideDashboard();
         })
-        .catch(err => alert("Fehler beim Buchen: " + err.message));
+        .catch(err => {
+            const msg = err.message;
+            if (msg.includes('Guthaben')) {
+                showInsufficientFundsNotification(msg);
+            } else {
+                alert("Fehler beim Buchen: " + msg);
+            }
+        });
 }
 
 function showRideDashboard() {
-    // Entferne altes Dashboard falls vorhanden
     const old = document.getElementById('ride-dashboard');
     if (old) old.remove();
 
@@ -79,7 +159,7 @@ function showRideDashboard() {
         <div class="ride-dashboard">
             <div class="ride-title">🛴 Fahrt läuft</div>
             <div class="ride-timer" id="ride-timer">00:00</div>
-            <div class="ride-price">Preis: <span id="ride-price">0.00 €</span></div>
+            <div class="ride-price">Preis: <span id="ride-price">2.00 €</span></div>
             <button class="btn-end-ride" onclick="endRide()">Fahrt beenden</button>
         </div>
     `;
@@ -91,13 +171,13 @@ function showRideDashboard() {
         const min = String(Math.floor(rideSeconds / 60)).padStart(2, '0');
         const sec = String(rideSeconds % 60).padStart(2, '0');
         document.getElementById('ride-timer').textContent = `${min}:${sec}`;
-        document.getElementById('ride-price').textContent =
-            (Math.floor(rideSeconds / 60) * 0.15).toFixed(2) + ' €';
+        const currentCost = 2.00 + (Math.floor(rideSeconds / 60) * 0.15);
+        document.getElementById('ride-price').textContent = currentCost.toFixed(2) + ' €';
     }, 1000);
 }
 
 function endRide() {
-    const bookingId = activeBookingId || localStorage.getItem('bookingId');
+    const bookingId = activeBookingId || sessionStorage.getItem('bookingId');
     if (!bookingId) return;
 
     clearInterval(rideTimer);
@@ -110,22 +190,20 @@ function endRide() {
             return response.json();
         })
         .then(booking => {
-            localStorage.removeItem('bookingId');
+            sessionStorage.removeItem('bookingId');
             activeBookingId = null;
 
-            // Dashboard entfernen
             const dashboard = document.getElementById('ride-dashboard');
             if (dashboard) dashboard.remove();
 
-            // Zusammenfassung anzeigen
-            showRideSummary(rideSeconds);
+            showRideSummary(rideSeconds, booking.bookingPrice);
         })
         .catch(err => alert("Fehler beim Beenden: " + err.message));
 }
 
-function showRideSummary(seconds) {
+function showRideSummary(seconds, finalPrice) {
     const minutes = Math.floor(seconds / 60);
-    const price = Math.max(minutes * 0.15, 1.00).toFixed(2);
+    const displayPrice = finalPrice ? finalPrice.toFixed(2) : "0.00";
 
     const summary = document.createElement('div');
     summary.id = 'ride-summary';
@@ -133,7 +211,7 @@ function showRideSummary(seconds) {
         <div class="ride-summary">
             <div class="summary-title">✅ Fahrt beendet</div>
             <div class="summary-row"><span>Dauer</span><span>${minutes} Min ${seconds % 60} Sek</span></div>
-            <div class="summary-row"><span>Preis</span><span>${price} €</span></div>
+            <div class="summary-row"><span>Preis</span><span>${displayPrice} €</span></div>
             <button class="btn-summary-close" onclick="closeSummary()">Schließen</button>
         </div>
     `;
@@ -152,4 +230,70 @@ function closeSummary() {
 
 function cancelBooking() {
     document.querySelectorAll('.pin').forEach(pin => pin.classList.remove('selected'));
+    clearRoute();
+}
+
+function showInsufficientFundsNotification(message) {
+    const old = document.getElementById('funds-notification');
+    if (old) old.remove();
+
+    const customerId = sessionStorage.getItem('customerId');
+
+    const notification = document.createElement('div');
+    notification.id = 'funds-notification';
+    notification.innerHTML = `
+        <div class="funds-notification">
+            <div class="funds-icon">💳</div>
+            <div class="funds-title">Nicht genug Guthaben</div>
+            <div class="funds-message">${message}</div>
+            <div class="funds-actions">
+                <button class="btn-deposit" onclick="depositMoney('${customerId}')">
+                    + 10 € aufladen
+                </button>
+                <button class="btn-funds-close" onclick="closeFundsNotification()">
+                    Schließen
+                </button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(notification);
+}
+
+function depositMoney(customerId) {
+    fetch(`http://localhost:8080/${customerId}/deposit?deposit=10`, {
+        method: 'POST'
+    })
+        .then(response => {
+            if (!response.ok) return response.text().then(msg => { throw new Error(msg); });
+            return response.text();
+        })
+        .then(result => {
+            closeFundsNotification();
+            showToast('✅ 10 € wurden aufgeladen!');
+        })
+        .catch(err => alert("Fehler: " + err.message));
+}
+
+function closeFundsNotification() {
+    const notification = document.getElementById('funds-notification');
+    if (notification) {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateX(-50%) translateY(20px)';
+        setTimeout(() => notification.remove(), 300);
+    }
+}
+
+function showToast(message) {
+    const old = document.getElementById('toast');
+    if (old) old.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.innerHTML = `<div class="toast">${message}</div>`;
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
