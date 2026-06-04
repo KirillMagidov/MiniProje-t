@@ -68,8 +68,7 @@ function getPopupHTML(scooter) {
             <div class="scooter-price">2.00 € Start + 0.15 € / Min</div>
             <div class="scooter-actions">
                 <button class="btn-abbrechen" onclick="cancelBooking()" ${isRiding ? 'disabled' : ''}>Abbrechen</button>
-                <button class="btn-buchen" onclick="startBooking('${scooter.id}')" ${isRiding ? 'disabled style="background:#888;cursor:not-allowed;"' : ''}>
-                    ${isRiding ? 'Aktive Fahrt' : 'Buchen'}
+                <button class="btn-buchen" onclick="startBooking('${scooter.id}', this)" ${isRiding ? 'disabled style="background:#888;cursor:not-allowed;"' : ''}>                    ${isRiding ? 'Aktive Fahrt' : 'Buchen'}
                 </button>
             </div>
         </div>
@@ -111,10 +110,18 @@ function clearRoute() {
     }
 }
 
-function startBooking(scooterId) {
+function startBooking(scooterId, btn) {
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Gebucht...';
+        btn.style.background = '#888';
+        btn.style.cursor = 'not-allowed';
+    }
+
     const customerId = sessionStorage.getItem('customerId');
     if (!customerId) {
         showWarning("Bitte loggen Sie sich zuerst ein!");
+        if (btn) { btn.disabled = false; btn.textContent = 'Buchen'; btn.style.background = ''; btn.style.cursor = ''; }
         return;
     }
 
@@ -140,6 +147,12 @@ function startBooking(scooterId) {
             showRideDashboard();
         })
         .catch(err => {
+            if (btn) {
+                btn.disabled = false;
+                btn.textContent = 'Buchen';
+                btn.style.background = '';
+                btn.style.cursor = '';
+            }
             const msg = err.message;
             if (msg.includes('Guthaben')) {
                 showInsufficientFundsNotification(msg);
@@ -193,11 +206,11 @@ function endRide() {
         .then(booking => {
             sessionStorage.removeItem('bookingId');
             activeBookingId = null;
-
             const dashboard = document.getElementById('ride-dashboard');
             if (dashboard) dashboard.remove();
-
+            map.closePopup();
             showRideSummary(rideSeconds, booking.bookingPrice);
+            refreshBalance();
         })
         .catch(err => showError("Fehler beim Beenden: " + err.message));
 }
@@ -271,6 +284,7 @@ function depositMoney(customerId) {
         .then(result => {
             closeFundsNotification();
             showToast('✅ 10 € wurden aufgeladen!');
+            refreshBalance();
         })
         .catch(err => showError("Fehler: " + err.message));
 }

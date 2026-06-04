@@ -258,3 +258,17 @@ body::after {
     background: var(--sand-lt);
     border-radius: 4px;
 }
+
+.profile-balance {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.profile-balance i {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
+}

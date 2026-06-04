@@ -121,7 +121,7 @@ async function goToLocation() {
 
 async function loadScooters() {
     try {
-        const response = await fetch('http://localhost:8080/scooters/available');
+        const response = await fetch('http://localhost:8080/scooterList');
         const scooters = await response.json();
 
         scooters.forEach(scooter => {
@@ -159,15 +159,16 @@ function updateMaintenance(id, status) {
     fetch(`http://localhost:8080/setWartung?id=${id}&status=${status}`, {
         method: 'PUT'
     })
-        .then (res => {
+        .then(res => {
             if (res.ok) {
                 showSuccess(status === "IN_WARTUNG" ? "Scooter in Wartung gesetzt." : "Scooter aus Wartung genommen.");
                 closeScooterPopup();
+                loadScooterList();
             } else {
                 return res.text().then(msg => showError(msg));
             }
         })
-        .catch (() => showError("Fehler beim in Wartung setzen"));
+        .catch(() => showError("Fehler beim in Wartung setzen"));
 }
 
 function closeScooterPopup() {

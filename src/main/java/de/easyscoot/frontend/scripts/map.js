@@ -203,8 +203,9 @@ async function loadCustomerProfile() {
         if (!response.ok) return;
         const customer = await response.json();
 
-        const nameEl = document.querySelector('.profile-name');
-        const avatarEl = document.querySelector('.avatar');
+        const nameEl    = document.querySelector('.profile-name');
+        const avatarEl  = document.querySelector('.avatar');
+        const balanceEl = document.getElementById('profile-balance-amount');
 
         if (nameEl && customer.foreName && customer.name) {
             nameEl.textContent = `${customer.foreName} ${customer.name}`;
@@ -212,9 +213,27 @@ async function loadCustomerProfile() {
         if (avatarEl && customer.foreName && customer.name) {
             avatarEl.textContent = customer.foreName[0] + customer.name[0];
         }
+        if (balanceEl && customer.credit !== undefined) {
+            balanceEl.textContent = customer.credit.toFixed(2) + ' €';
+        }
     } catch (e) {
         showError("Fehler beim Laden der Profildaten.");
     }
 }
 
+async function refreshBalance() {
+    const customerId = sessionStorage.getItem('customerId');
+    if (!customerId) return;
+    try {
+        const response = await fetch(`http://localhost:8080/getCustomer?customerId=${customerId}`);
+        if (!response.ok) return;
+        const customer = await response.json();
+        const balanceEl = document.getElementById('profile-balance-amount');
+        if (balanceEl && customer.credit !== undefined) {
+            balanceEl.textContent = customer.credit.toFixed(2) + ' €';
+        }
+    } catch (e) {}
+}
+
 loadCustomerProfile();
+setInterval(refreshBalance, 15000);

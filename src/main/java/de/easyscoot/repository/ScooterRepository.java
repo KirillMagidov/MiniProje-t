@@ -38,18 +38,13 @@ public class ScooterRepository implements IScooterRepository {
 
     @Override
     public EScooter findById(String id) {
-        // Alle Scooter laden
         List<EScooter> scooters = findAll();
-
-        // Scooter in Liste suchen
         for (EScooter scooter : scooters) {
-            if (scooter.getId().equals(id)) {
+            if (scooter.getId() != null && scooter.getId().equals(id)) {
                 return scooter;
             }
         }
-
-        // Wenn keiner gefunden wurde
-        throw new RuntimeException("Kein EScooter mit der ID '" + id + "' gefunden");
+        return null;
     }
 
 
@@ -65,10 +60,11 @@ public class ScooterRepository implements IScooterRepository {
             List<EScooter> scooters = findAll();
             boolean isUpdated = false;
 
-            // Ueberpruefen, ob der Scooter bereits existiert (Update)
+            // berpruefen, ob der Scooter bereits existiert (Update)
             for (int i = 0; i < scooters.size(); i++) {
-                if (scooters.get(i).getId().equals(scooterToAdd.getId())) {
-                    scooters.set(i, scooterToAdd); // Alten Scooter durch den neuen ersetzen
+                String existingId = scooters.get(i).getId();
+                if (existingId != null && existingId.equals(scooterToAdd.getId())) {
+                    scooters.set(i, scooterToAdd);
                     isUpdated = true;
                     break;
                 }
