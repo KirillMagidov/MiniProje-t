@@ -8,10 +8,10 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
     const R = 6371;
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-        Math.sin(dLon/2) * Math.sin(dLon/2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
 }
 
@@ -97,7 +97,7 @@ function showRouteTo(scooterLat, scooterLon) {
         draggableWaypoints: false,
         fitSelectedRoutes: true,
         lineOptions: {
-            styles: [{ color: '#007aff', weight: 4, opacity: 0.8 }]
+            styles: [{color: '#007aff', weight: 4, opacity: 0.8}]
         },
         createMarker: () => null
     }).addTo(map);
@@ -121,7 +121,12 @@ function startBooking(scooterId, btn) {
     const customerId = sessionStorage.getItem('customerId');
     if (!customerId) {
         showWarning("Bitte loggen Sie sich zuerst ein!");
-        if (btn) { btn.disabled = false; btn.textContent = 'Buchen'; btn.style.background = ''; btn.style.cursor = ''; }
+        if (btn) {
+            btn.disabled = false;
+            btn.textContent = 'Buchen';
+            btn.style.background = '';
+            btn.style.cursor = '';
+        }
         return;
     }
 
@@ -133,11 +138,13 @@ function startBooking(scooterId, btn) {
 
     fetch('http://localhost:8080/booking/start', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ customerId, scooterId })
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({customerId, scooterId})
     })
         .then(response => {
-            if (!response.ok) return response.text().then(msg => { throw new Error(msg); });
+            if (!response.ok) return response.text().then(msg => {
+                throw new Error(msg);
+            });
             return response.json();
         })
         .then(booking => {
@@ -200,7 +207,9 @@ function endRide() {
         method: 'POST'
     })
         .then(response => {
-            if (!response.ok) return response.text().then(msg => { throw new Error(msg); });
+            if (!response.ok) return response.text().then(msg => {
+                throw new Error(msg);
+            });
             return response.json();
         })
         .then(booking => {
@@ -278,7 +287,9 @@ function depositMoney(customerId) {
         method: 'POST'
     })
         .then(response => {
-            if (!response.ok) return response.text().then(msg => { throw new Error(msg); });
+            if (!response.ok) return response.text().then(msg => {
+                throw new Error(msg);
+            });
             return response.text();
         })
         .then(result => {

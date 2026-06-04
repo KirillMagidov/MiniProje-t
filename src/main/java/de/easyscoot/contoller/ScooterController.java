@@ -21,13 +21,13 @@ public class ScooterController {
 
     @GetMapping("/scooters/available")
     public List<EScooter> getScooters() {
-         List<EScooter> scooters = escooterService.getAllScooters();
-         List<EScooter> scootersAvailability = new ArrayList<>();
-         for (EScooter escooter : scooters) {
-             if (escooter.getAvailability() == Availability.NICHT_IN_BENUTZUNG) {
-                 scootersAvailability.add(escooter);
-             }
-         }
-         return scootersAvailability;
+        List<EScooter> scooters = escooterService.getAllScooters();
+        List<EScooter> scootersAvailability = new ArrayList<>();
+        for (EScooter escooter : scooters) {
+            if (escooter.getAvailability() == Availability.NICHT_IN_BENUTZUNG) {
+                scootersAvailability.add(escooter);
+            }
+        }
+        return scootersAvailability;
     }
 }

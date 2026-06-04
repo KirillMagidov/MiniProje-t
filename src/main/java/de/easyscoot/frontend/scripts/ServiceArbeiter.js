@@ -1,10 +1,10 @@
-const map = L.map('map', { zoomControl: false }).setView([52.3759, 9.7320], 13);
+const map = L.map('map', {zoomControl: false}).setView([52.3759, 9.7320], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-L.control.zoom({ position: 'bottomright' }).addTo(map);
+L.control.zoom({position: 'bottomright'}).addTo(map);
 
 window.addEventListener('load', () => {
     if (sessionStorage.getItem('bookingId')) {
@@ -54,11 +54,11 @@ function toggleLocationPopup() {
     }
 }
 
-document.getElementById('location-input').addEventListener('keydown', function(e) {
+document.getElementById('location-input').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') goToLocation();
 });
 
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     const popup = document.getElementById('location-popup');
     const btn = document.getElementById('location-btn');
     if (!popup.contains(e.target) && !btn.contains(e.target)) {
@@ -74,7 +74,7 @@ if (profilbtn) {
 }
 
 const logoutBtn = document.getElementById("logoutBtn");
-if(logoutBtn) {
+if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
         sessionStorage.clear()
         window.location.href = "index.html";
@@ -82,7 +82,7 @@ if(logoutBtn) {
 }
 
 const logoutBtn1 = document.getElementById("logoutBtn1");
-if(logoutBtn1) {
+if (logoutBtn1) {
     logoutBtn1.addEventListener("click", function () {
         sessionStorage.clear()
         window.location.href = "index.html";
@@ -106,8 +106,8 @@ async function goToLocation() {
             return;
         }
 
-        const { lat, lon, display_name } = data[0];
-        map.flyTo([parseFloat(lat), parseFloat(lon)], 13, { duration: 1.2 });
+        const {lat, lon, display_name} = data[0];
+        map.flyTo([parseFloat(lat), parseFloat(lon)], 13, {duration: 1.2});
 
         const shortName = display_name.split(',').slice(0, 2).join(',').trim();
         label.textContent = shortName;
@@ -133,7 +133,7 @@ async function loadScooters() {
                 popupAnchor: [0, -30]
             });
 
-            const marker = L.marker([scooter.latitude, scooter.longitude], { icon: customIcon }).addTo(map);
+            const marker = L.marker([scooter.latitude, scooter.longitude], {icon: customIcon}).addTo(map);
             marker.bindPopup(getPopupHTML(scooter));
         });
 
@@ -147,10 +147,10 @@ function openScooterPopup(id) {
     document.getElementById("popup-overlay").classList.add("active");
     document.getElementById("popup-overlay").dataset.scooterId = id;
 
-    document.getElementById("wartungWegBtn").onclick = function() {
+    document.getElementById("wartungWegBtn").onclick = function () {
         updateMaintenance(id, "NOT_IN_WARTUNG");
     };
-    document.getElementById("wartungBtn").onclick = function() {
+    document.getElementById("wartungBtn").onclick = function () {
         updateMaintenance(id, "IN_WARTUNG");
     };
 }
@@ -187,7 +187,7 @@ let allScooters = [];
 function loadScooterList() {
     fetch('http://localhost:8080/scooterList', {
         method: 'GET',
-        headers: { 'Content-Type': 'application/json' }
+        headers: {'Content-Type': 'application/json'}
     })
         .then(response => response.json())
         .then(data => {
@@ -221,7 +221,7 @@ function renderScooterList(scooters) {
             <p class="scooter-maintenance">📍  ${scooter.latitude}, ${scooter.longitude} </p>
         `;
         card.addEventListener("click", () => {
-            map.flyTo([scooter.latitude, scooter.longitude], 15, { duration: 1.2 });
+            map.flyTo([scooter.latitude, scooter.longitude], 15, {duration: 1.2});
             openScooterPopup(scooter.id);
         });
         list.appendChild(card);
@@ -231,13 +231,13 @@ function renderScooterList(scooters) {
 window.addEventListener("load", () => {
     const slider = document.getElementById("battery-filter");
     if (slider) {
-        slider.addEventListener("input", function() {
+        slider.addEventListener("input", function () {
             document.getElementById("battery-value").textContent = this.value + '%';
         });
     }
 });
 
-document.getElementById('filterGoBtn').addEventListener('click', function() {
+document.getElementById('filterGoBtn').addEventListener('click', function () {
     const value = document.getElementById('battery-filter').value;
 
     fetch(`http://localhost:8080/scooterListFilter?thresholdPercentage=${value}`)
@@ -259,7 +259,7 @@ async function loadCustomerProfile() {
         if (!response.ok) return;
         const customer = await response.json();
 
-        const nameEl   = document.querySelector('.profile-name');
+        const nameEl = document.querySelector('.profile-name');
         const avatarEl = document.querySelector('.avatar');
 
         if (nameEl && customer.foreName && customer.name) {

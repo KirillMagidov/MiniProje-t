@@ -61,6 +61,7 @@ window.addEventListener('load', () => {
 });
 
 let activePanel = null;
+
 function togglePanel(name) {
     const panel = document.getElementById('home-panel');
     const btn = document.getElementById('btn-' + name);
@@ -203,8 +204,8 @@ async function loadCustomerProfile() {
         if (!response.ok) return;
         const customer = await response.json();
 
-        const nameEl    = document.querySelector('.profile-name');
-        const avatarEl  = document.querySelector('.avatar');
+        const nameEl = document.querySelector('.profile-name');
+        const avatarEl = document.querySelector('.avatar');
         const balanceEl = document.getElementById('profile-balance-amount');
 
         if (nameEl && customer.foreName && customer.name) {
@@ -232,7 +233,8 @@ async function refreshBalance() {
         if (balanceEl && customer.credit !== undefined) {
             balanceEl.textContent = customer.credit.toFixed(2) + ' €';
         }
-    } catch (e) {}
+    } catch (e) {
+    }
 }
 
 loadCustomerProfile();

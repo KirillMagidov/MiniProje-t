@@ -2,6 +2,7 @@ package de.easyscoot.service;
 
 import de.easyscoot.model.EScooter;
 import de.easyscoot.model.Maintenancestatus;
+
 import java.util.List;
 
 public interface IServiceArbeiterService {

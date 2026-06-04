@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FlottenmanagerService implements IFlottenmanagerService{
+public class FlottenmanagerService implements IFlottenmanagerService {
 
     private final IScooterRepository scooterRepository;
 
-    public FlottenmanagerService(IScooterRepository scooterRepository){
+    public FlottenmanagerService(IScooterRepository scooterRepository) {
         this.scooterRepository = scooterRepository;
     }
 

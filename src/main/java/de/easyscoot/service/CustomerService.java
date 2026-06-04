@@ -1,6 +1,6 @@
 package de.easyscoot.service;
 
-import de.easyscoot.model.*;
+import de.easyscoot.model.Customer;
 import de.easyscoot.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

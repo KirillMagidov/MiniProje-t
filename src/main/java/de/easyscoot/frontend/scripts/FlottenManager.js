@@ -1,10 +1,10 @@
-const map = L.map('map', { zoomControl: false }).setView([52.3759, 9.7320], 13);
+const map = L.map('map', {zoomControl: false}).setView([52.3759, 9.7320], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-L.control.zoom({ position: 'bottomright' }).addTo(map);
+L.control.zoom({position: 'bottomright'}).addTo(map);
 
 let activePanel = null;
 let allScooters = [];
@@ -50,11 +50,11 @@ function toggleLocationPopup() {
     }
 }
 
-document.getElementById('location-input').addEventListener('keydown', function(e) {
+document.getElementById('location-input').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') goToLocation();
 });
 
-document.addEventListener('click', function(e) {
+document.addEventListener('click', function (e) {
     const popup = document.getElementById('location-popup');
     const btn = document.getElementById('location-btn');
     if (!popup.contains(e.target) && !btn.contains(e.target)) {
@@ -103,8 +103,8 @@ async function goToLocation() {
             return;
         }
 
-        const { lat, lon, display_name } = data[0];
-        map.flyTo([parseFloat(lat), parseFloat(lon)], 13, { duration: 1.2 });
+        const {lat, lon, display_name} = data[0];
+        map.flyTo([parseFloat(lat), parseFloat(lon)], 13, {duration: 1.2});
 
         const shortName = display_name.split(',').slice(0, 2).join(',').trim();
         label.textContent = shortName;
@@ -141,7 +141,7 @@ function renderMarkers(scooters) {
             iconAnchor: [15, 30],
             popupAnchor: [0, -30]
         });
-        const marker = L.marker([scooter.latitude, scooter.longitude], { icon: customIcon }).addTo(map);
+        const marker = L.marker([scooter.latitude, scooter.longitude], {icon: customIcon}).addTo(map);
         marker.bindPopup(`
             <div class="scooter-popup">
                 <div class="scooter-header">
@@ -179,7 +179,7 @@ function renderScooterList(scooters) {
             <p class="scooter-maintenance">📍 ${scooter.latitude}, ${scooter.longitude}</p>
         `;
         card.addEventListener("click", () => {
-            map.flyTo([scooter.latitude, scooter.longitude], 15, { duration: 1.2 });
+            map.flyTo([scooter.latitude, scooter.longitude], 15, {duration: 1.2});
         });
         list.appendChild(card);
     });
@@ -203,7 +203,7 @@ function toggleFilter() {
 
 fetch('http://localhost:8080/scooterList', {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json' }
+    headers: {'Content-Type': 'application/json'}
 })
     .then(response => response.json())
     .then(data => {
@@ -222,7 +222,7 @@ async function loadCustomerProfile() {
         if (!response.ok) return;
         const customer = await response.json();
 
-        const nameEl   = document.querySelector('.profile-name');
+        const nameEl = document.querySelector('.profile-name');
         const avatarEl = document.querySelector('.avatar');
 
         if (nameEl && customer.foreName && customer.name) {

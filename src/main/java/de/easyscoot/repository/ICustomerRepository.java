@@ -12,7 +12,7 @@ public interface ICustomerRepository {
 
     boolean emailExists(String email);
 
-    void removeCustomer (String customerId);
+    void removeCustomer(String customerId);
 
-    void changeCustomerData (String customerId, Customer newCustomer);
+    void changeCustomerData(String customerId, Customer newCustomer);
 }

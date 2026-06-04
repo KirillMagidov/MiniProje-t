@@ -3,10 +3,10 @@ function showNotification(type, title, message) {
     if (old) old.remove();
 
     const icons = {
-        error:   '<i class="ti ti-circle-x notification-icon-animated"></i>',
+        error: '<i class="ti ti-circle-x notification-icon-animated"></i>',
         success: '<i class="ti ti-circle-check notification-icon-animated"></i>',
         warning: '<i class="ti ti-alert-triangle notification-icon-animated"></i>',
-        info:    '<i class="ti ti-info-circle notification-icon-animated"></i>'
+        info: '<i class="ti ti-info-circle notification-icon-animated"></i>'
     };
 
     const notification = document.createElement('div');

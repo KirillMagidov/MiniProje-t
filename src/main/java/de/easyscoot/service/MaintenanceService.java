@@ -21,7 +21,7 @@ public class MaintenanceService implements IServiceArbeiterService {
     public List<EScooter> getScootersLowBattery(double thresholdPercentage) {
         ArrayList<EScooter> scootersLowBattery = new ArrayList<>();
         scooterRepository.findAll().forEach(scooter -> {
-            if(scooter.getLadezustand() <= thresholdPercentage) {
+            if (scooter.getLadezustand() <= thresholdPercentage) {
                 scootersLowBattery.add(scooter);
             }
 

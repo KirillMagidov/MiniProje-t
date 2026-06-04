@@ -4,6 +4,7 @@ import de.easyscoot.model.Customer;
 import de.easyscoot.repository.CustomerRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.Random;
 
 @Service
@@ -63,7 +64,7 @@ public class AccountService implements IAccountService {
     }
 
     //Delete Account
-    public void deleteAccount (String email, String password, String customerId) {
+    public void deleteAccount(String email, String password, String customerId) {
         Customer savedCustomer = repo.getCustomer(email);
 
         if (savedCustomer == null) {
@@ -89,7 +90,7 @@ public class AccountService implements IAccountService {
         repo.saveCustomer(newCustomer);
     }
 
-    public Customer getCustomer (String customerId) {
+    public Customer getCustomer(String customerId) {
         return repo.getCustomerById(customerId);
     }
 }

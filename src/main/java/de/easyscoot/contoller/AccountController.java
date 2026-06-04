@@ -36,6 +36,7 @@ public class AccountController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @PostMapping("/verify")
     public ResponseEntity<String> verify(@RequestBody LoginRequest loginRequest) {
         try {
@@ -74,7 +75,7 @@ public class AccountController {
     }
 
     @DeleteMapping("/deleteAccount")
-    public ResponseEntity<String> deleteAccount (@RequestParam String email, @RequestParam String password, @RequestParam String customerId) {
+    public ResponseEntity<String> deleteAccount(@RequestParam String email, @RequestParam String password, @RequestParam String customerId) {
         try {
             service.deleteAccount(email, password, customerId);
             return ResponseEntity.ok("Account wurde erfolgreich gelöscht");

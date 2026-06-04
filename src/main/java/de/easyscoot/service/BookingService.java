@@ -9,6 +9,7 @@ import de.easyscoot.repository.CustomerRepository;
 import de.easyscoot.repository.ScooterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
