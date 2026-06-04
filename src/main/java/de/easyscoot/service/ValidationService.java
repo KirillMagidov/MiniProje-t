@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class ValidationService {
+public class ValidationService implements IValidationService{
 
     private final String apiKey = "f1fa5825285148d2904c6c242a293ad3";
     private final String baseUrl = "https://emailreputation.abstractapi.com/v1/";
@@ -12,6 +12,7 @@ public class ValidationService {
     private final String loqateKey = "UA99-XW38-HU72-BX52";
     private final String loqateUrl = "https://api.addressy.com/Capture/Interactive/Find/v1.10/json3.ws";
 
+    @Override
     public boolean isValid(String email) {
         String url = baseUrl + "?api_key=" + apiKey + "&email=" + email;
 
@@ -23,6 +24,7 @@ public class ValidationService {
         }
     }
 
+    @Override
     public boolean isValidAdresse(String street, Integer streetNumber, Integer plz, String location) {
         String urlTemplate = loqateUrl + "?Key={key}&Countries=DE&Text={text}";
         String addressQuery = street + " " + streetNumber + ", " + plz + " " + location;
@@ -38,6 +40,7 @@ public class ValidationService {
         }
     }
 
+    @Override
     public boolean isValidPassword(String password) {
         if (password == null || password.length() < 8) {
             return false;

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class BookingService {
+public class BookingService implements IBookingService{
     private final BookingRepository bookingRepository;
     private final ScooterRepository scooterRepository;
     private final CustomerRepository customerRepository;
@@ -32,6 +32,7 @@ public class BookingService {
         this.customerService = customerService;
     }
 
+    @Override
     public Booking startRide(String customerId, String scooterID) {
         EScooter scooter = scooterRepository.findById(scooterID);
 
@@ -61,6 +62,7 @@ public class BookingService {
         return newBooking;
     }
 
+    @Override
     public Booking endRide(String bookingID) {
         Booking booking = bookingRepository.findBookingByID(bookingID);
         EScooter scooter = scooterRepository.findById(booking.getScooterId());
@@ -86,6 +88,7 @@ public class BookingService {
         return booking;
     }
 
+    @Override
     public List<Booking> getCustomerHistory(String customerID) {
         List<Booking> allBookings = bookingRepository.getAllBookings();
         List<Booking> customerHistory = new ArrayList<>();
