@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class ValidationService {
+public class ValidationService implements IValidationService{
 
     @Value("${validation.email.api-key}")
     private String apiKey;
@@ -21,6 +21,7 @@ public class ValidationService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Override
     public boolean isValid(String email) {
         String url = baseUrl + "?api_key=" + apiKey + "&email=" + email;
         try {
@@ -31,6 +32,7 @@ public class ValidationService {
         }
     }
 
+    @Override
     public boolean isValidAdresse(String street, Integer streetNumber, Integer plz, String location) {
         String urlTemplate = loqateUrl + "?Key={key}&Countries=DE&Text={text}";
         String addressQuery = street + " " + streetNumber + ", " + plz + " " + location;
@@ -42,6 +44,7 @@ public class ValidationService {
         }
     }
 
+    @Override
     public boolean isValidPassword(String password) {
         if (password == null || password.length() < 8) return false;
         if (!password.matches(".*[A-Z].*")) return false;
