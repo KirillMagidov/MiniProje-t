@@ -10,8 +10,8 @@ public abstract class User {
 
     }
 
-    public User(String forname, String name, String email, String password) {
-        this.foreName = forname;
+    public User(String forename, String name, String email, String password) {
+        this.foreName = forename;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -34,7 +34,7 @@ public abstract class User {
     }
 
 
-    public void setForename(String forename) {
+    public void setForeName(String forename) {
         this.foreName = forename;
     }
 
