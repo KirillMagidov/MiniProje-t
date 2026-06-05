@@ -18,3 +18,4 @@ mvn install
 - Maven
 - JUnit 5
 - Eclipse Papyrus (UML)
+- Confluence: https://magi20032011.atlassian.net/wiki/spaces/SOFTWAREEN/pages/327681/MiniProject
